@@ -1,0 +1,8 @@
+{
+  "label": "Chapter 3: NVIDIA Isaac - AI-Robot Brain",
+  "position": 5,
+  "link": {
+    "type": "generated-index",
+    "description": "GPU-accelerated perception, navigation, and manipulation"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "link.title.Book": {
+    "message": "کتاب",
+    "description": "The title of the footer links column with title=Book in the footer"
+  },
+  "link.title.Community": {
+    "message": "کمیونٹی",
+    "description": "The title of the footer links column with title=Community in the footer"
+  },
+  "link.title.More": {
+    "message": "مزید",
+    "description": "The title of the footer links column with title=More in the footer"
+  },
+  "link.item.label.Overview": {
+    "message": "جائزہ",
+    "description": "The label of footer link with label=Overview linking to /docs/intro"
+  },
+  "link.item.label.Chapter 1: ROS 2": {
+    "message": "باب 1: آر او ایس 2",
+    "description": "The label of footer link with label=Chapter 1: ROS 2 linking to /docs/module-1-ros2/chapter-1-intro"
+  },
+  "link.item.label.Chapter 2: Simulation": {
+    "message": "باب 2: سمولیشن",
+    "description": "The label of footer link with label=Chapter 2: Simulation linking to /docs/module-2-simulation/chapter-1-intro"
+  },
+  "link.item.label.Stack Overflow": {
+    "message": "اسٹیک اوور فلو",
+    "description": "The label of footer link with label=Stack Overflow linking to https://stackoverflow.com/questions/tagged/ros2"
+  },
+  "link.item.label.Discord": {
+    "message": "ڈسکورڈ",
+    "description": "The label of footer link with label=Discord linking to https://discord.gg/ros"
+  },
+  "link.item.label.X (Twitter)": {
+    "message": "ایکس (ٹویٹر)",
+    "description": "The label of footer link with label=X (Twitter) linking to https://twitter.com/openrobotics"
+  },
+  "link.item.label.GitHub": {
+    "message": "گٹ ہب",
+    "description": "The label of footer link with label=GitHub linking to https://github.com/areeba-awan"
+  },
+  "link.item.label.ROS 2 Documentation": {
+    "message": "آر او ایس 2 دستاویزات",
+    "description": "The label of footer link with label=ROS 2 Documentation linking to https://docs.ros.org/en/humble/"
+  },
+  "copyright": {
+    "message": "کاپی رائٹ © 2025 فزیکل اے آئی ٹیکسٹ بک۔ ڈاکیوسورس سے بنایا گیا۔",
+    "description": "The footer copyright"
+  }
+}

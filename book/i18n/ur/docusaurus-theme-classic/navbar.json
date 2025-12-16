@@ -1,0 +1,38 @@
+{
+  "title": {
+    "message": "فزیکل اے آئی",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "فزیکل اے آئی لوگو",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Book Overview": {
+    "message": "کتاب کا جائزہ",
+    "description": "Navbar item with label Book Overview"
+  },
+  "item.label.Chapters": {
+    "message": "ابواب",
+    "description": "Navbar item with label Chapters"
+  },
+  "item.label.Chapter 1: ROS 2": {
+    "message": "باب 1: آر او ایس 2",
+    "description": "Navbar dropdown item"
+  },
+  "item.label.Chapter 2: Simulation": {
+    "message": "باب 2: سمولیشن",
+    "description": "Navbar dropdown item"
+  },
+  "item.label.Chapter 3: NVIDIA Isaac": {
+    "message": "باب 3: این ویڈیا آئزک",
+    "description": "Navbar dropdown item"
+  },
+  "item.label.Chapter 4: VLA": {
+    "message": "باب 4: وی ایل اے",
+    "description": "Navbar dropdown item"
+  },
+  "item.label.GitHub": {
+    "message": "گٹ ہب",
+    "description": "Navbar item with label GitHub"
+  }
+}

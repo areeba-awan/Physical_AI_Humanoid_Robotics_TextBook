@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:hacks022.vercel.app)",
+      "Bash(npm install)",
+      "Bash(npm run dev:*)",
+      "Bash(npm run start)",
+      "mcp__playwright__browser_navigate",
+      "Bash(npx docusaurus:*)",
+      "Bash(xcopy:*)",
+      "Bash(robocopy:*)",
+      "Bash(if not exist \"i18n\\ur\\docusaurus-plugin-content-docs\\current\" mkdir \"i18n\\ur\\docusaurus-plugin-content-docs\\current\")",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(npm run build:*)",
+      "Bash(dir:*)",
+      "Bash(taskkill:*)",
+      "Bash(npm run start:*)",
+      "Bash(cmd.exe /c \"taskkill /F /IM node.exe\")",
+      "WebFetch(domain:localhost)",
+      "Bash(curl:*)",
+      "Bash(npm run serve:*)",
+      "Bash(cmd.exe /c \"taskkill /F /PID 15224 & taskkill /F /PID 9168\")",
+      "Bash(cmd.exe /c \"tasklist /FI \"\"PID eq 15224\"\"\")",
+      "Bash(cmd.exe /c \"FOR /F \"\"tokens=5\"\" %P IN (''netstat -ano ^| findstr :3000 ^| findstr LISTENING'') DO taskkill /F /PID %P\")",
+      "Bash(cmd.exe /c \"taskkill /F /PID 11308 & taskkill /F /PID 15224 & taskkill /F /PID 9168 & taskkill /F /PID 14804 & taskkill /F /PID 11440\")",
+      "Bash(cmd.exe /c \"taskkill /F /PID 7080\")",
+      "Bash(npm run clear:*)"
+    ]
+  }
+}

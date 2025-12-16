@@ -1,0 +1,126 @@
+{
+  "version.label": {
+    "message": "موجودہ",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.doc.Introduction": {
+    "message": "تعارف",
+    "description": "The label for the doc item Introduction in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.doc.Quickstart Guide": {
+    "message": "کوئیک اسٹارٹ گائیڈ",
+    "description": "The label for the doc item Quickstart Guide in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Module 1: ROS 2 - The Robotic Nervous System": {
+    "message": "ماڈیول 1: آر او ایس 2 - روبوٹک اعصابی نظام",
+    "description": "The label for category Module 1 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.doc.Module 1.1 Introduction to ROS 2": {
+    "message": "ماڈیول 1.1 آر او ایس 2 کا تعارف",
+    "description": "The label for the doc item in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.doc.Module 1.2 Nodes & Topics": {
+    "message": "ماڈیول 1.2 نوڈز اور ٹاپکس",
+    "description": "The label for the doc item in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.doc.Module 1.3 Actions & Parameters": {
+    "message": "ماڈیول 1.3 ایکشنز اور پیرامیٹرز",
+    "description": "The label for the doc item in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.doc.Module 1.4 Launch Files": {
+    "message": "ماڈیول 1.4 لانچ فائلز",
+    "description": "The label for the doc item in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.doc.Module 1.5 Custom Packages": {
+    "message": "ماڈیول 1.5 کسٹم پیکیجز",
+    "description": "The label for the doc item in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.doc.Module 1.6 Hands-on Lab": {
+    "message": "ماڈیول 1.6 عملی لیب",
+    "description": "The label for the doc item in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Module 2: Digital Twin - Simulation": {
+    "message": "ماڈیول 2: ڈیجیٹل ٹوئن - سمولیشن",
+    "description": "The label for category Module 2 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.doc.Module 2.1 Introduction to Simulation": {
+    "message": "ماڈیول 2.1 سمولیشن کا تعارف",
+    "description": "The label for the doc item in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.doc.Module 2.2 Gazebo Basics": {
+    "message": "ماڈیول 2.2 گزیبو بنیادیات",
+    "description": "The label for the doc item in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.doc.Module 2.3 URDF Robot Models": {
+    "message": "ماڈیول 2.3 یو آر ڈی ایف روبوٹ ماڈلز",
+    "description": "The label for the doc item in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.doc.Module 2.4 Unity Integration": {
+    "message": "ماڈیول 2.4 یونٹی انٹیگریشن",
+    "description": "The label for the doc item in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.doc.Module 2.5 Sensors & Physics": {
+    "message": "ماڈیول 2.5 سینسرز اور فزکس",
+    "description": "The label for the doc item in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.doc.Module 2.6 Hands-on Lab": {
+    "message": "ماڈیول 2.6 عملی لیب",
+    "description": "The label for the doc item in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Module 3: NVIDIA Isaac - AI-Robot Brain": {
+    "message": "ماڈیول 3: این ویڈیا آئزک - اے آئی روبوٹ دماغ",
+    "description": "The label for category Module 3 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.doc.Module 3.1 Introduction to Isaac": {
+    "message": "ماڈیول 3.1 آئزک کا تعارف",
+    "description": "The label for the doc item in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.doc.Module 3.2 Isaac Sim": {
+    "message": "ماڈیول 3.2 آئزک سم",
+    "description": "The label for the doc item in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.doc.Module 3.3 Perception": {
+    "message": "ماڈیول 3.3 پرسیپشن",
+    "description": "The label for the doc item in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.doc.Module 3.4 Manipulation": {
+    "message": "ماڈیول 3.4 مینیپولیشن",
+    "description": "The label for the doc item in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.doc.Module 3.5 ROS Integration": {
+    "message": "ماڈیول 3.5 آر او ایس انٹیگریشن",
+    "description": "The label for the doc item in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.doc.Module 3.6 Hands-on Lab": {
+    "message": "ماڈیول 3.6 عملی لیب",
+    "description": "The label for the doc item in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Module 4: VLA - Vision-Language-Action": {
+    "message": "ماڈیول 4: وی ایل اے - بصارت-زبان-عمل",
+    "description": "The label for category Module 4 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.doc.Module 4.1 Introduction to VLA": {
+    "message": "ماڈیول 4.1 وی ایل اے کا تعارف",
+    "description": "The label for the doc item in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.doc.Module 4.2 Vision Systems": {
+    "message": "ماڈیول 4.2 ویژن سسٹمز",
+    "description": "The label for the doc item in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.doc.Module 4.3 Language Models": {
+    "message": "ماڈیول 4.3 لینگویج ماڈلز",
+    "description": "The label for the doc item in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.doc.Module 4.4 Action Planning": {
+    "message": "ماڈیول 4.4 ایکشن پلاننگ",
+    "description": "The label for the doc item in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.doc.Module 4.5 Integrated Systems": {
+    "message": "ماڈیول 4.5 مربوط سسٹمز",
+    "description": "The label for the doc item in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.doc.Module 4.6 Capstone Project": {
+    "message": "ماڈیول 4.6 کیپسٹون پروجیکٹ",
+    "description": "The label for the doc item in sidebar tutorialSidebar"
+  }
+}

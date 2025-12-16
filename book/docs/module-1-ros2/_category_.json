@@ -1,0 +1,8 @@
+{
+  "label": "Chapter 1: ROS 2 - The Robotic Nervous System",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "description": "Master ROS 2 communication patterns for modern robotics"
+  }
+}

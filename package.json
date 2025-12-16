@@ -1,0 +1,31 @@
+{
+  "name": "physical-ai-learning-platform",
+  "version": "1.0.0",
+  "description": "Physical AI & Humanoid Robotics Learning Platform",
+  "private": true,
+  "scripts": {
+    "dev": "npm run dev:frontend",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:book": "cd book && npm start -- --port 3003",
+    "start": "cd book && npx serve dist --listen 4000",
+    "build": "npm run build:frontend && npm run build:book",
+    "dev:backend": "cd backend && uvicorn app.main:app --reload",
+    "build:frontend": "cd frontend && npm run build",
+    "build:book": "cd book && npm run build -- --out-dir dist",
+    "install:all": "npm run install:frontend && npm run install:book",
+    "install:frontend": "cd frontend && npm install",
+    "install:book": "cd book && npm install",
+    "lint": "npm run lint:frontend",
+    "lint:frontend": "cd frontend && npm run lint"
+  },
+  "keywords": [
+    "robotics",
+    "ros2",
+    "physical-ai",
+    "education",
+    "docusaurus",
+    "nextjs"
+  ],
+  "author": "",
+  "license": "MIT"
+}

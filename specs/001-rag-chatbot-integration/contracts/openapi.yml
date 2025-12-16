@@ -1,0 +1,293 @@
+openapi: 3.0.1
+info:
+  title: RAG Chatbot API
+  description: API for integrating RAG chatbot functionality with digital books
+  version: 1.0.0
+paths:
+  /v1/book/{book_id}/query:
+    post:
+      summary: Query the book content using RAG
+      description: Submit a query about the book content and receive an AI-generated response based on the book content
+      operationId: queryBook
+      parameters:
+        - name: book_id
+          in: path
+          required: true
+          description: Unique identifier of the book
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+      responses:
+        '200':
+          description: Successful response with AI-generated answer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  
+  /v1/book/{book_id}/query-selected:
+    post:
+      summary: Query only the selected text in the book
+      description: Submit a query that should only consider the selected text in the book
+      operationId: querySelectedText
+      parameters:
+        - name: book_id
+          in: path
+          required: true
+          description: Unique identifier of the book
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SelectedTextQueryRequest'
+      responses:
+        '200':
+          description: Successful response with AI-generated answer based only on selected text
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /v1/session:
+    post:
+      summary: Create a new chat session
+      description: Start a new chat session for a user reading a book
+      operationId: createSession
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSessionRequest'
+      responses:
+        '201':
+          description: Session created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /v1/session/{session_id}:
+    get:
+      summary: Get session details
+      description: Retrieve details about a specific chat session
+      operationId: getSession
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          description: Unique identifier of the session
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Session details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+components:
+  schemas:
+    QueryRequest:
+      type: object
+      required:
+        - query
+      properties:
+        query:
+          type: string
+          description: The user's question about the book content
+          example: "What are the main themes in this chapter?"
+        context:
+          type: object
+          description: Additional context for the query
+          properties:
+            page_number:
+              type: integer
+              description: Current page number in the book
+            selected_text:
+              type: string
+              description: Text selected by the user
+            previous_queries:
+              type: array
+              items:
+                type: string
+              description: Previous queries in the conversation to maintain context
+
+    SelectedTextQueryRequest:
+      type: object
+      required:
+        - query
+        - selected_text
+      properties:
+        query:
+          type: string
+          description: The user's question about the selected text
+          example: "Can you explain this concept further?"
+        selected_text:
+          type: string
+          description: The text that the user has selected
+          example: "The concept of quantum entanglement shows that particles can be connected across vast distances."
+
+    QueryResponse:
+      type: object
+      required:
+        - response
+        - references
+        - confidence
+      properties:
+        response:
+          type: string
+          description: The AI-generated response to the query
+          example: "The main themes in this chapter include identity, belonging, and cultural displacement..."
+        references:
+          type: array
+          description: References to specific parts of the book content that support the response
+          items:
+            $ref: '#/components/schemas/ContentReference'
+        confidence:
+          type: number
+          format: float
+          description: Confidence score of the response (0.0 to 1.0)
+          example: 0.85
+        conversation_id:
+          type: string
+          format: uuid
+          description: The conversation ID for maintaining context
+
+    ContentReference:
+      type: object
+      properties:
+        content_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the referenced book content
+        text_snippet:
+          type: string
+          description: A short snippet of the referenced text
+          example: "As mentioned in the previous section, the protagonist..."
+        page_number:
+          type: integer
+          description: Page number where the content appears
+        section_title:
+          type: string
+          description: Title of the section containing the content
+
+    CreateSessionRequest:
+      type: object
+      required:
+        - book_id
+      properties:
+        book_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the book being read
+        user_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the user (optional for anonymous sessions)
+        metadata:
+          type: object
+          description: Additional session metadata
+
+    Session:
+      type: object
+      required:
+        - id
+        - book_id
+        - created_at
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier of the session
+        book_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the book being read
+        user_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the user (null for anonymous sessions)
+        metadata:
+          type: object
+          description: Additional session metadata
+        created_at:
+          type: string
+          format: date-time
+          description: When the session was created
+        updated_at:
+          type: string
+          format: date-time
+          description: When the session was last updated
+        expires_at:
+          type: string
+          format: date-time
+          description: When the session expires
+
+  responses:
+    BadRequest:
+      description: The request was invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: An internal server error occurred
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+  schemas:
+    Error:
+      type: object
+      required:
+        - error
+        - message
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: "BAD_REQUEST"
+        message:
+          type: string
+          description: Human-readable error message
+          example: "The query text is required and cannot be empty"

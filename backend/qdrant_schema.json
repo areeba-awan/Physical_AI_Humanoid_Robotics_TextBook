@@ -1,0 +1,125 @@
+{
+  "$schema": "Qdrant Collection Schema for Physical AI Textbook RAG",
+  "collection_name": "physicalai_textbook",
+
+  "vector_config": {
+    "size": 3072,
+    "distance": "Cosine",
+    "on_disk": false,
+    "description": "OpenAI text-embedding-3-large vectors"
+  },
+
+  "hnsw_config": {
+    "m": 16,
+    "ef_construct": 100,
+    "full_scan_threshold": 10000
+  },
+
+  "payload_schema": {
+    "content": {
+      "type": "text",
+      "description": "The actual text content of the chunk",
+      "indexed": false,
+      "example": "ROS 2 (Robot Operating System 2) is a set of software libraries and tools..."
+    },
+
+    "chapter_id": {
+      "type": "keyword",
+      "description": "Chapter identifier for filtering",
+      "indexed": true,
+      "example": "chapter-1-1"
+    },
+
+    "module_id": {
+      "type": "keyword",
+      "description": "Module identifier for filtering",
+      "indexed": true,
+      "example": "module-1"
+    },
+
+    "section": {
+      "type": "keyword",
+      "description": "Section name within the chapter",
+      "indexed": true,
+      "example": "Introduction to ROS 2"
+    },
+
+    "page_number": {
+      "type": "integer",
+      "description": "Approximate page number (for reference)",
+      "indexed": true,
+      "example": 15
+    },
+
+    "chunk_index": {
+      "type": "integer",
+      "description": "Index of this chunk within the source document",
+      "indexed": false,
+      "example": 3
+    },
+
+    "source_file": {
+      "type": "keyword",
+      "description": "Original file path of the source document",
+      "indexed": true,
+      "example": "book/docs/module-1/chapter-1-1.md"
+    }
+  },
+
+  "example_point": {
+    "id": "a1b2c3d4e5f6",
+    "vector": "[3072-dimensional float array]",
+    "payload": {
+      "content": "ROS 2 is the next-generation Robot Operating System designed for production robotics applications. Unlike ROS 1, ROS 2 is built on DDS (Data Distribution Service) middleware, providing real-time capabilities, security features, and better support for multi-robot systems.",
+      "chapter_id": "chapter-1-1",
+      "module_id": "module-1",
+      "section": "What is ROS 2?",
+      "page_number": 5,
+      "chunk_index": 0,
+      "source_file": "book/docs/module-1/chapter-1-1.md"
+    }
+  },
+
+  "search_examples": {
+    "basic_search": {
+      "description": "Search entire collection",
+      "query": "How do I create a ROS 2 node?",
+      "limit": 5,
+      "score_threshold": 0.5
+    },
+
+    "filtered_search_by_chapter": {
+      "description": "Search within a specific chapter",
+      "query": "publisher subscriber",
+      "filter": {
+        "must": [
+          { "key": "chapter_id", "match": { "value": "chapter-1-2" } }
+        ]
+      },
+      "limit": 5
+    },
+
+    "filtered_search_by_module": {
+      "description": "Search within a specific module",
+      "query": "simulation physics",
+      "filter": {
+        "must": [
+          { "key": "module_id", "match": { "value": "module-2" } }
+        ]
+      },
+      "limit": 5
+    }
+  },
+
+  "creation_script": {
+    "python": "from qdrant_client import QdrantClient\nfrom qdrant_client.http.models import VectorParams, Distance\n\nclient = QdrantClient(url='https://your-cluster.qdrant.io', api_key='your-key')\n\nclient.create_collection(\n    collection_name='physicalai_textbook',\n    vectors_config=VectorParams(\n        size=3072,\n        distance=Distance.COSINE\n    )\n)"
+  },
+
+  "notes": [
+    "Vector size 3072 matches text-embedding-3-large output dimensions",
+    "Cosine distance is optimal for semantic similarity with OpenAI embeddings",
+    "chapter_id and module_id are indexed for fast filtered searches",
+    "Content is not indexed as it's retrieved via vector similarity",
+    "Chunk IDs are MD5 hashes of chapter_id:section:chunk_index for deduplication"
+  ]
+}
