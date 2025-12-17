@@ -113,6 +113,6 @@ og.Controller.edit(
 - PhysX provides accurate physics simulation
 - Domain randomization improves AI training
 
-[Continue to باب 3.3 →](/ur/docs/module-3-isaac/chapter-3-perception)
+[Continue to باب 3.3 →](/docs/module-3-isaac/chapter-3-perception)
 
 

@@ -103,10 +103,10 @@ ros2 launch urdf_tutorial display.launch.py
 
 Now that your environment is ready:
 
-1. **سیکھیں ROS 2 basics** → [مودیول 1: ROS 2](/ur/docs/module-1-ros2/chapter-1-intro)
-2. **تعمیر کریں simulations** → [مودیول 2: سیمیولیشن](/ur/docs/module-2-simulation/chapter-1-intro)
-3. **شامل کریں AI capabilities** → [مودیول 3: Isaac](/ur/docs/module-3-isaac/chapter-1-intro)
-4. **Integrate VLA** → [مودیول 4: VLA](/ur/docs/module-4-vla/chapter-1-intro)
+1. **سیکھیں ROS 2 basics** → [مودیول 1: ROS 2](/docs/module-1-ros2/chapter-1-intro)
+2. **تعمیر کریں simulations** → [مودیول 2: سیمیولیشن](/docs/module-2-simulation/chapter-1-intro)
+3. **شامل کریں AI capabilities** → [مودیول 3: Isaac](/docs/module-3-isaac/chapter-1-intro)
+4. **Integrate VLA** → [مودیول 4: VLA](/docs/module-4-vla/chapter-1-intro)
 
 :::tip Need Help?
 استعمال کریں our AI assistant in the bottom-right corner to ask questions about setup or troubleshooting!

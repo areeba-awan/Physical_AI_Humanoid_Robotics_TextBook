@@ -238,5 +238,5 @@ In this chapter, you learned:
 
 In the next chapter, we'll dive deeper into **نوڈز، ٹاپکس، اور سروسز** - the building blocks of ROS 2 applications.
 
-[Continue to باب 1.2 →](/ur/docs/module-1-ros2/chapter-2-nodes-topics)
+[Continue to باب 1.2 →](/docs/module-1-ros2/chapter-2-nodes-topics)
 

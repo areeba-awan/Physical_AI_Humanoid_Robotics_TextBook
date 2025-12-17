@@ -162,6 +162,6 @@ actions = model.predict(image, instruction)
 - Models like RT-2 and OpenVLA enable instruction-following
 - VLA reduces manual programming for robot tasks
 
-[Continue to باب 4.2 →](/ur/docs/module-4-vla/chapter-2-vision)
+[Continue to باب 4.2 →](/docs/module-4-vla/chapter-2-vision)
 
 

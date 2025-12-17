@@ -116,6 +116,6 @@ source install/setup.bash
 - Custom messages extend ROS 2 communication
 - colcon builds and installs packages efficiently
 
-[Continue to باب 1.6: Lab →](/ur/docs/module-1-ros2/chapter-6-lab)
+[Continue to باب 1.6: Lab →](/docs/module-1-ros2/chapter-6-lab)
 
 

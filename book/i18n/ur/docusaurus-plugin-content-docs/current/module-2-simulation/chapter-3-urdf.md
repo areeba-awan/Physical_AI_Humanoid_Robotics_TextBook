@@ -112,6 +112,6 @@ ros2 launch urdf_tutorial display.launch.py model:=my_robot.urdf
 - Xacro enables modular, reusable descriptions
 - Proper inertials are critical for physics
 
-[Continue to باب 2.4 →](/ur/docs/module-2-simulation/chapter-4-unity)
+[Continue to باب 2.4 →](/docs/module-2-simulation/chapter-4-unity)
 
 

@@ -136,6 +136,6 @@ def generate_launch_description():
 - Digital twins mirror physical robots in virtual environments
 - منتخب کریں your platform based on your needs
 
-[Continue to باب 2.2: گیزیبو Basics →](/ur/docs/module-2-simulation/chapter-2-gazebo)
+[Continue to باب 2.2: گیزیبو Basics →](/docs/module-2-simulation/chapter-2-gazebo)
 
 

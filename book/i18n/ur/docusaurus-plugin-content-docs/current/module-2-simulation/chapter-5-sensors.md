@@ -170,6 +170,6 @@ Verify data in RViz.
 - Noise models ensure realistic sensor behavior
 - Multiple sensors provide redundancy and coverage
 
-[Continue to باب 2.6: Lab →](/ur/docs/module-2-simulation/chapter-6-lab)
+[Continue to باب 2.6: Lab →](/docs/module-2-simulation/chapter-6-lab)
 
 

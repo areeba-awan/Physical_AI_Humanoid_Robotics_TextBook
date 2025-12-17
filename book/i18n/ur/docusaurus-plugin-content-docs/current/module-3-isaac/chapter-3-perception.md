@@ -105,6 +105,6 @@ def apriltag_callback(msg):
 - TensorRT optimizes DNN inference
 - Visual SLAM enables localization
 
-[Continue to باب 3.4 →](/ur/docs/module-3-isaac/chapter-4-manipulation)
+[Continue to باب 3.4 →](/docs/module-3-isaac/chapter-4-manipulation)
 
 

@@ -703,6 +703,6 @@ Placing it on bowl
 - [ROS 2 Audio Common](https://github.com/ros-drivers/audio_common)
 - [SpeechBrain: Speech AI Toolkit](https://speechbrain.github.io/)
 
-[Continue to باب 4.4 →](/ur/docs/module-4-vla/chapter-4-action)
+[Continue to باب 4.4 →](/docs/module-4-vla/chapter-4-action)
 
 

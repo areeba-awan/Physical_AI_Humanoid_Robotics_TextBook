@@ -156,6 +156,6 @@ def generate_launch_description():
 - استعمال کریں arguments for flexible configuration
 - Conditional logic enables reusable launch files
 
-[Continue to باب 1.5 →](/ur/docs/module-1-ros2/chapter-5-custom-packages)
+[Continue to باب 1.5 →](/docs/module-1-ros2/chapter-5-custom-packages)
 
 

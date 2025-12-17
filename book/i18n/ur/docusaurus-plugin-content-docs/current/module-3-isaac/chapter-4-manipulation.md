@@ -129,6 +129,6 @@ Implement a robot that:
 - MoveIt 2 offers comprehensive manipulation tools
 - Pick-and-place is a fundamental manipulation task
 
-[Continue to باب 3.5 →](/ur/docs/module-3-isaac/chapter-5-ros-integration)
+[Continue to باب 3.5 →](/docs/module-3-isaac/chapter-5-ros-integration)
 
 

@@ -178,6 +178,6 @@ ros2 action send_goal /navigate_to_pose nav2_msgs/action/NavigateToPose "{}"
 
 Congratulations! You've built a complete ROS 2 robot system. You're now ready to move on to **مودیول 2: سیمیولیشن** where you'll bring your robot to life in گیزیبو and یونٹی.
 
-[Continue to مودیول 2 →](/ur/docs/module-2-simulation/chapter-1-intro)
+[Continue to مودیول 2 →](/docs/module-2-simulation/chapter-1-intro)
 
 

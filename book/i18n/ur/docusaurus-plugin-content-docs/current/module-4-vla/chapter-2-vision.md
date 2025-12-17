@@ -167,6 +167,6 @@ def extract_object_features(image, boxes, encoder):
 - Multi-view improves 3D understanding
 - Fine-tuning adapts models to robot tasks
 
-[Continue to باب 4.3 →](/ur/docs/module-4-vla/chapter-3-language)
+[Continue to باب 4.3 →](/docs/module-4-vla/chapter-3-language)
 
 

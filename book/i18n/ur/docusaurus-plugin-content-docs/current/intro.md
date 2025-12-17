@@ -51,7 +51,7 @@ Each chapter includes:
 
 ## Getting Started
 
-Ready to begin? Start with the [فوراً شروع کریں گائیڈ](/ur/docs/quickstart) to set up your development environment, or jump directly into [مودیول 1: ROS 2](/ur/docs/module-1-ros2/chapter-1-intro).
+Ready to begin? Start with the [فوراً شروع کریں گائیڈ](/docs/quickstart) to set up your development environment, or jump directly into [مودیول 1: ROS 2](/docs/module-1-ros2/chapter-1-intro).
 
 :::tip Your Learning Path
 Based on your background, we recommend:

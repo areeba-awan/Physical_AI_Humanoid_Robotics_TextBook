@@ -966,6 +966,6 @@ if __name__ == "__main__":
 - [OpenVLA](https://openvla.github.io/) - ویژن-لینگویج-ایکشن ماڈلز
 - [ROS 2 Audio](https://github.com/ros-drivers/audio_common) - آڈیو انٹیگریشن
 
-[باب 4.6: کیپسٹون پر جائیں →](/ur/docs/module-4-vla/chapter-6-capstone)
+[باب 4.6: کیپسٹون پر جائیں →](/docs/module-4-vla/chapter-6-capstone)
 
 

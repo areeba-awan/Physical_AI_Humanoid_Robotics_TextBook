@@ -137,6 +137,6 @@ world.reset()
 - Isaac ROS enables efficient perception
 - USD format enables scalable scene composition
 
-[Continue to باب 3.2 →](/ur/docs/module-3-isaac/chapter-2-sim)
+[Continue to باب 3.2 →](/docs/module-3-isaac/chapter-2-sim)
 
 

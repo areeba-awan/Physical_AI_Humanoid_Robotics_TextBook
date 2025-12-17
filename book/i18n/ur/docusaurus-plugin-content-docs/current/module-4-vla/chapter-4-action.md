@@ -162,6 +162,6 @@ class DiffusionPolicy:
 - Action chunking predicts future action sequences
 - Diffusion policies enable diverse action generation
 
-[Continue to باب 4.5 →](/ur/docs/module-4-vla/chapter-5-systems)
+[Continue to باب 4.5 →](/docs/module-4-vla/chapter-5-systems)
 
 

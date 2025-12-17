@@ -193,6 +193,6 @@ Implement an action server that:
 
 ## اگلے اقدامات
 
-[Continue to باب 1.4: لانچ کریں Files →](/ur/docs/module-1-ros2/chapter-4-launch-files)
+[Continue to باب 1.4: لانچ کریں Files →](/docs/module-1-ros2/chapter-4-launch-files)
 
 

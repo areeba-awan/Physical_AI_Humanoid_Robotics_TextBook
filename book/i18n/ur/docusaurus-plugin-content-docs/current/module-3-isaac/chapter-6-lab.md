@@ -210,6 +210,6 @@ ros2 topic echo /joint_states
 
 You've built an AI-powered manipulation system. Next, we'll explore وژن-زبان-کارروائی models for even more intelligent robots.
 
-[Continue to مودیول 4: VLA →](/ur/docs/module-4-vla/chapter-1-intro)
+[Continue to مودیول 4: VLA →](/docs/module-4-vla/chapter-1-intro)
 
 

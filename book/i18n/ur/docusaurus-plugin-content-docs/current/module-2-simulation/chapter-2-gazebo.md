@@ -94,6 +94,6 @@ ros2 run gazebo_ros spawn_entity.py -entity my_robot -file robot.urdf
 - دنیا files define environments in SDF format
 - ROS 2 plugins enable seamless integration
 
-[Continue to باب 2.3 →](/ur/docs/module-2-simulation/chapter-3-urdf)
+[Continue to باب 2.3 →](/docs/module-2-simulation/chapter-3-urdf)
 
 

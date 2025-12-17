@@ -173,6 +173,6 @@ ros2 action send_goal /navigate_to_pose nav2_msgs/action/NavigateToPose \
 
 You've built a complete digital twin pipeline. Next, we'll add AI capabilities with این ویڈیا ایزیک.
 
-[Continue to مودیول 3: این ویڈیا ایزیک →](/ur/docs/module-3-isaac/chapter-1-intro)
+[Continue to مودیول 3: این ویڈیا ایزیک →](/docs/module-3-isaac/chapter-1-intro)
 
 

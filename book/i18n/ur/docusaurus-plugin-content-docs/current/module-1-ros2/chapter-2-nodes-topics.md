@@ -215,6 +215,6 @@ ros2 service call /get_temperature ...
 
 ## اگلے اقدامات
 
-[Continue to باب 1.3: ایکشنز اور پیرامیٹر →](/ur/docs/module-1-ros2/chapter-3-actions-params)
+[Continue to باب 1.3: ایکشنز اور پیرامیٹر →](/docs/module-1-ros2/chapter-3-actions-params)
 
 

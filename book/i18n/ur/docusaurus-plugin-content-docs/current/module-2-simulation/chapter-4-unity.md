@@ -145,6 +145,6 @@ public class SyntheticDataCapture : MonoBehaviour
 - ROS TCP Connector enables ROS 2 communication
 - Ideal for vision AI and ML training
 
-[Continue to باب 2.5 →](/ur/docs/module-2-simulation/chapter-5-sensors)
+[Continue to باب 2.5 →](/docs/module-2-simulation/chapter-5-sensors)
 
 

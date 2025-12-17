@@ -143,6 +143,6 @@ ros2 launch isaac_ros_yolov8 isaac_ros_yolov8_jetson.launch.py
 - OmniGraph enables visual programming
 - Jetson enables edge deployment
 
-[Continue to باب 3.6: Lab →](/ur/docs/module-3-isaac/chapter-6-lab)
+[Continue to باب 3.6: Lab →](/docs/module-3-isaac/chapter-6-lab)
 
 
