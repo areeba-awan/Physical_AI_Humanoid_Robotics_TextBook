@@ -1,18 +1,18 @@
 ---
 sidebar_position: 3
 title: "2.3 URDF and Robot Models"
-description: Creating robot descriptions with URDF
-keywords: [URDF, robot model, links, joints, xacro]
+description: "Creating robot descriptions with URDF"
+keywords: ["URDF", "robot model", "links", "joints", "xacro"]
 ---
 
-# Chapter 2.3: URDF and Robot Models
+# باب 2.3: URDF and Robot Models
 
-## Learning Objectives
+## سیکھنے کے مقاصد
 
-- Understand URDF structure
-- Create links and joints
-- Add visual and collision geometries
-- Use xacro for modular robot descriptions
+- سمجھیں URDF structure
+- تخلیق کریں links and joints
+- شامل کریں visual and collision geometries
+- استعمال کریں xacro for modular robot descriptions
 
 ## URDF Structure
 
@@ -97,19 +97,21 @@ keywords: [URDF, robot model, links, joints, xacro]
 ros2 launch urdf_tutorial display.launch.py model:=my_robot.urdf
 ```
 
-## Hands-on Lab
+## ہاتھ سے کام کرنے والی لیب
 
-### Lab 2.3: Build a Mobile Robot
+### Lab 2.3: تعمیر کریں a Mobile Robot
 
-Create a 4-wheeled robot with:
+تخلیق کریں a 4-wheeled robot with:
 - Differential drive base
 - Lidar sensor mount
 - Camera mount
 
-## Summary
+## خلاصہ
 
 - URDF defines robot structure with links and joints
 - Xacro enables modular, reusable descriptions
 - Proper inertials are critical for physics
 
-[Continue to Chapter 2.4 →](/ur/docs/module-2-simulation/chapter-4-unity)
+[Continue to باب 2.4 →](/ur/docs/module-2-simulation/chapter-4-unity)
+
+

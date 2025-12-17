@@ -1,30 +1,30 @@
 ---
 sidebar_position: 4
-title: "1.4 لانچ فائلز اور کنفیگریشن"
-description: لانچ فائلز کے ساتھ پیچیدہ روبوٹ سسٹمز کو منظم کرنا
+title: "1.4 Launch Files and Configuration"
+description: Orchestrating complex robot systems with launch files
 keywords: [ROS 2, launch, configuration, orchestration]
 ---
 
-# باب 1.4: لانچ فائلز اور کنفیگریشن
+# Chapter 1.4: Launch Files and Configuration
 
-## سیکھنے کے مقاصد
+## Learning Objectives
 
-- آر او ایس 2 کے لیے پائتھون لانچ فائلز بنائیں
-- آرگیومنٹس کے ساتھ متعدد نوڈز کنفیگر کریں
-- لانچ فائلز میں شرطی منطق استعمال کریں
-- پیچیدہ سسٹمز کے لیے لانچ فائلز منظم کریں
+- Create Python launch files for ROS 2
+- Configure multiple nodes with arguments
+- Use conditional logic in launch files
+- Organize launch files for complex systems
 
-## لانچ فائلز کا تعارف
+## Introduction to Launch Files
 
-لانچ فائلز آپ کو یہ کرنے دیتی ہیں:
-- ایک کمانڈ سے متعدد نوڈز شروع کریں
-- پیرامیٹرز اور ری میپنگز سیٹ کریں
-- دوسری لانچ فائلز شامل کریں
-- شرطی منطق استعمال کریں
+Launch files allow you to:
+- Start multiple nodes with one command
+- Set parameters and remappings
+- Include other launch files
+- Use conditional logic
 
-## پائتھون لانچ فائلز
+## Python Launch Files
 
-### بنیادی لانچ فائل
+### Basic Launch File
 
 ```python
 # launch/robot.launch.py
@@ -48,7 +48,7 @@ def generate_launch_description():
     ])
 ```
 
-### پیرامیٹرز کے ساتھ
+### With Parameters
 
 ```python
 from launch import LaunchDescription
@@ -69,7 +69,7 @@ def generate_launch_description():
     ])
 ```
 
-### آرگیومنٹس کے ساتھ
+### With Arguments
 
 ```python
 from launch import LaunchDescription
@@ -81,7 +81,7 @@ def generate_launch_description():
     robot_name_arg = DeclareLaunchArgument(
         'robot_name',
         default_value='default_robot',
-        description='روبوٹ کا نام'
+        description='Name of the robot'
     )
 
     return LaunchDescription([
@@ -96,19 +96,19 @@ def generate_launch_description():
     ])
 ```
 
-### لانچ فائلز چلانا
+### Running Launch Files
 
 ```bash
-# بنیادی لانچ
+# Basic launch
 ros2 launch my_package robot.launch.py
 
-# آرگیومنٹس کے ساتھ
+# With arguments
 ros2 launch my_package robot.launch.py robot_name:=atlas
 ```
 
-## جدید خصوصیات
+## Advanced Features
 
-### دوسری لانچ فائلز شامل کرنا
+### Including Other Launch Files
 
 ```python
 from launch.actions import IncludeLaunchDescription
@@ -126,7 +126,7 @@ def generate_launch_description():
     return LaunchDescription([gazebo_launch])
 ```
 
-### شرطی منطق
+### Conditional Logic
 
 ```python
 from launch.conditions import IfCondition
@@ -144,16 +144,18 @@ def generate_launch_description():
     return LaunchDescription([use_rviz, rviz_node])
 ```
 
-## عملی لیب
+## Hands-on Lab
 
-### لیب 1.4: ملٹی روبوٹ لانچ
+### Lab 1.4: Multi-Robot Launch
 
-ایک لانچ فائل بنائیں جو منفرد نیم سپیسز کے ساتھ 3 روبوٹس سپان کرے۔
+Create a launch file that spawns 3 robots with unique namespaces.
 
-## خلاصہ
+## Summary
 
-- لانچ فائلز پیچیدہ ملٹی نوڈ سسٹمز کو منظم کرتی ہیں
-- لچکدار کنفیگریشن کے لیے آرگیومنٹس استعمال کریں
-- شرطی منطق دوبارہ قابل استعمال لانچ فائلز فعال کرتی ہے
+- Launch files orchestrate complex multi-node systems
+- Use arguments for flexible configuration
+- Conditional logic enables reusable launch files
 
-[باب 1.5 پر جائیں →](/docs/module-1-ros2/chapter-5-custom-packages)
+[Continue to Chapter 1.5 →](/docs/module-1-ros2/chapter-5-custom-packages)
+
+

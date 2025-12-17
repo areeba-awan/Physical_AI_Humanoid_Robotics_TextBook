@@ -1,30 +1,30 @@
 ---
 sidebar_position: 2
-title: "1.2 Nodes, Topics, and Services"
-description: Understanding ROS 2 communication patterns
-keywords: [ROS 2, nodes, topics, services, publishers, subscribers]
+title: "1.2 نوڈز، ٹاپکس، اور سروسز"
+description: "کو سمجھنا ROS 2 communication patterns"
+keywords: ["ROS 2", "nodes", "topics", "services", "publishers", "subscribers"]
 ---
 
-# Chapter 1.2: Nodes, Topics, and Services
+# باب 1.2: نوڈز، ٹاپکس، اور سروسز
 
-## Learning Objectives
+## سیکھنے کے مقاصد
 
 By the end of this chapter, you will be able to:
 
-- Create and manage ROS 2 nodes
+- تخلیق کریں and manage ROS 2 nodes
 - Implement publisher-subscriber patterns with topics
-- Create and call services for request-response communication
-- Choose the right communication pattern for your use case
+- تخلیق کریں and call services for request-response communication
+- منتخب کریں the right communication pattern for your use case
 
-## Prerequisites
+## شرائطِ لازمہ
 
-- [ ] Completed Chapter 1.1
+- [ ] Completed باب 1.1
 - [ ] ROS 2 workspace set up
 - [ ] Basic Python knowledge
 
-## Understanding Nodes
+## کو سمجھنا نوڈز
 
-A **node** is a process that performs computation. Nodes are the fundamental building blocks of ROS 2 applications.
+A **node** is a process that performs computation. نوڈز are the fundamental building blocks of ROS 2 applications.
 
 ```python
 import rclpy
@@ -65,11 +65,11 @@ def main():
 └─────────────┘
 ```
 
-## Topics: Publish-Subscribe
+## ٹاپکس: Publish-Subscribe
 
-Topics enable **asynchronous**, **many-to-many** communication.
+ٹاپکس enable **asynchronous**, **many-to-many** communication.
 
-### Creating a Publisher
+### Creating a شائع کنندہ
 
 ```python
 from std_msgs.msg import String
@@ -86,7 +86,7 @@ class PublisherNode(Node):
         self.publisher.publish(msg)
 ```
 
-### Creating a Subscriber
+### Creating a  مسیحین
 
 ```python
 class SubscriberNode(Node):
@@ -103,7 +103,7 @@ class SubscriberNode(Node):
         self.get_logger().info(f'Received: {msg.data}')
 ```
 
-### Quality of Service (QoS)
+### سروس کی معیار (QoS)
 
 ```python
 from rclpy.qos import QoSProfile, ReliabilityPolicy, HistoryPolicy
@@ -117,9 +117,9 @@ qos_profile = QoSProfile(
 self.publisher = self.create_publisher(String, 'topic', qos_profile)
 ```
 
-## Services: Request-Response
+##  سروسز: Request-Response
 
-Services provide **synchronous** communication for request-response patterns.
+ سروسز provide **synchronous** communication for request-response patterns.
 
 ### Defining a Service
 
@@ -170,49 +170,51 @@ class ServiceClient(Node):
         return future
 ```
 
-## When to Use What?
+## When to استعمال کریں What?
 
-| Pattern | Use Case | Example |
+| Pattern | استعمال کریں Case | Example |
 |---------|----------|---------|
-| Topics | Continuous data streams | Sensor readings, camera images |
-| Services | One-time requests | Spawn robot, save map |
-| Actions | Long-running tasks | Navigate to goal, pick object |
+| ٹاپکس | Continuous data streams | Sensor readings, camera images |
+|  سروسز | One-time requests | Spawn robot, save map |
+| ایکشنز | Long-running tasks | Navigate to goal, pick object |
 
-## Hands-on Lab
+## ہاتھ سے کام کرنے والی لیب
 
-### Lab 1.2: Build a Temperature Monitor
+### Lab 1.2: تعمیر کریں a Temperature Monitor
 
-Create a system with:
+تخلیق کریں a system with:
 1. A sensor node publishing temperature readings
 2. A monitor node subscribing and alerting on high temps
 3. A service to get the current temperature on demand
 
 ```bash
-# Run your solution
+# چلائیں your solution
 ros2 run my_package temperature_sensor
 ros2 run my_package temperature_monitor
 ros2 service call /get_temperature ...
 ```
 
-## Knowledge Check
+## نالej چیک
 
 1. What communication pattern should you use for continuous sensor data?
-   - [x] Topics
-   - [ ] Services
-   - [ ] Actions
+   - [x] ٹاپکس
+   - [ ]  سروسز
+   - [ ] ایکشنز
 
-2. Services are _____ while topics are _____.
+2.  سروسز are _____ while topics are _____.
    - [x] Synchronous, Asynchronous
    - [ ] Asynchronous, Synchronous
    - [ ] Both synchronous
 
-## Summary
+## خلاصہ
 
-- **Nodes** are independent processes performing computation
-- **Topics** use publish-subscribe for streaming data
-- **Services** use request-response for one-time operations
+- **نوڈز** are independent processes performing computation
+- **ٹاپکس** use publish-subscribe for streaming data
+- ** سروسز** use request-response for one-time operations
 - **QoS** profiles control reliability and delivery guarantees
 
-## Next Steps
+## اگلے اقدامات
 
-[Continue to Chapter 1.3: Actions and Parameters →](/ur/docs/module-1-ros2/chapter-3-actions-params)
+[Continue to باب 1.3: ایکشنز اور پیرامیٹر →](/ur/docs/module-1-ros2/chapter-3-actions-params)
+
+

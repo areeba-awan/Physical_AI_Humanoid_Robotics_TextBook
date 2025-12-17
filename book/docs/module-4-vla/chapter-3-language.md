@@ -1,42 +1,42 @@
 ---
 sidebar_position: 3
-title: "4.3 روبوٹکس کے لیے لینگویج ماڈلز"
-description: روبوٹ ہدایات کے لیے قدرتی زبان کی سمجھ اور آواز کنٹرول
-keywords: [LLM, لینگویج ماڈل, ہدایات کی پیروی, روبوٹکس, آواز کنٹرول, Whisper, اسپیچ ٹو ٹیکسٹ]
+title: "4.3 Language Models for Robotics"
+description: Natural language understanding and voice control for robot instructions
+keywords: [LLM, language model, instruction following, robotics, voice control, Whisper, speech-to-text]
 ---
 
-# باب 4.3: روبوٹکس کے لیے لینگویج ماڈلز
+# Chapter 4.3: Language Models for Robotics
 
-## سیکھنے کے مقاصد
+## Learning Objectives
 
-- ہدایات کی پارسنگ کے لیے LLMs استعمال کریں
-- ٹاسک ڈیکمپوزیشن لاگو کریں
-- زبان کو روبوٹ ایکشنز سے جوڑیں
-- ابہام والی ہدایات کو سنبھالیں
-- **Whisper اسپیچ ٹو ٹیکسٹ کے ساتھ آواز کنٹرول**
-- **ریئل ٹائم آواز کمانڈ پائپ لائنز بنائیں**
+- Use LLMs for instruction parsing
+- Implement task decomposition
+- Ground language to robot actions
+- Handle ambiguous instructions
+- **Integrate voice control with Whisper speech-to-text**
+- **Build real-time voice command pipelines**
 
-## روبوٹ ہدایات کے لیے LLMs
+## LLMs for Robot Instructions
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│               زبان → روبوٹ پائپ لائن                        │
+│               LANGUAGE → ROBOT PIPELINE                      │
 │                                                              │
-│  "میرے لیے سینڈوچ بناؤ"                                     │
+│  "Make me a sandwich"                                       │
 │          │                                                   │
 │          ▼                                                   │
 │  ┌───────────────────────────────────────┐                  │
-│  │           LLM پلانر                    │                  │
-│  │   1. کچن میں جاؤ                       │                  │
-│  │   2. فریج کھولو                        │                  │
-│  │   3. روٹی، پنیر، سلاد لو              │                  │
-│  │   4. سینڈوچ بناؤ                       │                  │
-│  │   5. صارف کو دو                        │                  │
+│  │           LLM Planner                  │                  │
+│  │   1. Go to kitchen                     │                  │
+│  │   2. Open fridge                       │                  │
+│  │   3. Get bread, cheese, lettuce        │                  │
+│  │   4. Assemble sandwich                 │                  │
+│  │   5. Deliver to user                   │                  │
 │  └───────────────────────────────────────┘                  │
 │          │                                                   │
 │          ▼                                                   │
 │  ┌───────────────────────────────────────┐                  │
-│  │        ایکشن پرائمٹوز                  │                  │
+│  │        Action Primitives               │                  │
 │  │   navigate(kitchen)                    │                  │
 │  │   open(fridge)                         │                  │
 │  │   pick(bread)                          │                  │
@@ -46,7 +46,7 @@ keywords: [LLM, لینگویج ماڈل, ہدایات کی پیروی, روبو�
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## LLMs کے ساتھ ٹاسک ڈیکمپوزیشن
+## Task Decomposition with LLMs
 
 ```python
 from openai import OpenAI
@@ -57,18 +57,18 @@ def decompose_task(instruction):
     response = client.chat.completions.create(
         model="gpt-4",
         messages=[
-            {"role": "system", "content": """آپ روبوٹ ٹاسک پلانر ہیں۔
-            اعلیٰ سطحی ہدایات کو ایٹامک ایکشنز میں توڑیں۔
-            دستیاب ایکشنز: navigate(location), pick(object), place(object, location),
+            {"role": "system", "content": """You are a robot task planner.
+            Given a high-level instruction, break it into atomic actions.
+            Available actions: navigate(location), pick(object), place(object, location),
             open(container), close(container), pour(from, to)"""},
             {"role": "user", "content": instruction}
         ]
     )
     return response.choices[0].message.content
 
-# مثال
-tasks = decompose_task("میز پر گلاس میں پانی ڈالو")
-# آؤٹ پٹ:
+# Example
+tasks = decompose_task("Pour water into the glass on the table")
+# Output:
 # 1. navigate(kitchen)
 # 2. pick(water_bottle)
 # 3. navigate(table)
@@ -76,13 +76,13 @@ tasks = decompose_task("میز پر گلاس میں پانی ڈالو")
 # 5. place(water_bottle, table)
 ```
 
-## ہدایات کی پارسنگ
+## Instruction Parsing
 
 ```python
 import re
 
 def parse_instruction(text):
-    """ہدایات سے ایکشن، آبجیکٹ، اور لوکیشن نکالیں"""
+    """Extract action, object, and location from instruction"""
 
     patterns = {
         'pick': r'pick up (?:the )?(\w+)',
@@ -100,12 +100,12 @@ def parse_instruction(text):
 
     return None
 
-# مثال
+# Example
 result = parse_instruction("Pick up the red apple")
 # {'action': 'pick', 'params': ('red apple',)}
 ```
 
-## زبان کو آبجیکٹس سے جوڑنا
+## Grounding Language to Objects
 
 ```python
 class LanguageGrounder:
@@ -113,7 +113,7 @@ class LanguageGrounder:
         self.clip_encoder = CLIPEncoder()
 
     def ground_object(self, description, detections):
-        """تفصیل سے ملتا آبجیکٹ تلاش کریں"""
+        """Find object matching description"""
         text_features = self.clip_encoder.encode_text(description)
 
         best_match = None
@@ -129,18 +129,18 @@ class LanguageGrounder:
 
         return best_match
 
-# مثال
+# Example
 grounder = LanguageGrounder()
-target = grounder.ground_object("سرخ سیب", detected_objects)
+target = grounder.ground_object("red apple", detected_objects)
 ```
 
-## ابہام کو سنبھالنا
+## Handling Ambiguity
 
 ```python
 def clarify_instruction(instruction, scene_objects):
-    """جب ہدایات مبہم ہوں تو وضاحت طلب کریں"""
+    """Ask for clarification when instruction is ambiguous"""
 
-    # مبہم حوالوں کی جانچ کریں
+    # Check for ambiguous references
     referenced_objects = extract_objects(instruction)
 
     for ref in referenced_objects:
@@ -149,7 +149,7 @@ def clarify_instruction(instruction, scene_objects):
         if len(matches) > 1:
             return {
                 'needs_clarification': True,
-                'question': f"کون سا {ref}؟ میں دیکھ رہا ہوں {describe_options(matches)}"
+                'question': f"Which {ref}? I see {describe_options(matches)}"
             }
 
     return {'needs_clarification': False}
@@ -157,29 +157,29 @@ def clarify_instruction(instruction, scene_objects):
 
 ---
 
-## آواز کنٹرول انٹیگریشن
+## Voice Control Integration
 
-آواز کنٹرول ہینڈز فری روبوٹ آپریشن ممکن بناتا ہے، جو حقیقی دنیا کی ایپلیکیشنز کے لیے ضروری ہے جہاں آپریٹرز دوسرے کاموں میں مصروف ہو سکتے ہیں۔
+Voice control enables hands-free robot operation, essential for real-world applications where operators may be occupied with other tasks.
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│              آواز → روبوٹ کنٹرول پائپ لائن                  │
+│              VOICE → ROBOT CONTROL PIPELINE                  │
 │                                                              │
 │  ┌─────────┐   ┌─────────┐   ┌─────────┐   ┌─────────┐    │
-│  │  مائک   │──▶│ Whisper │──▶│   LLM   │──▶│ روبوٹ  │    │
-│  │ ان پٹ  │   │  STT    │   │ پلانر  │   │ کنٹرول │    │
+│  │  Mic    │──▶│ Whisper │──▶│   LLM   │──▶│ Robot   │    │
+│  │ Input   │   │  STT    │   │ Planner │   │ Control │    │
 │  └─────────┘   └─────────┘   └─────────┘   └─────────┘    │
 │       │             │             │             │          │
 │       ▼             ▼             ▼             ▼          │
-│   آڈیو سٹریم   "سیب اٹھاؤ"   ٹاسک پلان    ایکشنز        │
-│   16kHz مونو                [pick,move]   عمل میں        │
+│   Audio Stream   "Pick up    Task Plan     Actions        │
+│   16kHz mono     the apple"  [pick,move]   Executed       │
 │                                                            │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### Whisper کے ساتھ اسپیچ ٹو ٹیکسٹ
+### Speech-to-Text with Whisper
 
-OpenAI کا Whisper روبوٹ آواز کنٹرول کے لیے جدید ترین اسپیچ ریکگنیشن فراہم کرتا ہے:
+OpenAI's Whisper provides state-of-the-art speech recognition for robot voice control:
 
 ```python
 import whisper
@@ -187,16 +187,16 @@ import numpy as np
 import sounddevice as sd
 
 class WhisperSTT:
-    """OpenAI Whisper استعمال کرتے ہوئے اسپیچ ٹو ٹیکسٹ"""
+    """Speech-to-Text using OpenAI Whisper"""
 
     def __init__(self, model_size="base"):
-        # ماڈل سائز: tiny, base, small, medium, large
+        # Model sizes: tiny, base, small, medium, large
         self.model = whisper.load_model(model_size)
         self.sample_rate = 16000
 
     def transcribe_audio(self, audio_data):
-        """آڈیو numpy array کو ٹیکسٹ میں تبدیل کریں"""
-        # Whisper float32 آڈیو چاہتا ہے [-1, 1] میں نارملائز
+        """Transcribe audio numpy array to text"""
+        # Whisper expects float32 audio normalized to [-1, 1]
         audio = audio_data.astype(np.float32) / 32768.0
 
         result = self.model.transcribe(
@@ -207,8 +207,8 @@ class WhisperSTT:
         return result["text"].strip()
 
     def record_and_transcribe(self, duration=5):
-        """مائیکروفون سے ریکارڈ کریں اور ٹرانسکرائب کریں"""
-        print(f"{duration} سیکنڈ کے لیے ریکارڈنگ...")
+        """Record from microphone and transcribe"""
+        print(f"Recording for {duration} seconds...")
 
         audio = sd.rec(
             int(duration * self.sample_rate),
@@ -220,16 +220,16 @@ class WhisperSTT:
 
         return self.transcribe_audio(audio.flatten())
 
-# استعمال
+# Usage
 stt = WhisperSTT(model_size="base")
 command = stt.record_and_transcribe(duration=3)
-print(f"آپ نے کہا: {command}")
-# آؤٹ پٹ: "آپ نے کہا: pick up the red apple"
+print(f"You said: {command}")
+# Output: "You said: pick up the red apple"
 ```
 
-### ریئل ٹائم سٹریمنگ آواز ریکگنیشن
+### Real-Time Streaming Voice Recognition
 
-جوابدہ روبوٹ کنٹرول کے لیے، سٹریمنگ ریکگنیشن استعمال کریں:
+For responsive robot control, use streaming recognition:
 
 ```python
 import threading
@@ -237,21 +237,21 @@ import queue
 from collections import deque
 
 class StreamingVoiceControl:
-    """سٹریمنگ ریکگنیشن کے ساتھ ریئل ٹائم آواز کنٹرول"""
+    """Real-time voice control with streaming recognition"""
 
     def __init__(self):
-        self.stt = WhisperSTT(model_size="tiny")  # ریئل ٹائم کے لیے تیز ماڈل
+        self.stt = WhisperSTT(model_size="tiny")  # Fast model for real-time
         self.audio_queue = queue.Queue()
         self.is_listening = False
-        self.buffer = deque(maxlen=int(16000 * 3))  # 3 سیکنڈ بفر
+        self.buffer = deque(maxlen=int(16000 * 3))  # 3 second buffer
 
     def audio_callback(self, indata, frames, time, status):
-        """آڈیو سٹریم کے لیے کال بیک"""
+        """Callback for audio stream"""
         if self.is_listening:
             self.audio_queue.put(indata.copy())
 
     def start_listening(self):
-        """آڈیو سٹریم شروع کریں"""
+        """Start the audio stream"""
         self.is_listening = True
         self.stream = sd.InputStream(
             samplerate=16000,
@@ -262,20 +262,20 @@ class StreamingVoiceControl:
         )
         self.stream.start()
 
-        # پروسیسنگ تھریڈ شروع کریں
+        # Start processing thread
         self.process_thread = threading.Thread(target=self._process_audio)
         self.process_thread.start()
 
     def _process_audio(self):
-        """آڈیو چنکس پروسیس کریں اور کمانڈز کا پتہ لگائیں"""
+        """Process audio chunks and detect commands"""
         while self.is_listening:
             try:
                 chunk = self.audio_queue.get(timeout=0.1)
                 self.buffer.extend(chunk.flatten())
 
-                # آواز سرگرمی کی جانچ کریں
+                # Check for voice activity
                 if self._detect_voice_activity(chunk):
-                    # بفر ٹرانسکرائب کریں
+                    # Transcribe buffer
                     audio = np.array(self.buffer)
                     text = self.stt.transcribe_audio(audio)
 
@@ -287,30 +287,30 @@ class StreamingVoiceControl:
                 continue
 
     def _detect_voice_activity(self, audio, threshold=500):
-        """سادہ آواز سرگرمی کا پتہ لگانا"""
+        """Simple voice activity detection"""
         return np.abs(audio).mean() > threshold
 
     def _handle_command(self, text):
-        """پہچانی گئی کمانڈ پروسیس کریں"""
-        print(f"کمانڈ موصول: {text}")
-        # روبوٹ کنٹرولر کو بھیجیں
+        """Process recognized command"""
+        print(f"Command received: {text}")
+        # Send to robot controller
 
     def stop_listening(self):
-        """آڈیو سٹریم بند کریں"""
+        """Stop the audio stream"""
         self.is_listening = False
         self.stream.stop()
 ```
 
-### ویک ورڈ ڈیٹیکشن
+### Wake Word Detection
 
-روبوٹ کو صرف اس وقت ایکٹیویٹ کرنے کے لیے ویک ورڈ استعمال کریں جب مخاطب کیا جائے:
+Use wake words to activate the robot only when addressed:
 
 ```python
 import pvporcupine
 import struct
 
 class WakeWordDetector:
-    """Porcupine استعمال کرتے ہوئے ویک ورڈ ڈیٹیکشن"""
+    """Wake word detection using Porcupine"""
 
     def __init__(self, wake_words=["jarvis", "robot"]):
         self.porcupine = pvporcupine.create(
@@ -320,7 +320,7 @@ class WakeWordDetector:
         self.frame_length = self.porcupine.frame_length
 
     def process_audio(self, audio_frame):
-        """چیک کریں کہ ویک ورڈ کا پتہ چلا"""
+        """Check if wake word is detected"""
         pcm = struct.unpack_from(
             "h" * self.frame_length,
             audio_frame
@@ -329,7 +329,7 @@ class WakeWordDetector:
         keyword_index = self.porcupine.process(pcm)
 
         if keyword_index >= 0:
-            return True  # ویک ورڈ کا پتہ چلا
+            return True  # Wake word detected
         return False
 
     def cleanup(self):
@@ -337,18 +337,18 @@ class WakeWordDetector:
 
 
 class VoiceControlledRobot:
-    """مکمل آواز کنٹرول روبوٹ سسٹم"""
+    """Complete voice-controlled robot system"""
 
     def __init__(self, robot_interface):
         self.robot = robot_interface
-        self.wake_detector = WakeWordDetector(["ارے روبوٹ"])
+        self.wake_detector = WakeWordDetector(["hey robot"])
         self.stt = WhisperSTT(model_size="small")
         self.is_awake = False
-        self.awake_timeout = 10  # سیکنڈز
+        self.awake_timeout = 10  # seconds
 
     def run(self):
-        """آواز کنٹرول کا مین لوپ"""
-        print("ایکٹیویٹ کرنے کے لیے 'ارے روبوٹ' کہیں...")
+        """Main loop for voice control"""
+        print("Say 'Hey Robot' to activate...")
 
         with sd.InputStream(
             samplerate=16000,
@@ -360,23 +360,23 @@ class VoiceControlledRobot:
                 audio, _ = stream.read(512)
 
                 if not self.is_awake:
-                    # ویک ورڈ کے لیے سنیں
+                    # Listen for wake word
                     if self.wake_detector.process_audio(audio.tobytes()):
-                        print("روبوٹ ایکٹیویٹ! کمانڈ کے لیے سن رہا ہوں...")
+                        print("Robot activated! Listening for command...")
                         self.is_awake = True
                         self._play_activation_sound()
                 else:
-                    # کمانڈ ریکارڈ کریں
+                    # Record command
                     command = self.stt.record_and_transcribe(duration=5)
-                    print(f"کمانڈ: {command}")
+                    print(f"Command: {command}")
 
-                    # کمانڈ عمل میں لائیں
+                    # Execute command
                     self._execute_voice_command(command)
                     self.is_awake = False
 
     def _execute_voice_command(self, command):
-        """آواز کمانڈ پارس اور عمل کریں"""
-        # ٹاسک توڑنے کے لیے LLM استعمال کریں
+        """Parse and execute voice command"""
+        # Use LLM to decompose task
         tasks = decompose_task(command)
 
         for task in tasks:
@@ -385,14 +385,14 @@ class VoiceControlledRobot:
                 self.robot.execute(action)
 
     def _play_activation_sound(self):
-        """یہ بتانے کے لیے آواز چلائیں کہ روبوٹ سن رہا ہے"""
-        # ایک مختصر بیپ چلائیں
+        """Play sound to indicate robot is listening"""
+        # Play a short beep
         pass
 ```
 
-### آواز فیڈبیک اور تصدیق
+### Voice Feedback and Confirmation
 
-دو طرفہ آواز مواصلات فعال کریں:
+Enable bidirectional voice communication:
 
 ```python
 from gtts import gTTS
@@ -400,21 +400,21 @@ import pygame
 import io
 
 class VoiceFeedback:
-    """روبوٹ جوابات کے لیے ٹیکسٹ ٹو اسپیچ"""
+    """Text-to-speech for robot responses"""
 
     def __init__(self):
         pygame.mixer.init()
 
     def speak(self, text):
-        """ٹیکسٹ کو اسپیچ میں تبدیل کریں اور چلائیں"""
-        tts = gTTS(text=text, lang='ur')
+        """Convert text to speech and play"""
+        tts = gTTS(text=text, lang='en')
 
-        # میموری بفر میں محفوظ کریں
+        # Save to memory buffer
         fp = io.BytesIO()
         tts.write_to_fp(fp)
         fp.seek(0)
 
-        # آڈیو چلائیں
+        # Play audio
         pygame.mixer.music.load(fp)
         pygame.mixer.music.play()
 
@@ -422,22 +422,22 @@ class VoiceFeedback:
             pygame.time.wait(100)
 
     def confirm_action(self, action):
-        """ایکشن کی تصدیق بولیں"""
+        """Speak confirmation of action"""
         confirmations = {
-            'pick': f"{action['params'][0]} اٹھا رہا ہوں",
-            'place': f"{action['params'][0]} کو {action['params'][1]} پر رکھ رہا ہوں",
-            'move': f"{action['params'][0]} کی طرف جا رہا ہوں"
+            'pick': f"Picking up the {action['params'][0]}",
+            'place': f"Placing {action['params'][0]} on {action['params'][1]}",
+            'move': f"Moving to {action['params'][0]}"
         }
 
         message = confirmations.get(
             action['action'],
-            f"{action['action']} عمل میں لا رہا ہوں"
+            f"Executing {action['action']}"
         )
         self.speak(message)
 
 
 class InteractiveVoiceRobot:
-    """آواز ان پٹ اور آؤٹ پٹ والا روبوٹ"""
+    """Robot with voice input and output"""
 
     def __init__(self, robot):
         self.robot = robot
@@ -446,38 +446,38 @@ class InteractiveVoiceRobot:
         self.grounder = LanguageGrounder()
 
     def process_command(self, audio):
-        """فیڈبیک کے ساتھ مکمل آواز کمانڈ پائپ لائن"""
-        # 1. ٹرانسکرائب کریں
+        """Full voice command pipeline with feedback"""
+        # 1. Transcribe
         command = self.stt.transcribe_audio(audio)
-        self.tts.speak(f"میں نے سنا: {command}")
+        self.tts.speak(f"I heard: {command}")
 
-        # 2. ہدایات پارس کریں
+        # 2. Parse instruction
         action = parse_instruction(command)
 
         if action is None:
-            self.tts.speak("معذرت، میں وہ کمانڈ نہیں سمجھا")
+            self.tts.speak("Sorry, I didn't understand that command")
             return
 
-        # 3. ابہام کی جانچ کریں
+        # 3. Check for ambiguity
         scene_objects = self.robot.get_detected_objects()
         clarity = clarify_instruction(command, scene_objects)
 
         if clarity['needs_clarification']:
             self.tts.speak(clarity['question'])
-            # وضاحت کا انتظار کریں
+            # Wait for clarification
             clarification = self.stt.record_and_transcribe(duration=5)
-            command = f"{command}، خاص طور پر {clarification}"
+            command = f"{command}, specifically the {clarification}"
             action = parse_instruction(command)
 
-        # 4. تصدیق کریں اور عمل میں لائیں
+        # 4. Confirm and execute
         self.tts.confirm_action(action)
         self.robot.execute(action)
-        self.tts.speak("ہو گیا!")
+        self.tts.speak("Done!")
 ```
 
-### ROS 2 آواز کنٹرول نوڈ
+### ROS 2 Voice Control Node
 
-آواز کنٹرول کو ROS 2 کے ساتھ یکجا کریں:
+Integrate voice control with ROS 2:
 
 ```python
 import rclpy
@@ -487,74 +487,74 @@ from geometry_msgs.msg import Twist
 import numpy as np
 
 class VoiceControlNode(Node):
-    """آواز کنٹرول روبوٹ کے لیے ROS 2 نوڈ"""
+    """ROS 2 node for voice-controlled robot"""
 
     def __init__(self):
         super().__init__('voice_control_node')
 
-        # پبلشرز
+        # Publishers
         self.cmd_pub = self.create_publisher(String, '/robot_command', 10)
         self.vel_pub = self.create_publisher(Twist, '/cmd_vel', 10)
 
-        # آواز کنٹرول کمپوننٹس
+        # Voice control components
         self.stt = WhisperSTT(model_size="small")
-        self.wake_detector = WakeWordDetector(["ارے روبوٹ"])
+        self.wake_detector = WakeWordDetector(["hey robot"])
 
-        # پیرامیٹرز
-        self.declare_parameter('wake_word', 'ارے روبوٹ')
+        # Parameters
+        self.declare_parameter('wake_word', 'hey robot')
         self.declare_parameter('listen_duration', 5.0)
 
-        # آڈیو پروسیسنگ کے لیے ٹائمر
+        # Timer for audio processing
         self.create_timer(0.1, self.process_audio)
 
-        self.get_logger().info('آواز کنٹرول نوڈ شروع ہو گیا')
+        self.get_logger().info('Voice control node started')
 
     def process_audio(self):
-        """آنے والی آڈیو کو کمانڈز کے لیے پروسیس کریں"""
-        # مختصر آڈیو سیگمنٹ ریکارڈ کریں
+        """Process incoming audio for commands"""
+        # Record short audio segment
         audio = self.record_audio(duration=0.5)
 
-        # ویک ورڈ کی جانچ کریں
+        # Check for wake word
         if self.wake_detector.process_audio(audio.tobytes()):
-            self.get_logger().info('ویک ورڈ کا پتہ چلا!')
+            self.get_logger().info('Wake word detected!')
 
-            # مکمل کمانڈ ریکارڈ کریں
+            # Record full command
             command_audio = self.record_audio(duration=5.0)
             command = self.stt.transcribe_audio(command_audio)
 
-            self.get_logger().info(f'کمانڈ: {command}')
+            self.get_logger().info(f'Command: {command}')
             self.process_voice_command(command)
 
     def process_voice_command(self, command):
-        """آواز کمانڈ کو روبوٹ ایکشن میں تبدیل کریں"""
+        """Convert voice command to robot action"""
         command_lower = command.lower()
 
-        # براہ راست حرکت کی کمانڈز
-        if 'آگے' in command_lower or 'forward' in command_lower:
+        # Direct movement commands
+        if 'forward' in command_lower:
             self.send_velocity(linear=0.5)
-        elif 'پیچھے' in command_lower or 'back' in command_lower:
+        elif 'backward' in command_lower or 'back' in command_lower:
             self.send_velocity(linear=-0.5)
-        elif 'بائیں' in command_lower or 'left' in command_lower:
+        elif 'left' in command_lower:
             self.send_velocity(angular=0.5)
-        elif 'دائیں' in command_lower or 'right' in command_lower:
+        elif 'right' in command_lower:
             self.send_velocity(angular=-0.5)
-        elif 'رکو' in command_lower or 'stop' in command_lower:
+        elif 'stop' in command_lower:
             self.send_velocity(linear=0.0, angular=0.0)
         else:
-            # پیچیدہ کمانڈ LLM پروسیسنگ کے لیے بھیجیں
+            # Send complex command for LLM processing
             msg = String()
             msg.data = command
             self.cmd_pub.publish(msg)
 
     def send_velocity(self, linear=0.0, angular=0.0):
-        """ولاسٹی کمانڈ پبلش کریں"""
+        """Publish velocity command"""
         twist = Twist()
         twist.linear.x = linear
         twist.angular.z = angular
         self.vel_pub.publish(twist)
 
     def record_audio(self, duration):
-        """مائیکروفون سے آڈیو ریکارڈ کریں"""
+        """Record audio from microphone"""
         audio = sd.rec(
             int(duration * 16000),
             samplerate=16000,
@@ -578,38 +578,38 @@ if __name__ == '__main__':
 
 ---
 
-## عملی لیب
+## Hands-on Lab
 
-### لیب 4.3A: ہدایات پارسر بنائیں
+### Lab 4.3A: Build Instruction Parser
 
-ایک سسٹم بنائیں جو:
-1. قدرتی زبان کی ہدایات پارس کرے
-2. پیچیدہ کاموں کو توڑے
-3. آبجیکٹ حوالوں کو جوڑے
-4. ضرورت پڑنے پر وضاحت طلب کرے
+Create a system that:
+1. Parses natural language instructions
+2. Decomposes complex tasks
+3. Grounds object references
+4. Asks for clarification when needed
 
-### لیب 4.3B: آواز کنٹرول روبوٹ
+### Lab 4.3B: Voice-Controlled Robot
 
-مکمل آواز کنٹرول سسٹم بنائیں:
+Build a complete voice control system:
 
 ```python
 # lab_voice_control.py
 """
-لیب 4.3B: آواز کنٹرول روبوٹ
-Whisper اور ROS 2 استعمال کرتے ہوئے آواز کنٹرول روبوٹ بنائیں
+Lab 4.3B: Voice-Controlled Robot
+Build a voice-controlled robot using Whisper and ROS 2
 """
 
-# مرحلہ 1: ڈیپینڈنسیز انسٹال کریں
+# Step 1: Install dependencies
 # pip install openai-whisper sounddevice numpy pvporcupine gtts pygame
 
-# مرحلہ 2: VoiceRobotLab کلاس لاگو کریں
+# Step 2: Implement the VoiceRobotLab class
 class VoiceRobotLab:
     def __init__(self):
-        # کمپوننٹس شروع کریں
+        # Initialize components
         self.stt = WhisperSTT(model_size="base")
         self.tts = VoiceFeedback()
 
-        # کمانڈ الفاظ کی فہرست
+        # Define command vocabulary
         self.commands = {
             'pick': self.handle_pick,
             'place': self.handle_place,
@@ -618,89 +618,91 @@ class VoiceRobotLab:
         }
 
     def run_demo(self):
-        """انٹرایکٹو آواز کنٹرول ڈیمو چلائیں"""
-        self.tts.speak("آواز کنٹرول تیار۔ کمانڈ دیں۔")
+        """Run interactive voice control demo"""
+        self.tts.speak("Voice control ready. Say a command.")
 
         while True:
-            # کمانڈ ریکارڈ کریں
-            print("\nسن رہا ہوں...")
+            # Record command
+            print("\nListening...")
             command = self.stt.record_and_transcribe(duration=5)
-            print(f"آپ نے کہا: {command}")
+            print(f"You said: {command}")
 
-            if 'باہر' in command.lower() or 'exit' in command.lower():
-                self.tts.speak("خدا حافظ!")
+            if 'exit' in command.lower() or 'quit' in command.lower():
+                self.tts.speak("Goodbye!")
                 break
 
-            # کمانڈ پروسیس کریں
+            # Process command
             self.process_command(command)
 
     def process_command(self, command):
-        """آواز کمانڈ پارس اور عمل کریں"""
+        """Parse and execute voice command"""
         action = parse_instruction(command)
 
         if action and action['action'] in self.commands:
-            self.tts.speak(f"{action['action']} عمل میں لا رہا ہوں")
+            self.tts.speak(f"Executing {action['action']}")
             self.commands[action['action']](action['params'])
         else:
-            self.tts.speak("کمانڈ نہیں پہچانی گئی۔ دوبارہ کوشش کریں۔")
+            self.tts.speak("Command not recognized. Try again.")
 
     def handle_pick(self, params):
-        print(f"اٹھا رہا ہوں: {params[0]}")
+        print(f"Picking up: {params[0]}")
 
     def handle_place(self, params):
-        print(f"{params[0]} کو {params[1]} پر رکھ رہا ہوں")
+        print(f"Placing {params[0]} on {params[1]}")
 
     def handle_move(self, params):
-        print(f"جا رہا ہوں: {params[0]}")
+        print(f"Moving to: {params[0]}")
 
     def handle_stop(self, params):
-        print("روبوٹ رک رہا ہے")
+        print("Stopping robot")
 
 
-# مرحلہ 3: لیب چلائیں
+# Step 3: Run the lab
 if __name__ == "__main__":
     lab = VoiceRobotLab()
     lab.run_demo()
 ```
 
-**لیب کے مقاصد:**
-1. Whisper اسپیچ ریکگنیشن سیٹ اپ کریں
-2. ویک ورڈ ڈیٹیکشن لاگو کریں
-3. آواز کمانڈ پارسر بنائیں
-4. ٹیکسٹ ٹو اسپیچ فیڈبیک شامل کریں
-5. 10+ مختلف آواز کمانڈز کے ساتھ ٹیسٹ کریں
+**Lab Objectives:**
+1. Set up Whisper speech recognition
+2. Implement wake word detection
+3. Create voice command parser
+4. Add text-to-speech feedback
+5. Test with 10+ different voice commands
 
-**متوقع آؤٹ پٹ:**
+**Expected Output:**
 ```
-آواز کنٹرول تیار۔ کمانڈ دیں۔
+Voice control ready. Say a command.
 
-سن رہا ہوں...
-آپ نے کہا: سرخ سیب اٹھاؤ
-pick عمل میں لا رہا ہوں
-اٹھا رہا ہوں: سرخ سیب
+Listening...
+You said: pick up the red apple
+Executing pick
+Picking up: red apple
 
-سن رہا ہوں...
-آپ نے کہا: اسے پیالے میں رکھو
-place عمل میں لا رہا ہوں
-اسے پیالے پر رکھ رہا ہوں
+Listening...
+You said: put it in the bowl
+Executing place
+Placing it on bowl
 ```
 
-## خلاصہ
+## Summary
 
-- LLMs پیچیدہ ہدایات کو ایٹامک ایکشنز میں توڑتے ہیں
-- پارسنگ ایکشن کی اقسام اور پیرامیٹرز نکالتی ہے
-- CLIP زبان کو بصری آبجیکٹس سے جوڑنے کو ممکن بناتا ہے
-- ابہام کو سنبھالنا مضبوطی بڑھاتا ہے
-- **Whisper آواز کنٹرول کے لیے درست اسپیچ ٹو ٹیکسٹ فراہم کرتا ہے**
-- **ویک ورڈ ڈیٹیکشن ہینڈز فری ایکٹیویشن ممکن بناتا ہے**
-- **آواز فیڈبیک انٹرایکٹو روبوٹ تجربات بناتا ہے**
-- **ROS 2 انٹیگریشن روبوٹ سسٹمز میں آواز کنٹرول ممکن بناتا ہے**
+- LLMs decompose complex instructions into atomic actions
+- Parsing extracts action types and parameters
+- CLIP enables grounding language to visual objects
+- Ambiguity handling improves robustness
+- **Whisper provides accurate speech-to-text for voice control**
+- **Wake word detection enables hands-free activation**
+- **Voice feedback creates interactive robot experiences**
+- **ROS 2 integration enables voice control in robot systems**
 
-## مزید پڑھنے کے لیے
+## Further Reading
 
-- [OpenAI Whisper دستاویزات](https://github.com/openai/whisper)
-- [Porcupine ویک ورڈ انجن](https://picovoice.ai/platform/porcupine/)
-- [ROS 2 آڈیو کامن](https://github.com/ros-drivers/audio_common)
-- [SpeechBrain: اسپیچ AI ٹول کٹ](https://speechbrain.github.io/)
+- [OpenAI Whisper Documentation](https://github.com/openai/whisper)
+- [Porcupine Wake Word Engine](https://picovoice.ai/platform/porcupine/)
+- [ROS 2 Audio Common](https://github.com/ros-drivers/audio_common)
+- [SpeechBrain: Speech AI Toolkit](https://speechbrain.github.io/)
 
-[باب 4.4 پر جائیں →](/docs/module-4-vla/chapter-4-action)
+[Continue to Chapter 4.4 →](/docs/module-4-vla/chapter-4-action)
+
+

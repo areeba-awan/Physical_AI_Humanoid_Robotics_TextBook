@@ -1,67 +1,67 @@
 ---
 sidebar_position: 4
-title: "2.4 یونٹی روبوٹکس ہب"
-description: یونٹی کے ساتھ اعلیٰ درجے کی سمولیشن
-keywords: [یونٹی, روبوٹکس, سمولیشن, پرسیپشن]
+title: "2.4 Unity Robotics Hub"
+description: High-fidelity simulation with Unity
+keywords: [Unity, robotics, simulation, perception]
 ---
 
-# باب 2.4: یونٹی روبوٹکس ہب
+# Chapter 2.4: Unity Robotics Hub
 
-## سیکھنے کے مقاصد
+## Learning Objectives
 
-- یونٹی روبوٹکس ہب ترتیب دیں
-- URDF روبوٹس کو یونٹی میں درآمد کریں
-- یونٹی کو ROS 2 سے جوڑیں
-- پرسیپشن ٹریننگ کے منظرنامے بنائیں
+- Set up Unity Robotics Hub
+- Import URDF robots into Unity
+- Connect Unity to ROS 2
+- Create perception training scenarios
 
-## یونٹی کیوں؟
+## Why Unity?
 
-- **فوٹو ریئلسٹک گرافکس** - ویژن AI ٹریننگ کے لیے
-- **ML-Agents** - ریانفورسمنٹ لرننگ کے لیے
-- **کراس پلیٹ فارم** - مختلف پلیٹ فارمز پر ڈیپلائے
-- **بڑا ایسٹ ایکو سسٹم** - بہت سے ریڈی میڈ ایسٹس
+- **Photorealistic graphics** for vision AI training
+- **ML-Agents** for reinforcement learning
+- **Cross-platform** deployment
+- **Large asset ecosystem**
 
-## سیٹ اپ
+## Setup
 
-### یونٹی روبوٹکس ہب انسٹال کریں
+### Install Unity Robotics Hub
 
-1. یونٹی ہب کھولیں
-2. نیا 3D پروجیکٹ بنائیں
+1. Open Unity Hub
+2. Create new 3D project
 3. Window > Package Manager
-4. گٹ URL سے پیکیج شامل کریں:
+4. Add package from git URL:
    ```
    https://github.com/Unity-Technologies/ROS-TCP-Connector.git
    ```
 
-### ROS 2 کنیکٹر
+### ROS 2 Connector
 
 ```bash
-# ROS TCP Endpoint انسٹال کریں
+# Install ROS TCP Endpoint
 sudo apt install ros-humble-ros-tcp-endpoint
 
-# اینڈ پوائنٹ شروع کریں
+# Launch the endpoint
 ros2 run ros_tcp_endpoint default_server_endpoint --ros-args -p ROS_IP:=0.0.0.0
 ```
 
-## روبوٹس درآمد کرنا
+## Importing Robots
 
-### URDF امپورٹر
+### URDF Importer
 
 1. Assets > Import Robot from URDF
-2. اپنی URDF فائل منتخب کریں
-3. امپورٹ سیٹنگز ترتیب دیں
-4. Import پر کلک کریں
+2. Select your URDF file
+3. Configure import settings
+4. Click Import
 
-### آرٹیکیولیشن باڈیز
+### Articulation Bodies
 
-یونٹی حقیقت پسندانہ فزکس کے لیے آرٹیکیولیشن باڈیز استعمال کرتا ہے:
-- ریڈیوسڈ کوآرڈینیٹس
-- مستحکم جوائنٹ سمولیشن
-- براہ راست فورس اپلیکیشن
+Unity uses Articulation Bodies for realistic physics:
+- Reduced coordinates
+- Stable joint simulation
+- Direct force application
 
-## ROS 2 کمیونیکیشن
+## ROS 2 Communication
 
-### پبلشر (یونٹی سے ROS)
+### Publisher (Unity to ROS)
 
 ```csharp
 using RosMessageTypes.Geometry;
@@ -74,14 +74,12 @@ public class OdometryPublisher : MonoBehaviour
 
     void Start()
     {
-        // ROS کنکشن حاصل کریں
         ros = ROSConnection.GetOrCreateInstance();
         ros.RegisterPublisher<TwistMsg>(topicName);
     }
 
     void Update()
     {
-        // پیغام بنائیں اور بھیجیں
         TwistMsg msg = new TwistMsg();
         msg.linear.x = velocity.x;
         ros.Publish(topicName, msg);
@@ -89,29 +87,28 @@ public class OdometryPublisher : MonoBehaviour
 }
 ```
 
-### سبسکرائبر (ROS سے یونٹی)
+### Subscriber (ROS to Unity)
 
 ```csharp
 public class CmdVelSubscriber : MonoBehaviour
 {
     void Start()
     {
-        // ٹاپک پر سبسکرائب کریں
         ROSConnection.GetOrCreateInstance()
             .Subscribe<TwistMsg>("cmd_vel", OnCmdVel);
     }
 
     void OnCmdVel(TwistMsg msg)
     {
-        // روبوٹ پر ویلاسٹی لگائیں
+        // Apply velocity to robot
         targetVelocity = (float)msg.linear.x;
     }
 }
 ```
 
-## مصنوعی ڈیٹا جنریشن
+## Synthetic Data Generation
 
-### ٹریننگ کے لیے کیمرہ سیٹ اپ
+### Camera Setup for Training
 
 ```csharp
 public class SyntheticDataCapture : MonoBehaviour
@@ -122,31 +119,32 @@ public class SyntheticDataCapture : MonoBehaviour
 
     public void CaptureImage()
     {
-        // رینڈر ٹیکسچر بنائیں
         RenderTexture rt = new RenderTexture(width, height, 24);
         captureCamera.targetTexture = rt;
         Texture2D image = new Texture2D(width, height);
         captureCamera.Render();
         RenderTexture.active = rt;
         image.ReadPixels(new Rect(0, 0, width, height), 0, 0);
-        // تصویر محفوظ یا پراسیس کریں
+        // Save or process image
     }
 }
 ```
 
-## عملی لیب
+## Hands-on Lab
 
-### لیب 2.4: ویژن ٹریننگ ماحول
+### Lab 2.4: Vision Training Environment
 
-یونٹی سین بنائیں جس میں:
-- رینڈم آبجیکٹ پلیسمنٹ
-- مختلف روشنی کے حالات
-- ڈیٹاسیٹ جنریشن کے لیے کیمرہ کیپچر
+Create a Unity scene with:
+- Random object placement
+- Varied lighting conditions
+- Camera capture for dataset generation
 
-## خلاصہ
+## Summary
 
-- یونٹی فوٹو ریئلسٹک سمولیشن فراہم کرتا ہے
-- ROS TCP کنیکٹر ROS 2 کمیونیکیشن کو ممکن بناتا ہے
-- ویژن AI اور ML ٹریننگ کے لیے مثالی
+- Unity provides photorealistic simulation
+- ROS TCP Connector enables ROS 2 communication
+- Ideal for vision AI and ML training
 
-[باب 2.5 جاری رکھیں ←](/docs/module-2-simulation/chapter-5-sensors)
+[Continue to Chapter 2.5 →](/docs/module-2-simulation/chapter-5-sensors)
+
+

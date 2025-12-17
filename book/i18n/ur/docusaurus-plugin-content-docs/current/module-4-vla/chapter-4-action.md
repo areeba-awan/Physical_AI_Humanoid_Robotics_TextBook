@@ -1,15 +1,15 @@
 ---
 sidebar_position: 4
 title: "4.4 Action Generation"
-description: Generating robot actions from multimodal inputs
-keywords: [action, generation, policy, robot control]
+description: "Generating robot actions from multimodal inputs"
+keywords: ["action", "generation", "policy", "robot control"]
 ---
 
-# Chapter 4.4: Action Generation
+# باب 4.4: Action Generation
 
-## Learning Objectives
+## سیکھنے کے مقاصد
 
-- Understand action representation schemes
+- سمجھیں action representation schemes
 - Implement action decoders
 - Bridge discrete tokens to continuous control
 - Handle action space variations
@@ -33,7 +33,7 @@ ACTION_TOKENS = {
 }
 ```
 
-### Continuous Actions
+### Continuous ایکشنز
 
 ```python
 # 7-DOF action space
@@ -50,7 +50,7 @@ class ContinuousAction:
 import torch
 import torch.nn as nn
 
-class ActionDecoder(nn.Module):
+class ActionDecoder(nn.مودیول):
     def __init__(self, hidden_dim=768, action_dim=7):
         super().__init__()
 
@@ -146,20 +146,22 @@ class DiffusionPolicy:
         return x
 ```
 
-## Hands-on Lab
+## ہاتھ سے کام کرنے والی لیب
 
 ### Lab 4.4: Implement Action Decoder
 
-Build an action decoder that:
+تعمیر کریں an action decoder that:
 1. Takes vision-language features
 2. Outputs 7-DOF robot actions
 3. Handles action chunking for smoother motion
 
-## Summary
+## خلاصہ
 
-- Actions can be discrete tokens or continuous values
+- ایکشنز can be discrete tokens or continuous values
 - Decoders map multimodal features to robot commands
 - Action chunking predicts future action sequences
 - Diffusion policies enable diverse action generation
 
-[Continue to Chapter 4.5 →](/ur/docs/module-4-vla/chapter-5-systems)
+[Continue to باب 4.5 →](/ur/docs/module-4-vla/chapter-5-systems)
+
+

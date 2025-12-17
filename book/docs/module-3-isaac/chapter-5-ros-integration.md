@@ -1,38 +1,38 @@
 ---
 sidebar_position: 5
-title: "3.5 Isaac ROS انٹیگریشن"
-description: Isaac Sim کو ROS 2 سے منسلک کرنا
-keywords: [Isaac ROS, ROS 2, انٹیگریشن, برج]
+title: "3.5 Isaac ROS Integration"
+description: Connecting Isaac Sim with ROS 2
+keywords: [Isaac ROS, ROS 2, integration, bridge]
 ---
 
-# باب 3.5: Isaac ROS انٹیگریشن
+# Chapter 3.5: Isaac ROS Integration
 
-## سیکھنے کے مقاصد
+## Learning Objectives
 
-- Isaac Sim ROS 2 برج سیٹ اپ کریں
-- سمولیشن سے سینسر ڈیٹا سٹریم کریں
-- ROS 2 کے ذریعے روبوٹس کنٹرول کریں
-- Jetson ہارڈویئر پر ڈیپلائے کریں
+- Set up Isaac Sim ROS 2 bridge
+- Stream sensor data from simulation
+- Control robots via ROS 2
+- Deploy to Jetson hardware
 
-## ROS 2 برج سیٹ اپ
+## ROS 2 Bridge Setup
 
-### Isaac Sim میں فعال کریں
+### Enable in Isaac Sim
 
 ```python
 import omni.isaac.ros2_bridge as ros2_bridge
 
-# ROS 2 شروع کریں
+# Initialize ROS 2
 ros2_bridge.init()
 
-# پبلشرز بنائیں
+# Create publishers
 clock_pub = ros2_bridge.create_clock_publisher()
 camera_pub = ros2_bridge.create_camera_publisher("/camera/image_raw")
 lidar_pub = ros2_bridge.create_lidar_publisher("/scan")
 ```
 
-### OmniGraph نوڈز
+### OmniGraph Nodes
 
-OmniGraph کے ساتھ ویژول پائپ لائنز بنائیں:
+Create visual pipelines with OmniGraph:
 
 ```python
 import omni.graph.core as og
@@ -54,9 +54,9 @@ og.Controller.edit(
 )
 ```
 
-## سینسر سٹریمنگ
+## Sensor Streaming
 
-### کیمرہ سے ROS 2
+### Camera to ROS 2
 
 ```python
 from omni.isaac.sensor import Camera
@@ -69,7 +69,7 @@ ros2_helper.publish_depth()
 ros2_helper.publish_camera_info()
 ```
 
-### LiDAR سے ROS 2
+### LiDAR to ROS 2
 
 ```python
 from omni.isaac.sensor import RotatingLidarPhysX
@@ -78,12 +78,12 @@ lidar = RotatingLidarPhysX(prim_path="/World/Lidar")
 lidar.add_point_cloud_data_to_frame()
 ```
 
-## روبوٹ کنٹرول
+## Robot Control
 
-### جوائنٹ کمانڈز
+### Joint Commands
 
 ```python
-# جوائنٹ کمانڈز کی سبسکرائب کریں
+# Subscribe to joint commands
 from sensor_msgs.msg import JointState
 
 def joint_command_callback(msg):
@@ -92,7 +92,7 @@ def joint_command_callback(msg):
         robot.set_joint_position_target(msg.position[i], joint_idx)
 ```
 
-### رفتار کمانڈز
+### Velocity Commands
 
 ```python
 from geometry_msgs.msg import Twist
@@ -101,46 +101,48 @@ def cmd_vel_callback(msg):
     linear = msg.linear.x
     angular = msg.angular.z
 
-    # ڈفرنشل ڈرائیو کینیمیٹکس
+    # Differential drive kinematics
     left_vel = linear - angular * wheel_separation / 2
     right_vel = linear + angular * wheel_separation / 2
     robot.apply_wheel_velocities([left_vel, right_vel])
 ```
 
-## Jetson ڈیپلائمنٹ
+## Jetson Deployment
 
-### Jetson پر Isaac ROS
+### Isaac ROS on Jetson
 
 ```bash
-# Jetson پر
+# On Jetson
 sudo apt install nvidia-l4t-isaac-ros-packages
 
-# پرسیپشن پائپ لائن چلائیں
+# Run perception pipeline
 ros2 launch isaac_ros_yolov8 isaac_ros_yolov8_jetson.launch.py
 ```
 
-### کارکردگی کی اصلاح
+### Performance Optimization
 
-| پیکج | Xavier NX | Orin Nano |
+| Package | Xavier NX | Orin Nano |
 |---------|-----------|-----------|
 | YOLOv8 | 15 FPS | 30 FPS |
-| ویژول SLAM | 30 FPS | 60 FPS |
+| Visual SLAM | 30 FPS | 60 FPS |
 | cuMotion | 100 Hz | 200 Hz |
 
-## عملی لیب
+## Hands-on Lab
 
-### لیب 3.5: مکمل اسٹیک انٹیگریشن
+### Lab 3.5: Full Stack Integration
 
-مندرجہ ذیل کے ساتھ ایک سسٹم بنائیں:
-1. Isaac Sim سمولیشن
-2. ROS 2 پرسیپشن نوڈز
-3. نیویگیشن اسٹیک
-4. RViz میں ویژولائزیشن
+Create a system with:
+1. Isaac Sim simulation
+2. ROS 2 perception nodes
+3. Navigation stack
+4. Visualization in RViz
 
-## خلاصہ
+## Summary
 
-- ROS 2 برج Isaac Sim کو ROS ایکوسسٹم سے جوڑتا ہے
-- OmniGraph ویژول پروگرامنگ فعال کرتا ہے
-- Jetson ایج ڈیپلائمنٹ فعال کرتا ہے
+- ROS 2 bridge connects Isaac Sim to ROS ecosystem
+- OmniGraph enables visual programming
+- Jetson enables edge deployment
 
-[باب 3.6: لیب پر جائیں ←](/docs/module-3-isaac/chapter-6-lab)
+[Continue to Chapter 3.6: Lab →](/docs/module-3-isaac/chapter-6-lab)
+
+

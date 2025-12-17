@@ -1,23 +1,23 @@
 ---
 sidebar_position: 1
-title: "1.1 Introduction to ROS 2"
-description: Understanding the Robot Operating System 2 architecture and philosophy
-keywords: [ROS 2, robotics, middleware, DDS]
+title: "1.1 ROS 2 کا تعارف"
+description: "روبوٹ آپریٹنگ سسٹم 2 کے معماری اور فلسفے کو سمجھنا"
+keywords: ["ROS 2", "robotics", "middleware", "DDS"]
 ---
 
-# Chapter 1.1: Introduction to ROS 2
+# باب 1.1: ROS 2 کا تعارف
 
-## Learning Objectives
+## سیکھنے کے مقاصد
 
 By the end of this chapter, you will be able to:
 
 - Explain what ROS 2 is and why it's essential for robotics
 - Describe the key differences between ROS 1 and ROS 2
-- Understand the DDS middleware architecture
-- Set up a ROS 2 workspace
-- Run your first ROS 2 nodes
+- سمجھیں the DDS middleware architecture
+-  تیار کریں a ROS 2 workspace
+- چلائیں your first ROS 2 nodes
 
-## Prerequisites
+## شرائطِ لازمہ
 
 Before starting this chapter, ensure you have:
 
@@ -25,14 +25,14 @@ Before starting this chapter, ensure you have:
 - [ ] Basic Python programming knowledge
 - [ ] Terminal/command line familiarity
 
-## What is ROS 2?
+## کیا ہے ROS 2?
 
-**ROS 2** (Robot Operating System 2) is not an actual operating system, but rather a flexible framework for writing robot software. It provides:
+**ROS 2** (روبوٹ آپریٹنگ سسٹم 2) is not an actual operating system, but rather a flexible framework for writing robot software. It provides:
 
 - **Communication infrastructure** between processes
-- **Hardware abstraction** for sensors and actuators
-- **Tools** for visualization, debugging, and simulation
-- **Libraries** for common robotics tasks
+- **ہارڈ ویئر abstraction** for sensors and actuators
+- **اوزار** for visualization, debugging, and simulation
+- ** لائبریری** for common robotics tasks
 
 ### The Evolution from ROS 1
 
@@ -40,23 +40,23 @@ ROS 1 served the robotics community well for over a decade, but had limitations:
 
 | Aspect | ROS 1 | ROS 2 |
 |--------|-------|-------|
-| Real-time | Limited | Supported |
-| Security | None | Built-in |
-| Platforms | Linux only | Linux, Windows, macOS |
-| Middleware | Custom | DDS standard |
-| Multi-robot | Difficult | Native support |
+| ریل ٹائم | Limited | Supported |
+| سیکیورٹی | None | Built-in |
+| پلیٹ فارم | Linux only | Linux, Windows, macOS |
+| مڈل ویئر | Custom | DDS standard |
+| متعدد روبوٹ | Difficult | Native support |
 
 ## DDS: The Communication Backbone
 
-ROS 2 uses the **Data Distribution Service (DDS)** as its middleware. DDS provides:
+ROS 2 uses the **ڈیٹا تقسیم کی سروس (DDS)** as its middleware. DDS provides:
 
 ```
 ┌─────────────────────────────────────────────────────────┐
 │                    ROS 2 Application                     │
 ├─────────────────────────────────────────────────────────┤
-│                    RCL (ROS Client Library)              │
+│                    RCL (ROS کلائنٹ لائبریری)              │
 ├─────────────────────────────────────────────────────────┤
-│                    RMW (ROS Middleware)                  │
+│                    RMW (ROS مڈل ویئر)                  │
 ├─────────────────────────────────────────────────────────┤
 │              DDS Implementation (FastDDS, etc.)          │
 ├─────────────────────────────────────────────────────────┤
@@ -66,34 +66,34 @@ ROS 2 uses the **Data Distribution Service (DDS)** as its middleware. DDS provid
 
 ### Key DDS Concepts
 
-1. **Automatic Discovery** - Nodes find each other without a central master
-2. **Quality of Service (QoS)** - Configure reliability, durability, deadlines
-3. **Type Safety** - Message types are strictly defined
+1. **خودکار دریافت** - نوڈز find each other without a central master
+2. **سروس کی معیار (QoS)** - Configure reliability, durability, deadlines
+3. **ٹائپ سیفٹی** - Message types are strictly defined
 
-## Setting Up Your Workspace
+## ماحول تیار کرنا Your  ورک سپیس
 
-### Create a ROS 2 Workspace
+### تخلیق کریں a ROS 2  ورک سپیس
 
 ```bash
-# Create workspace directory
+# تخلیق کریں workspace directory
 mkdir -p ~/ros2_ws/src
 cd ~/ros2_ws
 
-# Build (even empty)
+# تعمیر کریں (even empty)
 colcon build
 
-# Source the workspace
+# ماخذ the workspace
 source install/setup.bash
 ```
 
-### Workspace Structure
+###  ورک سپیس Structure
 
 ```
 ros2_ws/
-├── build/          # Build artifacts
+├── build/          # تعمیر کریں artifacts
 ├── install/        # Installed packages
-├── log/            # Build logs
-└── src/            # Source code
+├── log/            # تعمیر کریں logs
+└── src/            # ماخذ code
     └── my_package/
         ├── package.xml
         ├── setup.py
@@ -102,7 +102,7 @@ ros2_ws/
         └── resource/
 ```
 
-## Your First ROS 2 Program
+## آپ کا پہلا ROS 2 پروگرام
 
 Let's create a simple publisher:
 
@@ -138,7 +138,7 @@ if __name__ == '__main__':
     main()
 ```
 
-### Run the Publisher
+### چلائیں the شائع کنندہ
 
 ```bash
 # In terminal 1
@@ -148,9 +148,9 @@ python3 my_publisher.py
 ros2 topic echo /topic
 ```
 
-## ROS 2 Command Line Tools
+## ROS 2 کمانڈ لائن اوزار
 
-Essential commands you'll use daily:
+ضروری کمانڈز جو آپ روزانہ استعمال کریں گے:
 
 ```bash
 # List all nodes
@@ -159,7 +159,7 @@ ros2 node list
 # List all topics
 ros2 topic list
 
-# See topic info
+# دیکھیں topic info
 ros2 topic info /topic
 
 # Echo topic messages
@@ -175,40 +175,40 @@ ros2 service list
 ros2 service call /service_name std_srvs/srv/Empty
 ```
 
-## Hands-on Lab
+## ہاتھ سے کام کرنے والی لیب
 
-### Lab 1.1: Create a Talker-Listener System
+### Lab 1.1: تخلیق کریں a Talker-Listener سسٹم
 
-**Objective**: Create two nodes that communicate via a topic.
+**Objective**: تخلیق کریں two nodes that communicate via a topic.
 
 **Steps**:
 
-1. Create a publisher node that sends sensor data
-2. Create a subscriber node that receives and processes the data
-3. Run both nodes and verify communication
+1. تخلیق کریں a publisher node that sends sensor data
+2. تخلیق کریں a subscriber node that receives and processes the data
+3. چلائیں both nodes and verify communication
 
 **Expected Output**:
 ```
-[Publisher] Publishing: temperature=23.5
-[Subscriber] Received: temperature=23.5
+[شائع کنندہ] Publishing: temperature=23.5
+[ مسیحین] Received: temperature=23.5
 ```
 
 :::tip Lab Solution
-The complete solution is available in the [GitHub repository](https://github.com/physicalai/textbook/tree/main/labs/module-1/lab-1-1).
+The complete solution is available in the [گیتھب repository](https://github.com/physicalai/textbook/tree/main/labs/module-1/lab-1-1).
 :::
 
-## Knowledge Check
+## نالej چیک
 
 ### Quiz
 
 1. What middleware does ROS 2 use for communication?
    - [ ] ZeroMQ
-   - [x] DDS (Data Distribution Service)
+   - [x] DDS (ڈیٹا تقسیم کی سروس)
    - [ ] MQTT
    - [ ] Custom TCP/UDP
 
 2. Which of the following is NOT a benefit of ROS 2 over ROS 1?
-   - [ ] Real-time support
+   - [ ] ریل ٹائم support
    - [ ] Multi-platform support
    - [x] Simpler to learn
    - [ ] Built-in security
@@ -219,7 +219,7 @@ The complete solution is available in the [GitHub repository](https://github.com
    - [ ] `ros2 nodes`
    - [ ] `ros2 show nodes`
 
-## Summary
+## خلاصہ
 
 In this chapter, you learned:
 
@@ -228,14 +228,15 @@ In this chapter, you learned:
 - Workspaces organize your ROS 2 packages
 - Basic ROS 2 CLI tools for debugging and monitoring
 
-## Further Reading
+## مزید پڑھائی
 
 - [ROS 2 Documentation](https://docs.ros.org/en/humble/)
 - [DDS Specification](https://www.omg.org/spec/DDS/)
-- [ROS 2 Design](https://design.ros2.org/)
+- [ROS 2  ڈیزائن](https://design.ros2.org/)
 
-## Next Steps
+## اگلے اقدامات
 
-In the next chapter, we'll dive deeper into **Nodes, Topics, and Services** - the building blocks of ROS 2 applications.
+In the next chapter, we'll dive deeper into **نوڈز، ٹاپکس، اور سروسز** - the building blocks of ROS 2 applications.
 
-[Continue to Chapter 1.2 →](/ur/docs/module-1-ros2/chapter-2-nodes-topics)
+[Continue to باب 1.2 →](/ur/docs/module-1-ros2/chapter-2-nodes-topics)
+

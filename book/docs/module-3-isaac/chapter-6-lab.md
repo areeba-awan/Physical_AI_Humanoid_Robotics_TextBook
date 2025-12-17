@@ -1,33 +1,33 @@
 ---
 sidebar_position: 6
-title: "3.6 لیب: AI سے چلنے والی مینیپولیشن"
-description: ایک ذہین مینیپولیشن سسٹم بنانا
-keywords: [مینیپولیشن, AI, Isaac, پرسیپشن, پلاننگ]
+title: "3.6 Lab: AI-Powered Manipulation"
+description: Building an intelligent manipulation system
+keywords: [manipulation, AI, Isaac, perception, planning]
 ---
 
-# باب 3.6: لیب - AI سے چلنے والی مینیپولیشن
+# Chapter 3.6: Lab - AI-Powered Manipulation
 
-## لیب کا جائزہ
+## Lab Overview
 
-ایک مکمل AI سے چلنے والا مینیپولیشن سسٹم بنائیں جو:
-- نیورل نیٹ ورکس کا استعمال کرتے ہوئے آبجیکٹس کا پتہ لگائے
-- ٹکراؤ سے پاک موشنز کی منصوبہ بندی کرے
-- پک اینڈ پلیس کام انجام دے
+Build a complete AI-powered manipulation system that:
+- Detects objects using neural networks
+- Plans collision-free motions
+- Executes pick-and-place tasks
 
-## پروجیکٹ: سمارٹ چھانٹنے والا روبوٹ
+## Project: Smart Sorting Robot
 
-### سسٹم آرکیٹیکچر
+### System Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│               سمارٹ چھانٹنے کا سسٹم                          │
+│               SMART SORTING SYSTEM                           │
 │                                                              │
 │  ┌─────────────────────────────────────────────────────┐   │
 │  │                  ISAAC SIM                            │   │
 │  │                                                       │   │
 │  │  ┌───────────┐  ┌───────────┐  ┌───────────┐       │   │
-│  │  │  کیمرہ    │  │  روبوٹ   │  │  آبجیکٹس  │       │   │
-│  │  │  (RGBD)   │  │  آرم     │  │  (رینڈم)  │       │   │
+│  │  │  Camera   │  │  Robot    │  │  Objects  │       │   │
+│  │  │  (RGBD)   │  │  Arm      │  │  (Random) │       │   │
 │  │  └─────┬─────┘  └─────┬─────┘  └───────────┘       │   │
 │  │        │              │                              │   │
 │  └────────┼──────────────┼──────────────────────────────┘   │
@@ -35,14 +35,14 @@ keywords: [مینیپولیشن, AI, Isaac, پرسیپشن, پلاننگ]
 │           │ /camera      │ /joint_states                    │
 │           ▼              ▼                                   │
 │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐        │
-│  │  YOLOv8     │  │  cuMotion   │  │  ٹاسک      │        │
-│  │  ڈیٹیکشن   │──│  پلانر     │──│  مینیجر    │        │
+│  │  YOLOv8     │  │  cuMotion   │  │  Task       │        │
+│  │  Detection  │──│  Planner    │──│  Manager    │        │
 │  └─────────────┘  └─────────────┘  └─────────────┘        │
 │                                                              │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## مرحلہ 1: سین سیٹ اپ
+## Step 1: Scene Setup
 
 ```python
 # setup_scene.py
@@ -53,7 +53,7 @@ import random
 
 world = World()
 
-# روبوٹ آرم شامل کریں
+# Add robot arm
 robot = world.scene.add(
     SingleManipulator(
         prim_path="/World/Franka",
@@ -62,7 +62,7 @@ robot = world.scene.add(
     )
 )
 
-# رینڈم آبجیکٹس شامل کریں
+# Add random objects
 colors = ["red", "green", "blue"]
 for i in range(5):
     world.scene.add(
@@ -79,7 +79,7 @@ for i in range(5):
     )
 ```
 
-## مرحلہ 2: آبجیکٹ ڈیٹیکشن نوڈ
+## Step 2: Object Detection Node
 
 ```python
 # object_detector.py
@@ -103,18 +103,18 @@ class ObjectDetector(Node):
         )
 
     def image_callback(self, msg):
-        # ROS تصویر کو OpenCV میں تبدیل کریں
+        # Convert ROS image to OpenCV
         image = self.bridge.imgmsg_to_cv2(msg)
 
-        # ڈیٹیکشن چلائیں
+        # Run detection
         results = self.model(image)
 
-        # ڈیٹیکشنز پبلش کریں
+        # Publish detections
         detection_msg = self.results_to_msg(results)
         self.publisher.publish(detection_msg)
 ```
 
-## مرحلہ 3: ٹاسک مینیجر
+## Step 3: Task Manager
 
 ```python
 # task_manager.py
@@ -132,32 +132,32 @@ class SortingTaskManager(Node):
             obj_pose = self.get_object_pose(detection)
             target_bin = self.get_target_bin(detection.class_id)
 
-            # پک اینڈ پلیس انجام دیں
+            # Execute pick and place
             self.execute_pick_place(obj_pose, target_bin)
 
     def execute_pick_place(self, pick_pose, place_pose):
-        # اپروچ
+        # Approach
         approach_pose = self.compute_approach(pick_pose)
         self.planner.move_to_pose(approach_pose)
 
-        # اٹھائیں
+        # Pick
         self.planner.move_to_pose(pick_pose)
         self.gripper.close()
 
-        # اوپر اٹھائیں
+        # Lift
         lift_pose = pick_pose.copy()
         lift_pose.z += 0.1
         self.planner.move_to_pose(lift_pose)
 
-        # رکھیں
+        # Place
         self.planner.move_to_pose(place_pose)
         self.gripper.open()
 
-        # گھر واپس جائیں
+        # Return home
         self.planner.move_to_home()
 ```
 
-## مرحلہ 4: سسٹم لانچ کریں
+## Step 4: Launch System
 
 ```python
 # launch/sorting_system.launch.py
@@ -184,30 +184,32 @@ def generate_launch_description():
     ])
 ```
 
-## تصدیق
+## Verification
 
 ```bash
-# سین کے ساتھ Isaac Sim لانچ کریں
+# Launch Isaac Sim with scene
 ./isaac_sim.sh --scene sorting_scene.usd
 
-# ROS 2 نوڈز لانچ کریں
+# Launch ROS 2 nodes
 ros2 launch sorting_robot sorting_system.launch.py
 
-# ڈیٹیکشنز مانیٹر کریں
+# Monitor detections
 ros2 topic echo /detections
 
-# روبوٹ کی حالت مانیٹر کریں
+# Monitor robot state
 ros2 topic echo /joint_states
 ```
 
-## چیلنج ایکسٹینشنز
+## Challenge Extensions
 
-1. **کنویئر بیلٹ شامل کریں** - آبجیکٹس مسلسل آتے ہیں
-2. **اوکلوژنز ہینڈل کریں** - جزوی طور پر نظر آنے والے آبجیکٹس کا پتہ لگائیں
-3. **سائیکل ٹائم بہتر بنائیں** - متوازی پلاننگ اور ایگزیکیوشن
+1. **Add conveyor belt** - Objects arrive continuously
+2. **Handle occlusions** - Detect partially visible objects
+3. **Optimize cycle time** - Parallel planning and execution
 
-## لیب مکمل!
+## Lab Complete!
 
-آپ نے ایک AI سے چلنے والا مینیپولیشن سسٹم بنایا ہے۔ اگلے میں، ہم Vision-Language-Action ماڈلز کی تحقیق کریں گے تاکہ اور بھی ذہین روبوٹس بنائیں۔
+You've built an AI-powered manipulation system. Next, we'll explore Vision-Language-Action models for even more intelligent robots.
 
-[ماڈیول 4: VLA پر جائیں ←](/docs/module-4-vla/chapter-1-intro)
+[Continue to Module 4: VLA →](/docs/module-4-vla/chapter-1-intro)
+
+

@@ -1,8 +1,8 @@
 ---
 sidebar_position: 6
 title: "4.6 کیپسٹون: VLA روبوٹ پروجیکٹ"
-description: آواز سے کنٹرول مکمل ہدایات پر عمل کرنے والا روبوٹ بنائیں
-keywords: [کیپسٹون, پروجیکٹ, VLA, روبوٹ, ہدایات کی پیروی, آواز کنٹرول, Whisper]
+description: "آواز سے کنٹرول مکمل ہدایات پر عمل کرنے والا روبوٹ بنائیں"
+keywords: ["کیپسٹون", "پروجیکٹ", "VLA", "روبوٹ", "ہدایات کی پیروی", "آواز کنٹرول", "Whisper"]
 ---
 
 # باب 4.6: کیپسٹون - VLA روبوٹ پروجیکٹ
@@ -72,11 +72,11 @@ keywords: [کیپسٹون, پروجیکٹ, VLA, روبوٹ, ہدایات کی پ
 
 ## مرحلہ 1: انوائرنمنٹ سیٹ اپ
 
-### Isaac Sim سین
+### ایزیک سیم سین
 
 ```python
 # capstone/setup_kitchen.py
-from omni.isaac.core import World
+from omni.isaac.core import دنیا
 from omni.isaac.manipulators import SingleManipulator
 
 def setup_kitchen():
@@ -114,7 +114,7 @@ import torch
 import torch.nn as nn
 from transformers import ViTModel, T5EncoderModel
 
-class KitchenVLA(nn.Module):
+class KitchenVLA(nn.مودیول):
     def __init__(self):
         super().__init__()
 
@@ -805,7 +805,7 @@ def evaluate_system(vla_node, scenarios):
 ## ڈیلیوریبلز چیک لسٹ
 
 ### بنیادی تقاضے
-- [ ] Isaac Sim کچن انوائرنمنٹ اشیاء کے ساتھ
+- [ ] ایزیک سیم کچن انوائرنمنٹ اشیاء کے ساتھ
 - [ ] تربیت یافتہ VLA ماڈل (کم از کم 80% درستگی)
 - [ ] ROS 2 ڈیپلائمنٹ نوڈ
 
@@ -895,10 +895,11 @@ def evaluate_system(vla_node, scenarios):
 - [OpenAI Whisper](https://github.com/openai/whisper) - اسپیچ ریکگنیشن
 - [OpenVLA](https://openvla.github.io/) - ویژن-لینگویج-ایکشن ماڈلز
 - [ROS 2 Documentation](https://docs.ros.org/en/humble/) - روبوٹ آپریٹنگ سسٹم
-- [NVIDIA Isaac](https://developer.nvidia.com/isaac-sim) - روبوٹ سمیولیشن
+- [این ویڈیا ایزیک](https://developer.nvidia.com/isaac-sim) - روبوٹ سمیولیشن
 
 ---
 
 **ہمارے ساتھ سیکھنے کا شکریہ!** 🤖🎓
 
 *اب جائیں اور حیرت انگیز آواز سے کنٹرول روبوٹس بنائیں!*
+

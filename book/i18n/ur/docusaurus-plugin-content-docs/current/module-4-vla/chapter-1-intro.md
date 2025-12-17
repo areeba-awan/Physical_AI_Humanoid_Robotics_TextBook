@@ -1,22 +1,22 @@
 ---
 sidebar_position: 1
-title: "4.1 Introduction to VLA"
-description: Vision-Language-Action models for robotics
-keywords: [VLA, vision, language, action, multimodal, AI]
+title: "4.1 تعارف کا تعارف"
+description: "وژن-زبان-کارروائی models for robotics"
+keywords: ["VLA", "vision", "language", "action", "multimodal", "AI"]
 ---
 
-# Chapter 4.1: Introduction to VLA
+# باب 4.1: تعارف کا تعارف
 
-## Learning Objectives
+## سیکھنے کے مقاصد
 
-- Understand Vision-Language-Action (VLA) models
-- Learn the components of VLA systems
+- سمجھیں وژن-زبان-کارروائی (VLA) models
+- سیکھیں the components of VLA systems
 - Explore state-of-the-art VLA architectures
-- Set up a VLA development environment
+-  تیار کریں a VLA development environment
 
-## What is VLA?
+## کیا ہے VLA?
 
-**Vision-Language-Action (VLA)** models combine three modalities:
+**وژن-زبان-کارروائی (VLA)** models combine three modalities:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -28,7 +28,7 @@ keywords: [VLA, vision, language, action, multimodal, AI]
 │   └─────────┘     │   Transformer       │     └─────────┘  │
 │                   │                     │                   │
 │   ┌─────────┐     │   - Encode vision   │                   │
-│   │ Natural │────>│   - Understand text │                   │
+│   │ Natural │────>│   - سمجھیں text │                   │
 │   │ Language│     │   - Generate actions│                   │
 │   └─────────┘     └─────────────────────┘                   │
 │                                                              │
@@ -44,7 +44,7 @@ keywords: [VLA, vision, language, action, multimodal, AI]
 | Planning | "Make a sandwich" → Break into sub-tasks |
 | Execution | Generate motor commands |
 
-## VLA Model Landscape
+## VLA  ماڈل Landscape
 
 ### RT-2 (Robotics Transformer 2)
 
@@ -52,7 +52,7 @@ keywords: [VLA, vision, language, action, multimodal, AI]
 ┌────────────────┐
 │ Vision Encoder │──┐
 │    (ViT)       │  │    ┌─────────────┐    ┌──────────┐
-└────────────────┘  ├───>│   PaLM-E    │───>│  Actions │
+└────────────────┘  ├───>│   PaLM-E    │───>│  ایکشنز │
 ┌────────────────┐  │    │  (54B)      │    │ (tokens) │
 │ Language Input │──┘    └─────────────┘    └──────────┘
 └────────────────┘
@@ -118,10 +118,10 @@ def tokens_to_actions(tokens):
     return actions
 ```
 
-## Setup Environment
+## Setup ماحول
 
 ```bash
-# Install VLA dependencies
+# انسٹال کریں VLA dependencies
 pip install torch transformers accelerate
 pip install open-vla  # If using OpenVLA
 
@@ -147,19 +147,21 @@ actions = model.predict(image, instruction)
 # Output: [move_to(0.3, 0.5), grasp(), lift(), ...]
 ```
 
-## Hands-on Lab
+## ہاتھ سے کام کرنے والی لیب
 
-### Lab 4.1: Run a VLA Model
+### Lab 4.1: چلائیں a VLA  ماڈل
 
-1. Install OpenVLA
+1. انسٹال کریں OpenVLA
 2. Load a pre-trained model
-3. Run inference on sample images
+3. چلائیں inference on sample images
 4. Visualize predicted actions
 
-## Summary
+## خلاصہ
 
 - VLA combines vision, language, and action
 - Models like RT-2 and OpenVLA enable instruction-following
 - VLA reduces manual programming for robot tasks
 
-[Continue to Chapter 4.2 →](/ur/docs/module-4-vla/chapter-2-vision)
+[Continue to باب 4.2 →](/ur/docs/module-4-vla/chapter-2-vision)
+
+

@@ -1,20 +1,20 @@
 ---
 sidebar_position: 3
 title: "4.3 Language Models for Robotics"
-description: Natural language understanding and voice control for robot instructions
-keywords: [LLM, language model, instruction following, robotics, voice control, Whisper, speech-to-text]
+description: "Natural language understanding and voice control for robot instructions"
+keywords: ["LLM", "language model", "instruction following", "robotics", "voice control", "Whisper", "speech-to-text"]
 ---
 
-# Chapter 4.3: Language Models for Robotics
+# باب 4.3: Language Models for Robotics
 
-## Learning Objectives
+## سیکھنے کے مقاصد
 
-- Use LLMs for instruction parsing
+- استعمال کریں LLMs for instruction parsing
 - Implement task decomposition
 - Ground language to robot actions
 - Handle ambiguous instructions
 - **Integrate voice control with Whisper speech-to-text**
-- **Build real-time voice command pipelines**
+- **تعمیر کریں real-time voice command pipelines**
 
 ## LLMs for Robot Instructions
 
@@ -157,7 +157,7 @@ def clarify_instruction(instruction, scene_objects):
 
 ---
 
-## Voice Control Integration
+## Voice Control  انضمام
 
 Voice control enables hands-free robot operation, essential for real-world applications where operators may be occupied with other tasks.
 
@@ -171,7 +171,7 @@ Voice control enables hands-free robot operation, essential for real-world appli
 │  └─────────┘   └─────────┘   └─────────┘   └─────────┘    │
 │       │             │             │             │          │
 │       ▼             ▼             ▼             ▼          │
-│   Audio Stream   "Pick up    Task Plan     Actions        │
+│   Audio Stream   "Pick up    Task Plan     ایکشنز        │
 │   16kHz mono     the apple"  [pick,move]   Executed       │
 │                                                            │
 └─────────────────────────────────────────────────────────────┘
@@ -224,7 +224,7 @@ class WhisperSTT:
 stt = WhisperSTT(model_size="base")
 command = stt.record_and_transcribe(duration=3)
 print(f"You said: {command}")
-# Output: "You said: pick up the red apple"
+# Output: "You said: pick up the red apple
 ```
 
 ### Real-Time Streaming Voice Recognition
@@ -303,7 +303,7 @@ class StreamingVoiceControl:
 
 ### Wake Word Detection
 
-Use wake words to activate the robot only when addressed:
+استعمال کریں wake words to activate the robot only when addressed:
 
 ```python
 import pvporcupine
@@ -392,7 +392,7 @@ class VoiceControlledRobot:
 
 ### Voice Feedback and Confirmation
 
-Enable bidirectional voice communication:
+فعال کریں bidirectional voice communication:
 
 ```python
 from gtts import gTTS
@@ -578,11 +578,11 @@ if __name__ == '__main__':
 
 ---
 
-## Hands-on Lab
+## ہاتھ سے کام کرنے والی لیب
 
-### Lab 4.3A: Build Instruction Parser
+### Lab 4.3A: تعمیر کریں Instruction Parser
 
-Create a system that:
+تخلیق کریں a system that:
 1. Parses natural language instructions
 2. Decomposes complex tasks
 3. Grounds object references
@@ -590,16 +590,16 @@ Create a system that:
 
 ### Lab 4.3B: Voice-Controlled Robot
 
-Build a complete voice control system:
+تعمیر کریں a complete voice control system:
 
 ```python
 # lab_voice_control.py
 """
 Lab 4.3B: Voice-Controlled Robot
-Build a voice-controlled robot using Whisper and ROS 2
+تعمیر کریں a voice-controlled robot using Whisper and ROS 2
 """
 
-# Step 1: Install dependencies
+# Step 1: انسٹال کریں dependencies
 # pip install openai-whisper sounddevice numpy pvporcupine gtts pygame
 
 # Step 2: Implement the VoiceRobotLab class
@@ -657,18 +657,18 @@ class VoiceRobotLab:
         print("Stopping robot")
 
 
-# Step 3: Run the lab
+# Step 3: چلائیں the lab
 if __name__ == "__main__":
     lab = VoiceRobotLab()
     lab.run_demo()
 ```
 
 **Lab Objectives:**
-1. Set up Whisper speech recognition
+1.  تیار کریں Whisper speech recognition
 2. Implement wake word detection
-3. Create voice command parser
-4. Add text-to-speech feedback
-5. Test with 10+ different voice commands
+3. تخلیق کریں voice command parser
+4. شامل کریں text-to-speech feedback
+5. جانچ with 10+ different voice commands
 
 **Expected Output:**
 ```
@@ -685,7 +685,7 @@ Executing place
 Placing it on bowl
 ```
 
-## Summary
+## خلاصہ
 
 - LLMs decompose complex instructions into atomic actions
 - Parsing extracts action types and parameters
@@ -696,11 +696,13 @@ Placing it on bowl
 - **Voice feedback creates interactive robot experiences**
 - **ROS 2 integration enables voice control in robot systems**
 
-## Further Reading
+## مزید پڑھائی
 
 - [OpenAI Whisper Documentation](https://github.com/openai/whisper)
 - [Porcupine Wake Word Engine](https://picovoice.ai/platform/porcupine/)
 - [ROS 2 Audio Common](https://github.com/ros-drivers/audio_common)
 - [SpeechBrain: Speech AI Toolkit](https://speechbrain.github.io/)
 
-[Continue to Chapter 4.4 →](/ur/docs/module-4-vla/chapter-4-action)
+[Continue to باب 4.4 →](/ur/docs/module-4-vla/chapter-4-action)
+
+

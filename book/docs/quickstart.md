@@ -1,113 +1,114 @@
 ---
 sidebar_position: 2
-title: کوئیک اسٹارٹ گائیڈ
-description: منٹوں میں فزیکل اے آئی کے ساتھ شروع کریں
+title: Quickstart Guide
+description: Get up and running with Physical AI in minutes
 ---
 
-# کوئیک اسٹارٹ گائیڈ
+# Quickstart Guide
 
-ہماری ون-کمانڈ سیٹ اپ کے ساتھ منٹوں میں اپنا ڈیولپمنٹ ماحول تیار کریں۔
+Get your development environment ready in minutes with our one-command setup.
 
-## سسٹم کی ضروریات
+## System Requirements
 
-| جزو | کم از کم | تجویز کردہ |
+| Component | Minimum | Recommended |
 |-----------|---------|-------------|
-| او ایس | اوبنٹو 22.04 | اوبنٹو 22.04 |
-| ریم | 8 جی بی | 16+ جی بی |
-| اسٹوریج | 50 جی بی | 100+ جی بی |
-| جی پی یو | - | این ویڈیا آر ٹی ایکس 3060+ |
+| OS | Ubuntu 22.04 | Ubuntu 22.04 |
+| RAM | 8 GB | 16+ GB |
+| Storage | 50 GB | 100+ GB |
+| GPU | - | NVIDIA RTX 3060+ |
 
-## فوری انسٹالیشن
+## Quick Install
 
-### آپشن 1: ڈاکر (تجویز کردہ)
+### Option 1: Docker (Recommended)
 
 ```bash
-# ریپوزٹری کلون کریں
+# Clone the repository
 git clone https://github.com/physicalai/robotics-workspace.git
 cd robotics-workspace
 
-# ڈیولپمنٹ ماحول شروع کریں
+# Start the development environment
 docker-compose up -d
 
-# کنٹینر میں داخل ہوں
+# Enter the container
 docker exec -it physicalai-dev bash
 ```
 
-### آپشن 2: نیٹو انسٹالیشن
+### Option 2: Native Installation
 
 ```bash
-# آر او ایس 2 ہمبل انسٹال کریں
+# Install ROS 2 Humble
 sudo apt update && sudo apt install -y curl gnupg lsb-release
 sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
 sudo apt update
 sudo apt install -y ros-humble-desktop
 
-# آر او ایس 2 سورس کریں
+# Source ROS 2
 source /opt/ros/humble/setup.bash
 echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 ```
 
-## انسٹالیشن کی تصدیق کریں
+## Verify Installation
 
 ```bash
-# آر او ایس 2 ورژن چیک کریں
+# Check ROS 2 version
 ros2 --version
 
-# ایک سادہ ٹاکر-لسنر ڈیمو چلائیں
+# Run a simple talker-listener demo
 ros2 run demo_nodes_cpp talker &
 ros2 run demo_nodes_cpp listener
 ```
 
-آپ کو پیغامات پبلش اور وصول ہوتے دیکھنے چاہیئیں!
+You should see messages being published and received!
 
-## سمولیشن ٹولز انسٹال کریں
+## Install Simulation Tools
 
-### گزیبو
+### Gazebo
 
 ```bash
 sudo apt install -y ros-humble-gazebo-ros-pkgs
 
-# گزیبو ٹیسٹ کریں
+# Test Gazebo
 gazebo
 ```
 
-### آئزک سم (جی پی یو ضروری)
+### Isaac Sim (GPU Required)
 
-1. [این ویڈیا اومنیورس](https://developer.nvidia.com/isaac-sim) سے ڈاؤن لوڈ کریں
-2. اومنیورس لانچر استعمال کرکے انسٹال کریں
-3. آئزک سم سیٹنگز میں آر او ایس 2 برج فعال کریں
+1. Download from [NVIDIA Omniverse](https://developer.nvidia.com/isaac-sim)
+2. Install using the Omniverse Launcher
+3. Enable ROS 2 bridge in Isaac Sim settings
 
-## آپ کا پہلا روبوٹ
+## Your First Robot
 
-آئیے گزیبو میں ایک سادہ روبوٹ اسپان کریں:
+Let's spawn a simple robot in Gazebo:
 
 ```bash
-# ورک سپیس بنائیں
+# Create a workspace
 mkdir -p ~/ros2_ws/src
 cd ~/ros2_ws/src
 
-# ڈیمو روبوٹ کلون کریں
+# Clone a demo robot
 git clone https://github.com/ros/urdf_tutorial.git
 
-# بلڈ کریں
+# Build
 cd ~/ros2_ws
 colcon build
 source install/setup.bash
 
-# گزیبو میں روبوٹ لانچ کریں
+# Launch the robot in Gazebo
 ros2 launch urdf_tutorial display.launch.py
 ```
 
-## اگلے اقدامات
+## Next Steps
 
-اب جب آپ کا ماحول تیار ہے:
+Now that your environment is ready:
 
-1. **آر او ایس 2 بنیادیات سیکھیں** → [ماڈیول 1: آر او ایس 2](/docs/module-1-ros2/chapter-1-intro)
-2. **سمولیشنز بنائیں** → [ماڈیول 2: سمولیشن](/docs/module-2-simulation/chapter-1-intro)
-3. **اے آئی صلاحیتیں شامل کریں** → [ماڈیول 3: آئزک](/docs/module-3-isaac/chapter-1-intro)
-4. **وی ایل اے مربوط کریں** → [ماڈیول 4: وی ایل اے](/docs/module-4-vla/chapter-1-intro)
+1. **Learn ROS 2 basics** → [Module 1: ROS 2](/docs/module-1-ros2/chapter-1-intro)
+2. **Build simulations** → [Module 2: Simulation](/docs/module-2-simulation/chapter-1-intro)
+3. **Add AI capabilities** → [Module 3: Isaac](/docs/module-3-isaac/chapter-1-intro)
+4. **Integrate VLA** → [Module 4: VLA](/docs/module-4-vla/chapter-1-intro)
 
-:::tip مدد چاہیے؟
-سیٹ اپ یا ٹربل شوٹنگ کے بارے میں سوالات پوچھنے کے لیے نیچے دائیں کونے میں ہمارا اے آئی اسسٹنٹ استعمال کریں!
+:::tip Need Help?
+Use our AI assistant in the bottom-right corner to ask questions about setup or troubleshooting!
 :::
+

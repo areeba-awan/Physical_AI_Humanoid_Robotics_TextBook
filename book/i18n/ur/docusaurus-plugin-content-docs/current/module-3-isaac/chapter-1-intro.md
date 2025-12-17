@@ -1,17 +1,17 @@
 ---
 sidebar_position: 1
-title: "3.1 Introduction to NVIDIA Isaac"
-description: GPU-accelerated robotics with NVIDIA Isaac
-keywords: [NVIDIA, Isaac, GPU, robotics, AI]
+title: "3.1 تعارف to این ویڈیا ایزیک"
+description: "GPU-accelerated robotics with این ویڈیا ایزیک"
+keywords: ["NVIDIA", "Isaac", "GPU", "robotics", "AI"]
 ---
 
-# Chapter 3.1: Introduction to NVIDIA Isaac
+# باب 3.1: تعارف to این ویڈیا ایزیک
 
-## Learning Objectives
+## سیکھنے کے مقاصد
 
-- Understand the NVIDIA Isaac ecosystem
-- Set up Isaac Sim environment
-- Learn about Isaac ROS and Isaac SDK
+- سمجھیں the این ویڈیا ایزیک ecosystem
+-  تیار کریں ایزیک سیم environment
+- سیکھیں about Isaac ROS and Isaac SDK
 - Explore GPU-accelerated robotics
 
 ## The Isaac Ecosystem
@@ -22,7 +22,7 @@ keywords: [NVIDIA, Isaac, GPU, robotics, AI]
 │                                                              │
 │  ┌──────────────────────────────────────────────────────┐  │
 │  │                    ISAAC SIM                          │  │
-│  │  • Omniverse-based simulation                        │  │
+│  │  • اومنی ورس-based simulation                        │  │
 │  │  • RTX ray tracing                                   │  │
 │  │  • PhysX physics                                     │  │
 │  │  • Domain randomization                              │  │
@@ -39,13 +39,13 @@ keywords: [NVIDIA, Isaac, GPU, robotics, AI]
 │  ┌──────────────────────────────────────────────────────┐  │
 │  │                    JETSON                             │  │
 │  │  • Edge deployment                                   │  │
-│  │  • Real-time inference                               │  │
+│  │  • ریل ٹائم inference                               │  │
 │  │  • Low power consumption                             │  │
 │  └──────────────────────────────────────────────────────┘  │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## System Requirements
+## سسٹم Requirements
 
 | Component | Minimum | Recommended |
 |-----------|---------|-------------|
@@ -54,27 +54,27 @@ keywords: [NVIDIA, Isaac, GPU, robotics, AI]
 | RAM | 32 GB | 64 GB |
 | Storage | 100 GB SSD | 500 GB NVMe |
 
-## Installing Isaac Sim
+## Installing ایزیک سیم
 
-### Via Omniverse Launcher
+### Via اومنی ورس Launcher
 
-1. Download [Omniverse Launcher](https://developer.nvidia.com/omniverse)
-2. Install Isaac Sim from the Exchange
-3. Launch and configure ROS 2 bridge
+1. Download [اومنی ورس Launcher](https://developer.nvidia.com/omniverse)
+2. انسٹال کریں ایزیک سیم from the Exchange
+3. لانچ کریں and configure ROS 2 bridge
 
 ### Docker Option
 
 ```bash
-# Pull Isaac Sim container
+# Pull ایزیک سیم container
 docker pull nvcr.io/nvidia/isaac-sim:2023.1.1
 
-# Run with GPU access
+# چلائیں with GPU access
 docker run --gpus all -it \
   -v ~/isaac_workspace:/workspace \
   nvcr.io/nvidia/isaac-sim:2023.1.1
 ```
 
-## Isaac Sim Interface
+## ایزیک سیم Interface
 
 ### Key Components
 
@@ -90,10 +90,10 @@ Universal Scene Description enables:
 - Non-destructive editing
 - Collaboration workflows
 
-## Isaac ROS Packages
+## Isaac ROS پیکجز
 
 ```bash
-# Install Isaac ROS
+# انسٹال کریں Isaac ROS
 sudo apt install ros-humble-isaac-ros-*
 
 # Key packages
@@ -103,14 +103,14 @@ ros-humble-isaac-ros-apriltag
 ros-humble-isaac-ros-yolov8
 ```
 
-## First Isaac Sim Scene
+## First ایزیک سیم Scene
 
 ```python
-# Python script in Isaac Sim
-from omni.isaac.core import World
+# Python script in ایزیک سیم
+from omni.isaac.core import دنیا
 from omni.isaac.wheeled_robots.robots import WheeledRobot
 
-world = World()
+world = دنیا()
 robot = world.scene.add(
     WheeledRobot(
         prim_path="/World/Robot",
@@ -121,20 +121,22 @@ robot = world.scene.add(
 world.reset()
 ```
 
-## Hands-on Lab
+## ہاتھ سے کام کرنے والی لیب
 
-### Lab 3.1: Launch Isaac Sim
+### Lab 3.1: لانچ کریں ایزیک سیم
 
-1. Install Isaac Sim via Omniverse
+1. انسٹال کریں ایزیک سیم via اومنی ورس
 2. Load a sample scene
-3. Add a robot from the asset library
-4. Run the simulation
+3. شامل کریں a robot from the asset library
+4. چلائیں the simulation
 
-## Summary
+## خلاصہ
 
 - Isaac provides GPU-accelerated robotics tools
-- Isaac Sim offers photorealistic simulation
+- ایزیک سیم offers photorealistic simulation
 - Isaac ROS enables efficient perception
 - USD format enables scalable scene composition
 
-[Continue to Chapter 3.2 →](/ur/docs/module-3-isaac/chapter-2-sim)
+[Continue to باب 3.2 →](/ur/docs/module-3-isaac/chapter-2-sim)
+
+

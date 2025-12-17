@@ -1,22 +1,22 @@
 ---
 sidebar_position: 6
-title: "3.6 Lab: AI-Powered Manipulation"
-description: Building an intelligent manipulation system
-keywords: [manipulation, AI, Isaac, perception, planning]
+title: "3.6 Lab: AI-Powered ہیرا پھیری"
+description: "Building an intelligent manipulation system"
+keywords: ["manipulation", "AI", "Isaac", "perception", "planning"]
 ---
 
-# Chapter 3.6: Lab - AI-Powered Manipulation
+# باب 3.6: Lab - AI-Powered ہیرا پھیری
 
-## Lab Overview
+## Lab جائزہ
 
-Build a complete AI-powered manipulation system that:
+تعمیر کریں a complete AI-powered manipulation system that:
 - Detects objects using neural networks
 - Plans collision-free motions
 - Executes pick-and-place tasks
 
 ## Project: Smart Sorting Robot
 
-### System Architecture
+### سسٹم Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -46,14 +46,14 @@ Build a complete AI-powered manipulation system that:
 
 ```python
 # setup_scene.py
-from omni.isaac.core import World
+from omni.isaac.core import دنیا
 from omni.isaac.manipulators import SingleManipulator
 from omni.isaac.core.objects import DynamicCuboid
 import random
 
-world = World()
+world = دنیا()
 
-# Add robot arm
+# شامل کریں robot arm
 robot = world.scene.add(
     SingleManipulator(
         prim_path="/World/Franka",
@@ -62,7 +62,7 @@ robot = world.scene.add(
     )
 )
 
-# Add random objects
+# شامل کریں random objects
 colors = ["red", "green", "blue"]
 for i in range(5):
     world.scene.add(
@@ -157,7 +157,7 @@ class SortingTaskManager(Node):
         self.planner.move_to_home()
 ```
 
-## Step 4: Launch System
+## Step 4: لانچ کریں سسٹم
 
 ```python
 # launch/sorting_system.launch.py
@@ -187,10 +187,10 @@ def generate_launch_description():
 ## Verification
 
 ```bash
-# Launch Isaac Sim with scene
+# لانچ کریں ایزیک سیم with scene
 ./isaac_sim.sh --scene sorting_scene.usd
 
-# Launch ROS 2 nodes
+# لانچ کریں ROS 2 nodes
 ros2 launch sorting_robot sorting_system.launch.py
 
 # Monitor detections
@@ -202,12 +202,14 @@ ros2 topic echo /joint_states
 
 ## Challenge Extensions
 
-1. **Add conveyor belt** - Objects arrive continuously
+1. **شامل کریں conveyor belt** - Objects arrive continuously
 2. **Handle occlusions** - Detect partially visible objects
 3. **Optimize cycle time** - Parallel planning and execution
 
 ## Lab Complete!
 
-You've built an AI-powered manipulation system. Next, we'll explore Vision-Language-Action models for even more intelligent robots.
+You've built an AI-powered manipulation system. Next, we'll explore وژن-زبان-کارروائی models for even more intelligent robots.
 
-[Continue to Module 4: VLA →](/ur/docs/module-4-vla/chapter-1-intro)
+[Continue to مودیول 4: VLA →](/ur/docs/module-4-vla/chapter-1-intro)
+
+

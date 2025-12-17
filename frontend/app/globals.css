@@ -6,19 +6,19 @@
   --card-foreground: 222.2 84% 4.9%;
   --popover: 0 0% 100%;
   --popover-foreground: 222.2 84% 4.9%;
-  --primary: 221.2 83.2% 53.3%;
+  --primary: 142 76% 36%; /* Green color */
   --primary-foreground: 210 40% 98%;
   --secondary: 210 40% 96.1%;
   --secondary-foreground: 222.2 47.4% 11.2%;
-  --muted: 340 40% 92%; /* Creamy pink */
-  --muted-foreground: 215.4 16.3% 46.9%;
-  --accent: 210 40% 96.1%;
+  --muted: 142 76% 86%; /* Light green */
+  --muted-foreground: 142 76% 20%; /* Darker green */
+  --accent: 142 76% 90%; /* Lighter green */
   --accent-foreground: 222.2 47.4% 11.2%;
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 210 40% 98%;
-  --border: 214.3 31.8% 91.4%;
-  --input: 214.3 31.8% 91.4%;
-  --ring: 221.2 83.2% 53.3%;
+  --border: 142 76% 80%; /* Green border */
+  --input: 142 76% 80%; /* Green input */
+  --ring: 142 76% 36%; /* Green ring */
   --radius: 0.5rem;
 }
 
@@ -66,6 +66,47 @@ body {
 /* RTL support for Urdu */
 [dir="rtl"] {
   text-align: right;
+  direction: rtl;
+}
+
+[dir="rtl"] .flex {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .space-x-2 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}
+
+[dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}
+
+[dir="rtl"] .space-x-6 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}
+
+[dir="rtl"] .space-x-8 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}
+
+[dir="rtl"] .pr-2 {
+  padding-left: 0.5rem;
+  padding-right: 0;
+}
+
+[dir="rtl"] .pl-2 {
+  padding-right: 0.5rem;
+  padding-left: 0;
+}
+
+[dir="rtl"] .mr-2 {
+  margin-left: 0.5rem;
+  margin-right: 0;
+}
+
+[dir="rtl"] .ml-2 {
+  margin-right: 0.5rem;
+  margin-left: 0;
 }
 
 .urdu-text {
@@ -123,17 +164,17 @@ code {
   --card-foreground: 210 40% 98%;
   --popover: 222.2 84% 4.9%;
   --popover-foreground: 210 40% 98%;
-  --primary: 217.2 91.2% 59.8%;
+  --primary: 142 76% 40%; /* Darker green for dark mode */
   --primary-foreground: 222.2 47.4% 11.2%;
-  --secondary: 217.2 32.6% 17.5%;
+  --secondary: 142 76% 15%; /* Darker green */
   --secondary-foreground: 210 40% 98%;
-  --muted: 340 20% 30%; /* Darker creamy pink for dark mode */
-  --muted-foreground: 215 20.2% 65.1%;
-  --accent: 340 20% 30%; /* Creamy pink to match muted */
+  --muted: 142 76% 20%; /* Darker green for dark mode */
+  --muted-foreground: 142 76% 70%; /* Lighter green */
+  --accent: 142 76% 25%; /* Darker green accent */
   --accent-foreground: 210 40% 98%;
   --destructive: 0 62.8% 30.6%;
   --destructive-foreground: 210 40% 98%;
-  --border: 217.2 32.6% 17.5%;
-  --input: 217.2 32.6% 17.5%;
-  --ring: 224.3 76.3% 48%;
+  --border: 142 76% 25%; /* Green border in dark mode */
+  --input: 142 76% 25%; /* Green input in dark mode */
+  --ring: 142 76% 50%; /* Green ring in dark mode */
 }

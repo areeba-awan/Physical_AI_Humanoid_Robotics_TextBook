@@ -1,34 +1,34 @@
 ---
 sidebar_position: 6
 title: "1.6 Lab: Building a ROS 2 Robot"
-description: Complete hands-on lab bringing together all ROS 2 concepts
-keywords: [ROS 2, lab, hands-on, project]
+description: "Complete hands-on lab bringing together all ROS 2 concepts"
+keywords: ["ROS 2", "lab", "hands-on", "project"]
 ---
 
-# Chapter 1.6: Lab - Building a ROS 2 Robot System
+# باب 1.6: Lab - Building a ROS 2 Robot سسٹم
 
-## Lab Overview
+## Lab جائزہ
 
-In this comprehensive lab, you'll build a complete robot system using everything learned in Module 1:
+In this comprehensive lab, you'll build a complete robot system using everything learned in مودیول 1:
 
-- Nodes for sensors, control, and monitoring
-- Topics for continuous data streaming
-- Services for configuration
-- Actions for navigation tasks
-- Parameters for runtime configuration
-- Launch files for orchestration
+- نوڈز for sensors, control, and monitoring
+- ٹاپکس for continuous data streaming
+-  سروسز for configuration
+- ایکشنز for navigation tasks
+-  پیرامیٹر for runtime configuration
+- لانچ کریں files for orchestration
 
 ## Project: Autonomous Patrol Robot
 
-### System Architecture
+### سسٹم Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    Patrol Robot System                       │
+│                    Patrol Robot سسٹم                       │
 │                                                              │
 │  ┌──────────────┐    /scan     ┌──────────────────────┐    │
 │  │ Lidar Node   │─────────────>│                      │    │
-│  └──────────────┘              │   Navigation Node    │    │
+│  └──────────────┘              │   نیویگیشن Node    │    │
 │                                │                      │    │
 │  ┌──────────────┐   /odom      │  - Path planning     │    │
 │  │ Odometry Node│─────────────>│  - Obstacle avoid    │    │
@@ -45,7 +45,7 @@ In this comprehensive lab, you'll build a complete robot system using everything
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## Step 1: Create the Package
+## Step 1: تخلیق کریں the Package
 
 ```bash
 cd ~/ros2_ws/src
@@ -88,7 +88,7 @@ def main():
     rclpy.shutdown()
 ```
 
-## Step 3: Implement Navigation Action
+## Step 3: Implement نیویگیشن Action
 
 ```python
 # patrol_robot/navigation_server.py
@@ -123,7 +123,7 @@ class NavigationServer(Node):
         return result
 ```
 
-## Step 4: Create Launch File
+## Step 4: تخلیق کریں  لانچ فائل
 
 ```python
 # launch/patrol.launch.py
@@ -146,7 +146,7 @@ def generate_launch_description():
     ])
 ```
 
-## Step 5: Build and Run
+## Step 5: تعمیر کریں and چلائیں
 
 ```bash
 cd ~/ros2_ws
@@ -170,12 +170,14 @@ ros2 action send_goal /navigate_to_pose nav2_msgs/action/NavigateToPose "{}"
 
 ## Challenges
 
-1. **Add battery monitoring** - Create a node that publishes battery level
+1. **شامل کریں battery monitoring** - تخلیق کریں a node that publishes battery level
 2. **Implement patrol waypoints** - Store and cycle through patrol points
-3. **Add emergency stop** - Service to immediately halt the robot
+3. **شامل کریں emergency stop** - Service to immediately halt the robot
 
 ## Lab Complete!
 
-Congratulations! You've built a complete ROS 2 robot system. You're now ready to move on to **Module 2: Simulation** where you'll bring your robot to life in Gazebo and Unity.
+Congratulations! You've built a complete ROS 2 robot system. You're now ready to move on to **مودیول 2: سیمیولیشن** where you'll bring your robot to life in گیزیبو and یونٹی.
 
-[Continue to Module 2 →](/ur/docs/module-2-simulation/chapter-1-intro)
+[Continue to مودیول 2 →](/ur/docs/module-2-simulation/chapter-1-intro)
+
+

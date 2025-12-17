@@ -1,30 +1,30 @@
 ---
 sidebar_position: 2
-title: "1.2 نوڈز، ٹاپکس، اور سروسز"
-description: آر او ایس 2 کمیونیکیشن پیٹرنز کو سمجھنا
+title: "1.2 Nodes, Topics, and Services"
+description: Understanding ROS 2 communication patterns
 keywords: [ROS 2, nodes, topics, services, publishers, subscribers]
 ---
 
-# باب 1.2: نوڈز، ٹاپکس، اور سروسز
+# Chapter 1.2: Nodes, Topics, and Services
 
-## سیکھنے کے مقاصد
+## Learning Objectives
 
-اس باب کے آخر تک، آپ یہ کر سکیں گے:
+By the end of this chapter, you will be able to:
 
-- آر او ایس 2 نوڈز بنائیں اور ان کا انتظام کریں
-- ٹاپکس کے ساتھ پبلشر-سبسکرائبر پیٹرنز نافذ کریں
-- درخواست-جواب کمیونیکیشن کے لیے سروسز بنائیں اور کال کریں
-- اپنے استعمال کے کیس کے لیے صحیح کمیونیکیشن پیٹرن منتخب کریں
+- Create and manage ROS 2 nodes
+- Implement publisher-subscriber patterns with topics
+- Create and call services for request-response communication
+- Choose the right communication pattern for your use case
 
-## شرائط
+## Prerequisites
 
-- [ ] باب 1.1 مکمل
-- [ ] آر او ایس 2 ورک سپیس سیٹ اپ
-- [ ] بنیادی پائتھون کا علم
+- [ ] Completed Chapter 1.1
+- [ ] ROS 2 workspace set up
+- [ ] Basic Python knowledge
 
-## نوڈز کو سمجھنا
+## Understanding Nodes
 
-**نوڈ** ایک پروسیس ہے جو حساب کتاب کرتی ہے۔ نوڈز آر او ایس 2 ایپلیکیشنز کے بنیادی بلڈنگ بلاکس ہیں۔
+A **node** is a process that performs computation. Nodes are the fundamental building blocks of ROS 2 applications.
 
 ```python
 import rclpy
@@ -33,7 +33,7 @@ from rclpy.node import Node
 class MyNode(Node):
     def __init__(self):
         super().__init__('my_node_name')
-        self.get_logger().info('نوڈ شروع ہو گیا!')
+        self.get_logger().info('Node started!')
 
 def main():
     rclpy.init()
@@ -42,34 +42,34 @@ def main():
     rclpy.shutdown()
 ```
 
-### نوڈ لائف سائیکل
+### Node Lifecycle
 
 ```
 ┌─────────────┐
-│  غیر کنفیگرڈ  │
+│  Unconfigured │
 └──────┬──────┘
        │ configure()
        ▼
 ┌─────────────┐
-│   غیر فعال   │
+│   Inactive   │
 └──────┬──────┘
        │ activate()
        ▼
 ┌─────────────┐
-│    فعال     │◄──── عام آپریشن
+│    Active    │◄──── Normal operation
 └──────┬──────┘
        │ deactivate()
        ▼
 ┌─────────────┐
-│   غیر فعال   │
+│   Inactive   │
 └─────────────┘
 ```
 
-## ٹاپکس: پبلش-سبسکرائب
+## Topics: Publish-Subscribe
 
-ٹاپکس **غیر ہم وقت ساز**، **کثیر سے کثیر** کمیونیکیشن فعال کرتے ہیں۔
+Topics enable **asynchronous**, **many-to-many** communication.
 
-### پبلشر بنانا
+### Creating a Publisher
 
 ```python
 from std_msgs.msg import String
@@ -82,11 +82,11 @@ class PublisherNode(Node):
 
     def publish_message(self):
         msg = String()
-        msg.data = 'ہیلو، آر او ایس 2!'
+        msg.data = 'Hello, ROS 2!'
         self.publisher.publish(msg)
 ```
 
-### سبسکرائبر بنانا
+### Creating a Subscriber
 
 ```python
 class SubscriberNode(Node):
@@ -100,10 +100,10 @@ class SubscriberNode(Node):
         )
 
     def listener_callback(self, msg):
-        self.get_logger().info(f'موصول ہوا: {msg.data}')
+        self.get_logger().info(f'Received: {msg.data}')
 ```
 
-### سروس کا معیار (کیو او ایس)
+### Quality of Service (QoS)
 
 ```python
 from rclpy.qos import QoSProfile, ReliabilityPolicy, HistoryPolicy
@@ -117,21 +117,21 @@ qos_profile = QoSProfile(
 self.publisher = self.create_publisher(String, 'topic', qos_profile)
 ```
 
-## سروسز: درخواست-جواب
+## Services: Request-Response
 
-سروسز درخواست-جواب پیٹرنز کے لیے **ہم وقت ساز** کمیونیکیشن فراہم کرتی ہیں۔
+Services provide **synchronous** communication for request-response patterns.
 
-### سروس کی تعریف
+### Defining a Service
 
 ```python
-# سروس کی تعریف (srv/AddTwoInts.srv)
+# Service definition (srv/AddTwoInts.srv)
 # int64 a
 # int64 b
 # ---
 # int64 sum
 ```
 
-### سروس سرور
+### Service Server
 
 ```python
 from example_interfaces.srv import AddTwoInts
@@ -151,7 +151,7 @@ class ServiceServer(Node):
         return response
 ```
 
-### سروس کلائنٹ
+### Service Client
 
 ```python
 class ServiceClient(Node):
@@ -160,7 +160,7 @@ class ServiceClient(Node):
         self.client = self.create_client(AddTwoInts, 'add_two_ints')
 
         while not self.client.wait_for_service(timeout_sec=1.0):
-            self.get_logger().info('سروس کا انتظار...')
+            self.get_logger().info('Waiting for service...')
 
     def send_request(self, a, b):
         request = AddTwoInts.Request()
@@ -170,49 +170,51 @@ class ServiceClient(Node):
         return future
 ```
 
-## کب کیا استعمال کریں؟
+## When to Use What?
 
-| پیٹرن | استعمال کا کیس | مثال |
+| Pattern | Use Case | Example |
 |---------|----------|---------|
-| ٹاپکس | مسلسل ڈیٹا سٹریمز | سینسر ریڈنگز، کیمرہ تصاویر |
-| سروسز | ایک بار کی درخواستیں | روبوٹ سپان کریں، نقشہ محفوظ کریں |
-| ایکشنز | طویل المدت کام | منزل پر جائیں، شے اٹھائیں |
+| Topics | Continuous data streams | Sensor readings, camera images |
+| Services | One-time requests | Spawn robot, save map |
+| Actions | Long-running tasks | Navigate to goal, pick object |
 
-## عملی لیب
+## Hands-on Lab
 
-### لیب 1.2: درجہ حرارت مانیٹر بنائیں
+### Lab 1.2: Build a Temperature Monitor
 
-ایک سسٹم بنائیں جس میں:
-1. درجہ حرارت کی ریڈنگز پبلش کرنے والا سینسر نوڈ
-2. سبسکرائب کرنے والا اور زیادہ درجہ حرارت پر الرٹ دینے والا مانیٹر نوڈ
-3. موجودہ درجہ حرارت حاصل کرنے کے لیے سروس
+Create a system with:
+1. A sensor node publishing temperature readings
+2. A monitor node subscribing and alerting on high temps
+3. A service to get the current temperature on demand
 
 ```bash
-# اپنا حل چلائیں
+# Run your solution
 ros2 run my_package temperature_sensor
 ros2 run my_package temperature_monitor
 ros2 service call /get_temperature ...
 ```
 
-## علم کی جانچ
+## Knowledge Check
 
-1. مسلسل سینسر ڈیٹا کے لیے کون سا کمیونیکیشن پیٹرن استعمال کرنا چاہیے؟
-   - [x] ٹاپکس
-   - [ ] سروسز
-   - [ ] ایکشنز
+1. What communication pattern should you use for continuous sensor data?
+   - [x] Topics
+   - [ ] Services
+   - [ ] Actions
 
-2. سروسز _____ ہیں جبکہ ٹاپکس _____ ہیں۔
-   - [x] ہم وقت ساز، غیر ہم وقت ساز
-   - [ ] غیر ہم وقت ساز، ہم وقت ساز
-   - [ ] دونوں ہم وقت ساز
+2. Services are _____ while topics are _____.
+   - [x] Synchronous, Asynchronous
+   - [ ] Asynchronous, Synchronous
+   - [ ] Both synchronous
 
-## خلاصہ
+## Summary
 
-- **نوڈز** حساب کتاب کرنے والی آزاد پروسیسز ہیں
-- **ٹاپکس** سٹریمنگ ڈیٹا کے لیے پبلش-سبسکرائب استعمال کرتے ہیں
-- **سروسز** ایک بار کے آپریشنز کے لیے درخواست-جواب استعمال کرتی ہیں
-- **کیو او ایس** پروفائلز اعتمادیت اور ڈیلیوری گارنٹیز کنٹرول کرتے ہیں
+- **Nodes** are independent processes performing computation
+- **Topics** use publish-subscribe for streaming data
+- **Services** use request-response for one-time operations
+- **QoS** profiles control reliability and delivery guarantees
 
-## اگلے اقدامات
+## Next Steps
 
-[باب 1.3: ایکشنز اور پیرامیٹرز پر جائیں →](/docs/module-1-ros2/chapter-3-actions-params)
+[Continue to Chapter 1.3: Actions and Parameters →](/docs/module-1-ros2/chapter-3-actions-params)
+
+

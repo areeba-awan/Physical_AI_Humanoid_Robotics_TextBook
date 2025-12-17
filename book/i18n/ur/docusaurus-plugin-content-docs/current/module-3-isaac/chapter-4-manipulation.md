@@ -1,16 +1,16 @@
 ---
 sidebar_position: 4
-title: "3.4 Manipulation Planning"
-description: Robot arm motion planning with Isaac
-keywords: [manipulation, motion planning, cuMotion, MoveIt]
+title: "3.4 ہیرا پھیری Planning"
+description: "Robot arm motion planning with Isaac"
+keywords: ["manipulation", "motion planning", "cuMotion", "MoveIt"]
 ---
 
-# Chapter 3.4: Manipulation Planning
+# باب 3.4: ہیرا پھیری Planning
 
-## Learning Objectives
+## سیکھنے کے مقاصد
 
-- Understand motion planning concepts
-- Use cuMotion for GPU-accelerated planning
+- سمجھیں motion planning concepts
+- استعمال کریں cuMotion for GPU-accelerated planning
 - Integrate with MoveIt 2
 - Implement pick-and-place operations
 
@@ -37,7 +37,7 @@ keywords: [manipulation, motion planning, cuMotion, MoveIt]
 ```python
 from isaac_ros_cumotion import cuMotionMoveGroup
 
-# Create motion planner
+# تخلیق کریں motion planner
 planner = cuMotionMoveGroup(
     robot_description="/robot_description",
     planning_group="manipulator"
@@ -56,9 +56,9 @@ if success:
     planner.execute(trajectory)
 ```
 
-## MoveIt 2 Integration
+## MoveIt 2  انضمام
 
-### Launch MoveIt
+### لانچ کریں MoveIt
 
 ```bash
 ros2 launch moveit_config move_group.launch.py
@@ -69,7 +69,7 @@ ros2 launch moveit_config move_group.launch.py
 ```python
 from moveit_msgs.msg import PlanningScene, CollisionObject
 
-# Add collision object
+# شامل کریں collision object
 collision_object = CollisionObject()
 collision_object.id = "table"
 collision_object.header.frame_id = "world"
@@ -114,7 +114,7 @@ class PickAndPlace:
         self.move_group.go()
 ```
 
-## Hands-on Lab
+## ہاتھ سے کام کرنے والی لیب
 
 ### Lab 3.4: Sorting Task
 
@@ -123,10 +123,12 @@ Implement a robot that:
 2. Plans collision-free paths
 3. Sorts objects by color
 
-## Summary
+## خلاصہ
 
 - cuMotion provides GPU-accelerated motion planning
 - MoveIt 2 offers comprehensive manipulation tools
 - Pick-and-place is a fundamental manipulation task
 
-[Continue to Chapter 3.5 →](/ur/docs/module-3-isaac/chapter-5-ros-integration)
+[Continue to باب 3.5 →](/ur/docs/module-3-isaac/chapter-5-ros-integration)
+
+

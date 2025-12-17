@@ -1,43 +1,43 @@
 ---
 sidebar_position: 2
-title: "2.2 گیزیبو کی بنیادیں"
-description: گیزیبو سمولیشن کے ساتھ شروعات
-keywords: [گیزیبو, سمولیشن, فزکس, ROS 2]
+title: "2.2 Gazebo Basics"
+description: Getting started with Gazebo simulation
+keywords: [Gazebo, simulation, physics, ROS 2]
 ---
 
-# باب 2.2: گیزیبو کی بنیادیں
+# Chapter 2.2: Gazebo Basics
 
-## سیکھنے کے مقاصد
+## Learning Objectives
 
-- گیزیبو انٹرفیس کو نیویگیٹ کریں
-- ورلڈ فائلز بنائیں اور ان میں تبدیلی کریں
-- ماڈلز شامل کریں اور فزکس کے ساتھ تعامل کریں
-- گیزیبو کو ROS 2 سے جوڑیں
+- Navigate the Gazebo interface
+- Create and manipulate world files
+- Add models and interact with physics
+- Connect Gazebo to ROS 2
 
-## گیزیبو انٹرفیس
+## Gazebo Interface
 
-### اہم اجزاء
+### Main Components
 
-- **سین** - دنیا کا 3D ویژولائزیشن
-- **پینل** - ورلڈ ٹری، پراپرٹیز، لیئرز
-- **ٹول بار** - نیویگیشن، اضافہ، ہیرا پھیری کے ٹولز
-- **ٹائم لائن** - سمولیشن وقت کا کنٹرول
+- **Scene** - 3D visualization of the world
+- **Panel** - World tree, properties, layers
+- **Toolbar** - Navigation, insertion, manipulation tools
+- **Timeline** - Simulation time control
 
-## دنیائیں بنانا
+## Creating Worlds
 
-### ورلڈ فائل کی ساخت
+### World File Structure
 
 ```xml
 <?xml version="1.0"?>
 <sdf version="1.7">
   <world name="robot_world">
-    <!-- روشنی -->
+    <!-- Lighting -->
     <include><uri>model://sun</uri></include>
 
-    <!-- زمین -->
+    <!-- Ground -->
     <include><uri>model://ground_plane</uri></include>
 
-    <!-- اپنی مرضی کے ماڈلز -->
+    <!-- Custom models -->
     <model name="box">
       <pose>0 0 0.5 0 0 0</pose>
       <link name="link">
@@ -53,9 +53,9 @@ keywords: [گیزیبو, سمولیشن, فزکس, ROS 2]
 </sdf>
 ```
 
-## ROS 2 انٹیگریشن
+## ROS 2 Integration
 
-### گیزیبو پلگ انز
+### Gazebo Plugins
 
 ```xml
 <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
@@ -63,13 +63,13 @@ keywords: [گیزیبو, سمولیشن, فزکس, ROS 2]
 </plugin>
 ```
 
-### ROS 2 سے اسپان کرنا
+### Spawning from ROS 2
 
 ```bash
 ros2 run gazebo_ros spawn_entity.py -entity my_robot -file robot.urdf
 ```
 
-## فزکس کنفیگریشن
+## Physics Configuration
 
 ```xml
 <physics type="ode">
@@ -79,19 +79,21 @@ ros2 run gazebo_ros spawn_entity.py -entity my_robot -file robot.urdf
 </physics>
 ```
 
-## عملی لیب
+## Hands-on Lab
 
-### لیب 2.2: اپنی مرضی کی دنیا بنائیں
+### Lab 2.2: Create a Custom World
 
-گودام کا ماحول بنائیں جس میں:
-- شیلفنگ یونٹس
-- فرش کے نشانات
-- مناسب روشنی
+Build a warehouse environment with:
+- Shelving units
+- Floor markings
+- Proper lighting
 
-## خلاصہ
+## Summary
 
-- گیزیبو حقیقت پسندانہ فزکس سمولیشن فراہم کرتا ہے
-- ورلڈ فائلز SDF فارمیٹ میں ماحول کی تعریف کرتی ہیں
-- ROS 2 پلگ انز بغیر کسی رکاوٹ کے انٹیگریشن کو ممکن بناتے ہیں
+- Gazebo provides realistic physics simulation
+- World files define environments in SDF format
+- ROS 2 plugins enable seamless integration
 
-[باب 2.3 جاری رکھیں ←](/docs/module-2-simulation/chapter-3-urdf)
+[Continue to Chapter 2.3 →](/docs/module-2-simulation/chapter-3-urdf)
+
+

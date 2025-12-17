@@ -1,34 +1,34 @@
 ---
 sidebar_position: 4
-title: "2.4 Unity Robotics Hub"
-description: High-fidelity simulation with Unity
-keywords: [Unity, robotics, simulation, perception]
+title: "2.4 یونٹی روبوٹکس ہب"
+description: "High-fidelity simulation with یونٹی"
+keywords: ["یونٹی", "robotics", "simulation", "perception"]
 ---
 
-# Chapter 2.4: Unity Robotics Hub
+# باب 2.4: یونٹی روبوٹکس ہب
 
-## Learning Objectives
+## سیکھنے کے مقاصد
 
-- Set up Unity Robotics Hub
-- Import URDF robots into Unity
-- Connect Unity to ROS 2
-- Create perception training scenarios
+-  تیار کریں یونٹی روبوٹکس ہب
+- Import URDF robots into یونٹی
+- Connect یونٹی کا تعارف
+- تخلیق کریں perception training scenarios
 
-## Why Unity?
+## Why یونٹی?
 
-- **Photorealistic graphics** for vision AI training
+- **فوٹو ریئلیسٹک graphics** for vision AI training
 - **ML-Agents** for reinforcement learning
 - **Cross-platform** deployment
 - **Large asset ecosystem**
 
 ## Setup
 
-### Install Unity Robotics Hub
+### انسٹال کریں یونٹی روبوٹکس ہب
 
-1. Open Unity Hub
-2. Create new 3D project
+1. Open یونٹی Hub
+2. تخلیق کریں new 3D project
 3. Window > Package Manager
-4. Add package from git URL:
+4. شامل کریں package from git URL:
    ```
    https://github.com/Unity-Technologies/ROS-TCP-Connector.git
    ```
@@ -36,10 +36,10 @@ keywords: [Unity, robotics, simulation, perception]
 ### ROS 2 Connector
 
 ```bash
-# Install ROS TCP Endpoint
+# انسٹال کریں ROS TCP Endpoint
 sudo apt install ros-humble-ros-tcp-endpoint
 
-# Launch the endpoint
+# لانچ کریں the endpoint
 ros2 run ros_tcp_endpoint default_server_endpoint --ros-args -p ROS_IP:=0.0.0.0
 ```
 
@@ -54,18 +54,18 @@ ros2 run ros_tcp_endpoint default_server_endpoint --ros-args -p ROS_IP:=0.0.0.0
 
 ### Articulation Bodies
 
-Unity uses Articulation Bodies for realistic physics:
+یونٹی uses Articulation Bodies for realistic physics:
 - Reduced coordinates
 - Stable joint simulation
 - Direct force application
 
 ## ROS 2 Communication
 
-### Publisher (Unity to ROS)
+### شائع کنندہ (یونٹی to ROS)
 
 ```csharp
 using RosMessageTypes.Geometry;
-using Unity.Robotics.ROSTCPConnector;
+using یونٹی.Robotics.ROSTCPConnector;
 
 public class OdometryPublisher : MonoBehaviour
 {
@@ -87,7 +87,7 @@ public class OdometryPublisher : MonoBehaviour
 }
 ```
 
-### Subscriber (ROS to Unity)
+###  مسیحین (ROS to یونٹی)
 
 ```csharp
 public class CmdVelSubscriber : MonoBehaviour
@@ -106,9 +106,9 @@ public class CmdVelSubscriber : MonoBehaviour
 }
 ```
 
-## Synthetic Data Generation
+##  مصنوعی ڈیٹا Generation
 
-### Camera Setup for Training
+### Camera Setup for  تربیت
 
 ```csharp
 public class SyntheticDataCapture : MonoBehaviour
@@ -130,19 +130,21 @@ public class SyntheticDataCapture : MonoBehaviour
 }
 ```
 
-## Hands-on Lab
+## ہاتھ سے کام کرنے والی لیب
 
-### Lab 2.4: Vision Training Environment
+### Lab 2.4: Vision  تربیت ماحول
 
-Create a Unity scene with:
+تخلیق کریں a یونٹی scene with:
 - Random object placement
 - Varied lighting conditions
 - Camera capture for dataset generation
 
-## Summary
+## خلاصہ
 
-- Unity provides photorealistic simulation
+- یونٹی provides photorealistic simulation
 - ROS TCP Connector enables ROS 2 communication
 - Ideal for vision AI and ML training
 
-[Continue to Chapter 2.5 →](/ur/docs/module-2-simulation/chapter-5-sensors)
+[Continue to باب 2.5 →](/ur/docs/module-2-simulation/chapter-5-sensors)
+
+

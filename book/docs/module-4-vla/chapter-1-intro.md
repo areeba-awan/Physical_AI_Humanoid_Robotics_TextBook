@@ -1,115 +1,115 @@
 ---
 sidebar_position: 1
-title: "4.1 VLA کا تعارف"
-description: روبوٹکس کے لیے ویژن-لینگویج-ایکشن ماڈلز
-keywords: [VLA, ویژن, زبان, ایکشن, ملٹی موڈل, AI]
+title: "4.1 Introduction to VLA"
+description: Vision-Language-Action models for robotics
+keywords: [VLA, vision, language, action, multimodal, AI]
 ---
 
-# باب 4.1: VLA کا تعارف
+# Chapter 4.1: Introduction to VLA
 
-## سیکھنے کے مقاصد
+## Learning Objectives
 
-- ویژن-لینگویج-ایکشن (VLA) ماڈلز کو سمجھیں
-- VLA سسٹمز کے اجزاء سیکھیں
-- جدید ترین VLA آرکیٹیکچرز کی تلاش کریں
-- VLA ڈیولپمنٹ انوائرنمنٹ سیٹ اپ کریں
+- Understand Vision-Language-Action (VLA) models
+- Learn the components of VLA systems
+- Explore state-of-the-art VLA architectures
+- Set up a VLA development environment
 
-## VLA کیا ہے؟
+## What is VLA?
 
-**ویژن-لینگویج-ایکشن (VLA)** ماڈلز تین موڈیلیٹیز کو یکجا کرتے ہیں:
+**Vision-Language-Action (VLA)** models combine three modalities:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    VLA آرکیٹیکچر                            │
+│                    VLA ARCHITECTURE                          │
 │                                                              │
 │   ┌─────────┐     ┌─────────────────────┐     ┌─────────┐  │
-│   │ کیمرہ   │────>│                     │────>│ روبوٹ   │  │
-│   │ (ویژن) │     │   ملٹی موڈل         │     │ (ایکشن) │  │
-│   └─────────┘     │   ٹرانسفارمر        │     └─────────┘  │
+│   │ Camera  │────>│                     │────>│ Robot   │  │
+│   │ (Vision)│     │   Multimodal        │     │ (Action)│  │
+│   └─────────┘     │   Transformer       │     └─────────┘  │
 │                   │                     │                   │
-│   ┌─────────┐     │   - ویژن انکوڈ کریں │                   │
-│   │ قدرتی   │────>│   - متن سمجھیں     │                   │
-│   │ زبان    │     │   - ایکشنز بنائیں  │                   │
+│   ┌─────────┐     │   - Encode vision   │                   │
+│   │ Natural │────>│   - Understand text │                   │
+│   │ Language│     │   - Generate actions│                   │
 │   └─────────┘     └─────────────────────┘                   │
 │                                                              │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### اہم صلاحیتیں
+### Key Capabilities
 
-| صلاحیت | مثال |
-|--------|------|
-| گراؤنڈنگ | "سرخ سیب اٹھاؤ" → سرخ سیب تلاش کریں |
-| استدلال | "کپ پلیٹ کے قریب رکھو" → مقامی استدلال |
-| منصوبہ بندی | "سینڈوچ بناؤ" → ذیلی کاموں میں تقسیم |
-| عمل درآمد | موٹر کمانڈز تیار کریں |
+| Capability | Example |
+|------------|---------|
+| Grounding | "Pick up the red apple" → Locate red apple |
+| Reasoning | "Put the cup near the plate" → Spatial reasoning |
+| Planning | "Make a sandwich" → Break into sub-tasks |
+| Execution | Generate motor commands |
 
-## VLA ماڈل لینڈسکیپ
+## VLA Model Landscape
 
-### RT-2 (روبوٹکس ٹرانسفارمر 2)
+### RT-2 (Robotics Transformer 2)
 
 ```
 ┌────────────────┐
-│ ویژن انکوڈر    │──┐
+│ Vision Encoder │──┐
 │    (ViT)       │  │    ┌─────────────┐    ┌──────────┐
-└────────────────┘  ├───>│   PaLM-E    │───>│  ایکشنز  │
-┌────────────────┐  │    │  (54B)      │    │ (ٹوکنز)  │
-│ زبان ان پٹ    │──┘    └─────────────┘    └──────────┘
+└────────────────┘  ├───>│   PaLM-E    │───>│  Actions │
+┌────────────────┐  │    │  (54B)      │    │ (tokens) │
+│ Language Input │──┘    └─────────────┘    └──────────┘
 └────────────────┘
 ```
 
 ### OpenVLA
 
-- اوپن سورس VLA ماڈل
-- 7B پیرامیٹرز
-- اپنی مرضی کے کاموں پر فائن ٹیون کیا جا سکتا ہے
+- Open-source VLA model
+- 7B parameters
+- Fine-tunable on custom tasks
 
-### دیگر ماڈلز
+### Other Models
 
-- **PaLM-E**: 562B ملٹی موڈل ماڈل
-- **Gato**: جنرلسٹ ایجنٹ
-- **RT-X**: کراس-امباڈیمنٹ ٹرانسفر
+- **PaLM-E**: 562B multimodal model
+- **Gato**: Generalist agent
+- **RT-X**: Cross-embodiment transfer
 
-## VLA کے اجزاء
+## VLA Components
 
-### 1. ویژن انکوڈر
+### 1. Vision Encoder
 
 ```python
 from transformers import ViTModel
 
-# پہلے سے تربیت یافتہ ویژن انکوڈر
+# Pre-trained vision encoder
 vision_encoder = ViTModel.from_pretrained('google/vit-base-patch16-224')
 
-# تصویر پراسیس کریں
+# Process image
 vision_features = vision_encoder(images).last_hidden_state
 ```
 
-### 2. زبان انکوڈر
+### 2. Language Encoder
 
 ```python
 from transformers import T5EncoderModel
 
-# زبان انکوڈر
+# Language encoder
 language_encoder = T5EncoderModel.from_pretrained('t5-base')
 
-# ہدایات پراسیس کریں
+# Process instruction
 instruction = "Pick up the red block"
 language_features = language_encoder(tokenized_instruction)
 ```
 
-### 3. ایکشن ڈیکوڈر
+### 3. Action Decoder
 
 ```python
-# ایکشن ٹوکنز کی لغت
+# Action tokens vocabulary
 action_vocab = {
-    0: 'move_to',      # منتقل ہوں
-    1: 'grasp',        # پکڑیں
-    2: 'release',      # چھوڑیں
-    3: 'rotate',       # گھمائیں
-    # ... 256 ایکشن ٹوکنز
+    0: 'move_to',
+    1: 'grasp',
+    2: 'release',
+    3: 'rotate',
+    # ... 256 action tokens
 }
 
-# ایکشن ٹوکنز کو روبوٹ کمانڈز میں ڈیکوڈ کریں
+# Decode action tokens to robot commands
 def tokens_to_actions(tokens):
     actions = []
     for token in tokens:
@@ -118,48 +118,50 @@ def tokens_to_actions(tokens):
     return actions
 ```
 
-## انوائرنمنٹ سیٹ اپ
+## Setup Environment
 
 ```bash
-# VLA ڈیپنڈنسیز انسٹال کریں
+# Install VLA dependencies
 pip install torch transformers accelerate
-pip install open-vla  # اگر OpenVLA استعمال کر رہے ہیں
+pip install open-vla  # If using OpenVLA
 
-# OpenVLA کلون کریں
+# Clone OpenVLA
 git clone https://github.com/openvla/openvla.git
 cd openvla
 pip install -e .
 ```
 
-## فوری مثال
+## Quick Example
 
 ```python
 from openvla import OpenVLA
 
-# ماڈل لوڈ کریں
+# Load model
 model = OpenVLA.from_pretrained("openvla/openvla-7b")
 
-# انفرنس
+# Inference
 image = load_image("scene.jpg")
 instruction = "Pick up the blue cup"
 
 actions = model.predict(image, instruction)
-# آؤٹ پٹ: [move_to(0.3, 0.5), grasp(), lift(), ...]
+# Output: [move_to(0.3, 0.5), grasp(), lift(), ...]
 ```
 
-## عملی لیب
+## Hands-on Lab
 
-### لیب 4.1: VLA ماڈل چلائیں
+### Lab 4.1: Run a VLA Model
 
-1. OpenVLA انسٹال کریں
-2. پہلے سے تربیت یافتہ ماڈل لوڈ کریں
-3. نمونہ تصاویر پر انفرنس چلائیں
-4. پیش گوئی شدہ ایکشنز کو ویژولائز کریں
+1. Install OpenVLA
+2. Load a pre-trained model
+3. Run inference on sample images
+4. Visualize predicted actions
 
-## خلاصہ
+## Summary
 
-- VLA ویژن، زبان، اور ایکشن کو یکجا کرتا ہے
-- RT-2 اور OpenVLA جیسے ماڈلز ہدایات کی پیروی کو ممکن بناتے ہیں
-- VLA روبوٹ کاموں کے لیے دستی پروگرامنگ کم کرتا ہے
+- VLA combines vision, language, and action
+- Models like RT-2 and OpenVLA enable instruction-following
+- VLA reduces manual programming for robot tasks
 
-[باب 4.2 پر جائیں →](/docs/module-4-vla/chapter-2-vision)
+[Continue to Chapter 4.2 →](/docs/module-4-vla/chapter-2-vision)
+
+

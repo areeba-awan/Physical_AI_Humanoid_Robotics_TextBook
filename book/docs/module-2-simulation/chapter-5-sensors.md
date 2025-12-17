@@ -1,22 +1,22 @@
 ---
 sidebar_position: 5
-title: "2.5 سینسر سمولیشن"
-description: کیمرے، لائیڈار، اور دیگر سینسرز کی سمولیشن
-keywords: [سینسرز, لائیڈار, کیمرہ, IMU, سمولیشن]
+title: "2.5 Sensor Simulation"
+description: Simulating cameras, LiDAR, and other sensors
+keywords: [sensors, LiDAR, camera, IMU, simulation]
 ---
 
-# باب 2.5: سینسر سمولیشن
+# Chapter 2.5: Sensor Simulation
 
-## سیکھنے کے مقاصد
+## Learning Objectives
 
-- حقیقت پسندانہ شور کے ساتھ کیمرہ سینسرز کی سمولیشن کریں
-- لائیڈار سینسرز ترتیب دیں
-- IMU اور دیگر پروپریوسیپٹیو سینسرز شامل کریں
-- سینسر نوائز ماڈلز لاگو کریں
+- Simulate camera sensors with realistic noise
+- Configure LiDAR sensors
+- Add IMU and other proprioceptive sensors
+- Apply sensor noise models
 
-## کیمرہ سمولیشن
+## Camera Simulation
 
-### گیزیبو میں RGB کیمرہ
+### RGB Camera in Gazebo
 
 ```xml
 <sensor name="camera" type="camera">
@@ -43,7 +43,7 @@ keywords: [سینسرز, لائیڈار, کیمرہ, IMU, سمولیشن]
 </sensor>
 ```
 
-### ڈیپتھ کیمرہ (RGBD)
+### Depth Camera (RGBD)
 
 ```xml
 <sensor name="depth_camera" type="depth">
@@ -60,9 +60,9 @@ keywords: [سینسرز, لائیڈار, کیمرہ, IMU, سمولیشن]
 </sensor>
 ```
 
-## لائیڈار سمولیشن
+## LiDAR Simulation
 
-### 2D لائیڈار
+### 2D LiDAR
 
 ```xml
 <sensor name="lidar" type="ray">
@@ -81,7 +81,6 @@ keywords: [سینسرز, لائیڈار, کیمرہ, IMU, سمولیشن]
       <resolution>0.01</resolution>
     </range>
     <noise>
-      <!-- گاؤسین شور -->
       <type>gaussian</type>
       <mean>0.0</mean>
       <stddev>0.01</stddev>
@@ -94,7 +93,7 @@ keywords: [سینسرز, لائیڈار, کیمرہ, IMU, سمولیشن]
 </sensor>
 ```
 
-### 3D لائیڈار
+### 3D LiDAR
 
 ```xml
 <sensor name="lidar_3d" type="gpu_lidar">
@@ -122,19 +121,17 @@ keywords: [سینسرز, لائیڈار, کیمرہ, IMU, سمولیشن]
 </sensor>
 ```
 
-## IMU سمولیشن
+## IMU Simulation
 
 ```xml
 <sensor name="imu" type="imu">
   <imu>
     <angular_velocity>
-      <!-- زاویائی ویلاسٹی کا شور -->
       <x><noise type="gaussian"><mean>0</mean><stddev>0.001</stddev></noise></x>
       <y><noise type="gaussian"><mean>0</mean><stddev>0.001</stddev></noise></y>
       <z><noise type="gaussian"><mean>0</mean><stddev>0.001</stddev></noise></z>
     </angular_velocity>
     <linear_acceleration>
-      <!-- خطی ایکسلریشن کا شور -->
       <x><noise type="gaussian"><mean>0</mean><stddev>0.01</stddev></noise></x>
       <y><noise type="gaussian"><mean>0</mean><stddev>0.01</stddev></noise></y>
       <z><noise type="gaussian"><mean>0</mean><stddev>0.01</stddev></noise></z>
@@ -146,31 +143,33 @@ keywords: [سینسرز, لائیڈار, کیمرہ, IMU, سمولیشن]
 </sensor>
 ```
 
-## سینسر نوائز ماڈلز
+## Sensor Noise Models
 
-| سینسر | شور کی قسم | عام اقدار |
+| Sensor | Noise Type | Typical Values |
 |--------|------------|----------------|
-| کیمرہ | گاؤسین | σ = 0.01 |
-| لائیڈار | گاؤسین | σ = 0.01m |
-| IMU گائرو | گاؤسین + بائیس | σ = 0.001 rad/s |
-| IMU ایکسل | گاؤسین + بائیس | σ = 0.01 m/s² |
+| Camera | Gaussian | σ = 0.01 |
+| LiDAR | Gaussian | σ = 0.01m |
+| IMU Gyro | Gaussian + Bias | σ = 0.001 rad/s |
+| IMU Accel | Gaussian + Bias | σ = 0.01 m/s² |
 
-## عملی لیب
+## Hands-on Lab
 
-### لیب 2.5: ملٹی سینسر روبوٹ
+### Lab 2.5: Multi-Sensor Robot
 
-اپنے روبوٹ میں شامل کریں:
-- سامنے والا RGB کیمرہ
-- ڈیپتھ کیمرہ
-- 2D لائیڈار
+Add to your robot:
+- Front RGB camera
+- Depth camera
+- 2D LiDAR
 - IMU
 
-RViz میں ڈیٹا کی تصدیق کریں۔
+Verify data in RViz.
 
-## خلاصہ
+## Summary
 
-- سینسرز سمولیشن اور پرسیپشن الگورتھمز کے درمیان پل ہیں
-- نوائز ماڈلز حقیقت پسندانہ سینسر رویے کو یقینی بناتے ہیں
-- متعدد سینسرز ریڈنڈنسی اور کوریج فراہم کرتے ہیں
+- Sensors bridge simulation and perception algorithms
+- Noise models ensure realistic sensor behavior
+- Multiple sensors provide redundancy and coverage
 
-[باب 2.6: لیب جاری رکھیں ←](/docs/module-2-simulation/chapter-6-lab)
+[Continue to Chapter 2.6: Lab →](/docs/module-2-simulation/chapter-6-lab)
+
+

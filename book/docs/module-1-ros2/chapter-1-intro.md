@@ -1,99 +1,99 @@
 ---
 sidebar_position: 1
-title: "1.1 آر او ایس 2 کا تعارف"
-description: روبوٹ آپریٹنگ سسٹم 2 کے فن تعمیر اور فلسفے کو سمجھنا
+title: "1.1 Introduction to ROS 2"
+description: Understanding the Robot Operating System 2 architecture and philosophy
 keywords: [ROS 2, robotics, middleware, DDS]
 ---
 
-# باب 1.1: آر او ایس 2 کا تعارف
+# Chapter 1.1: Introduction to ROS 2
 
-## سیکھنے کے مقاصد
+## Learning Objectives
 
-اس باب کے آخر تک، آپ یہ کر سکیں گے:
+By the end of this chapter, you will be able to:
 
-- وضاحت کریں کہ آر او ایس 2 کیا ہے اور یہ روبوٹکس کے لیے کیوں ضروری ہے
-- آر او ایس 1 اور آر او ایس 2 کے درمیان اہم فرق بیان کریں
-- ڈی ڈی ایس مڈل ویئر آرکیٹیکچر کو سمجھیں
-- آر او ایس 2 ورک سپیس سیٹ اپ کریں
-- اپنے پہلے آر او ایس 2 نوڈز چلائیں
+- Explain what ROS 2 is and why it's essential for robotics
+- Describe the key differences between ROS 1 and ROS 2
+- Understand the DDS middleware architecture
+- Set up a ROS 2 workspace
+- Run your first ROS 2 nodes
 
-## شرائط
+## Prerequisites
 
-اس باب کو شروع کرنے سے پہلے، یقینی بنائیں کہ آپ کے پاس ہے:
+Before starting this chapter, ensure you have:
 
-- [ ] اوبنٹو 22.04 انسٹال (یا ونڈوز ڈبلیو ایس ایل 2)
-- [ ] بنیادی پائتھون پروگرامنگ کا علم
-- [ ] ٹرمینل/کمانڈ لائن سے واقفیت
+- [ ] Ubuntu 22.04 installed (or Windows WSL2)
+- [ ] Basic Python programming knowledge
+- [ ] Terminal/command line familiarity
 
-## آر او ایس 2 کیا ہے؟
+## What is ROS 2?
 
-**آر او ایس 2** (روبوٹ آپریٹنگ سسٹم 2) حقیقت میں ایک آپریٹنگ سسٹم نہیں ہے، بلکہ روبوٹ سافٹ ویئر لکھنے کے لیے ایک لچکدار فریم ورک ہے۔ یہ فراہم کرتا ہے:
+**ROS 2** (Robot Operating System 2) is not an actual operating system, but rather a flexible framework for writing robot software. It provides:
 
-- پروسیسز کے درمیان **کمیونیکیشن انفراسٹرکچر**
-- سینسرز اور ایکچویٹرز کے لیے **ہارڈویئر ایبسٹریکشن**
-- ویژولائزیشن، ڈیبگنگ، اور سمولیشن کے لیے **ٹولز**
-- عام روبوٹکس کاموں کے لیے **لائبریریز**
+- **Communication infrastructure** between processes
+- **Hardware abstraction** for sensors and actuators
+- **Tools** for visualization, debugging, and simulation
+- **Libraries** for common robotics tasks
 
-### آر او ایس 1 سے ارتقاء
+### The Evolution from ROS 1
 
-آر او ایس 1 نے ایک دہائی سے زیادہ روبوٹکس کمیونٹی کی خدمت کی، لیکن اس میں حدود تھیں:
+ROS 1 served the robotics community well for over a decade, but had limitations:
 
-| پہلو | آر او ایس 1 | آر او ایس 2 |
+| Aspect | ROS 1 | ROS 2 |
 |--------|-------|-------|
-| ریئل ٹائم | محدود | معاون |
-| سیکیورٹی | کوئی نہیں | بلٹ ان |
-| پلیٹ فارمز | صرف لینکس | لینکس، ونڈوز، میک او ایس |
-| مڈل ویئر | کسٹم | ڈی ڈی ایس معیار |
-| ملٹی روبوٹ | مشکل | مقامی معاونت |
+| Real-time | Limited | Supported |
+| Security | None | Built-in |
+| Platforms | Linux only | Linux, Windows, macOS |
+| Middleware | Custom | DDS standard |
+| Multi-robot | Difficult | Native support |
 
-## ڈی ڈی ایس: کمیونیکیشن کی ریڑھ کی ہڈی
+## DDS: The Communication Backbone
 
-آر او ایس 2 اپنے مڈل ویئر کے طور پر **ڈیٹا ڈسٹریبیوشن سروس (ڈی ڈی ایس)** استعمال کرتا ہے۔ ڈی ڈی ایس فراہم کرتا ہے:
+ROS 2 uses the **Data Distribution Service (DDS)** as its middleware. DDS provides:
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                    آر او ایس 2 ایپلیکیشن                │
+│                    ROS 2 Application                     │
 ├─────────────────────────────────────────────────────────┤
-│                    آر سی ایل (آر او ایس کلائنٹ لائبریری) │
+│                    RCL (ROS Client Library)              │
 ├─────────────────────────────────────────────────────────┤
-│                    آر ایم ڈبلیو (آر او ایس مڈل ویئر)     │
+│                    RMW (ROS Middleware)                  │
 ├─────────────────────────────────────────────────────────┤
-│              ڈی ڈی ایس نفاذ (فاسٹ ڈی ڈی ایس، وغیرہ)      │
+│              DDS Implementation (FastDDS, etc.)          │
 ├─────────────────────────────────────────────────────────┤
-│                    نیٹ ورک (یو ڈی پی/ٹی سی پی)           │
+│                    Network (UDP/TCP)                     │
 └─────────────────────────────────────────────────────────┘
 ```
 
-### اہم ڈی ڈی ایس تصورات
+### Key DDS Concepts
 
-1. **خودکار دریافت** - نوڈز ایک دوسرے کو مرکزی ماسٹر کے بغیر تلاش کرتے ہیں
-2. **سروس کا معیار (کیو او ایس)** - اعتمادیت، پائیداری، ڈیڈ لائنز کنفیگر کریں
-3. **ٹائپ سیفٹی** - پیغام کی اقسام سختی سے متعین ہیں
+1. **Automatic Discovery** - Nodes find each other without a central master
+2. **Quality of Service (QoS)** - Configure reliability, durability, deadlines
+3. **Type Safety** - Message types are strictly defined
 
-## اپنا ورک سپیس سیٹ اپ کرنا
+## Setting Up Your Workspace
 
-### آر او ایس 2 ورک سپیس بنائیں
+### Create a ROS 2 Workspace
 
 ```bash
-# ورک سپیس ڈائریکٹری بنائیں
+# Create workspace directory
 mkdir -p ~/ros2_ws/src
 cd ~/ros2_ws
 
-# بلڈ کریں (خالی بھی)
+# Build (even empty)
 colcon build
 
-# ورک سپیس سورس کریں
+# Source the workspace
 source install/setup.bash
 ```
 
-### ورک سپیس کا ڈھانچہ
+### Workspace Structure
 
 ```
 ros2_ws/
-├── build/          # بلڈ آرٹیفیکٹس
-├── install/        # انسٹال شدہ پیکیجز
-├── log/            # بلڈ لاگز
-└── src/            # سورس کوڈ
+├── build/          # Build artifacts
+├── install/        # Installed packages
+├── log/            # Build logs
+└── src/            # Source code
     └── my_package/
         ├── package.xml
         ├── setup.py
@@ -102,9 +102,9 @@ ros2_ws/
         └── resource/
 ```
 
-## آپ کا پہلا آر او ایس 2 پروگرام
+## Your First ROS 2 Program
 
-آئیے ایک سادہ پبلشر بناتے ہیں:
+Let's create a simple publisher:
 
 ```python
 # my_publisher.py
@@ -116,15 +116,15 @@ class MinimalPublisher(Node):
     def __init__(self):
         super().__init__('minimal_publisher')
         self.publisher_ = self.create_publisher(String, 'topic', 10)
-        timer_period = 0.5  # سیکنڈ
+        timer_period = 0.5  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
         self.i = 0
 
     def timer_callback(self):
         msg = String()
-        msg.data = f'ہیلو ورلڈ: {self.i}'
+        msg.data = f'Hello World: {self.i}'
         self.publisher_.publish(msg)
-        self.get_logger().info(f'پبلش کر رہا ہے: "{msg.data}"')
+        self.get_logger().info(f'Publishing: "{msg.data}"')
         self.i += 1
 
 def main(args=None):
@@ -138,104 +138,105 @@ if __name__ == '__main__':
     main()
 ```
 
-### پبلشر چلائیں
+### Run the Publisher
 
 ```bash
-# ٹرمینل 1 میں
+# In terminal 1
 python3 my_publisher.py
 
-# ٹرمینل 2 میں - پیغامات دیکھیں
+# In terminal 2 - see the messages
 ros2 topic echo /topic
 ```
 
-## آر او ایس 2 کمانڈ لائن ٹولز
+## ROS 2 Command Line Tools
 
-ضروری کمانڈز جو آپ روزانہ استعمال کریں گے:
+Essential commands you'll use daily:
 
 ```bash
-# تمام نوڈز کی فہرست
+# List all nodes
 ros2 node list
 
-# تمام ٹاپکس کی فہرست
+# List all topics
 ros2 topic list
 
-# ٹاپک کی معلومات دیکھیں
+# See topic info
 ros2 topic info /topic
 
-# ٹاپک پیغامات ایکو کریں
+# Echo topic messages
 ros2 topic echo /topic
 
-# ٹاپک پر پبلش کریں
-ros2 topic pub /topic std_msgs/String "data: 'ہیلو'"
+# Publish to a topic
+ros2 topic pub /topic std_msgs/String "data: 'Hello'"
 
-# سروسز کی فہرست
+# List services
 ros2 service list
 
-# سروس کال کریں
+# Call a service
 ros2 service call /service_name std_srvs/srv/Empty
 ```
 
-## عملی لیب
+## Hands-on Lab
 
-### لیب 1.1: ٹاکر-لسنر سسٹم بنائیں
+### Lab 1.1: Create a Talker-Listener System
 
-**مقصد**: دو نوڈز بنائیں جو ٹاپک کے ذریعے بات چیت کریں۔
+**Objective**: Create two nodes that communicate via a topic.
 
-**اقدامات**:
+**Steps**:
 
-1. ایک پبلشر نوڈ بنائیں جو سینسر ڈیٹا بھیجے
-2. ایک سبسکرائبر نوڈ بنائیں جو ڈیٹا وصول کرے اور پروسیس کرے
-3. دونوں نوڈز چلائیں اور کمیونیکیشن کی تصدیق کریں
+1. Create a publisher node that sends sensor data
+2. Create a subscriber node that receives and processes the data
+3. Run both nodes and verify communication
 
-**متوقع آؤٹ پٹ**:
+**Expected Output**:
 ```
-[پبلشر] پبلش کر رہا ہے: درجہ حرارت=23.5
-[سبسکرائبر] موصول ہوا: درجہ حرارت=23.5
+[Publisher] Publishing: temperature=23.5
+[Subscriber] Received: temperature=23.5
 ```
 
-:::tip لیب حل
-مکمل حل [گٹ ہب ریپوزٹری](https://github.com/physicalai/textbook/tree/main/labs/module-1/lab-1-1) میں دستیاب ہے۔
+:::tip Lab Solution
+The complete solution is available in the [GitHub repository](https://github.com/physicalai/textbook/tree/main/labs/module-1/lab-1-1).
 :::
 
-## علم کی جانچ
+## Knowledge Check
 
-### کوئز
+### Quiz
 
-1. آر او ایس 2 کمیونیکیشن کے لیے کون سا مڈل ویئر استعمال کرتا ہے؟
-   - [ ] زیرو ایم کیو
-   - [x] ڈی ڈی ایس (ڈیٹا ڈسٹریبیوشن سروس)
-   - [ ] ایم کیو ٹی ٹی
-   - [ ] کسٹم ٹی سی پی/یو ڈی پی
+1. What middleware does ROS 2 use for communication?
+   - [ ] ZeroMQ
+   - [x] DDS (Data Distribution Service)
+   - [ ] MQTT
+   - [ ] Custom TCP/UDP
 
-2. آر او ایس 1 کے مقابلے آر او ایس 2 کا درج ذیل میں سے کون سا فائدہ نہیں ہے؟
-   - [ ] ریئل ٹائم سپورٹ
-   - [ ] ملٹی پلیٹ فارم سپورٹ
-   - [x] سیکھنے میں آسان
-   - [ ] بلٹ ان سیکیورٹی
+2. Which of the following is NOT a benefit of ROS 2 over ROS 1?
+   - [ ] Real-time support
+   - [ ] Multi-platform support
+   - [x] Simpler to learn
+   - [ ] Built-in security
 
-3. چلنے والے تمام نوڈز کی فہرست کون سی کمانڈ دکھاتی ہے؟
+3. What command lists all running nodes?
    - [ ] `ros2 list nodes`
    - [x] `ros2 node list`
    - [ ] `ros2 nodes`
    - [ ] `ros2 show nodes`
 
-## خلاصہ
+## Summary
 
-اس باب میں، آپ نے سیکھا:
+In this chapter, you learned:
 
-- آر او ایس 2 روبوٹ سافٹ ویئر ڈیولپمنٹ کے لیے ایک لچکدار فریم ورک ہے
-- ڈی ڈی ایس خودکار دریافت کے ساتھ کمیونیکیشن کی ریڑھ کی ہڈی فراہم کرتا ہے
-- ورک سپیسز آپ کے آر او ایس 2 پیکیجز کو منظم کرتی ہیں
-- ڈیبگنگ اور مانیٹرنگ کے لیے بنیادی آر او ایس 2 سی ایل آئی ٹولز
+- ROS 2 is a flexible framework for robot software development
+- DDS provides the communication backbone with automatic discovery
+- Workspaces organize your ROS 2 packages
+- Basic ROS 2 CLI tools for debugging and monitoring
 
-## مزید مطالعہ
+## Further Reading
 
-- [آر او ایس 2 دستاویزات](https://docs.ros.org/en/humble/)
-- [ڈی ڈی ایس تفصیلات](https://www.omg.org/spec/DDS/)
-- [آر او ایس 2 ڈیزائن](https://design.ros2.org/)
+- [ROS 2 Documentation](https://docs.ros.org/en/humble/)
+- [DDS Specification](https://www.omg.org/spec/DDS/)
+- [ROS 2 Design](https://design.ros2.org/)
 
-## اگلے اقدامات
+## Next Steps
 
-اگلے باب میں، ہم **نوڈز، ٹاپکس، اور سروسز** میں گہرائی سے جائیں گے - آر او ایس 2 ایپلیکیشنز کے بنیادی ستون۔
+In the next chapter, we'll dive deeper into **Nodes, Topics, and Services** - the building blocks of ROS 2 applications.
 
-[باب 1.2 پر جائیں →](/docs/module-1-ros2/chapter-2-nodes-topics)
+[Continue to Chapter 1.2 →](/docs/module-1-ros2/chapter-2-nodes-topics)
+

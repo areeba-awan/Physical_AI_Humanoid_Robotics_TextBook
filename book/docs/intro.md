@@ -1,73 +1,74 @@
 ---
 sidebar_position: 1
-title: تعارف
-description: فزیکل اے آئی اور ہیومنائیڈ روبوٹکس میں خوش آمدید - مجسم اے آئی کے لیے ایک جامع رہنما
+title: Introduction
+description: Welcome to Physical AI & Humanoid Robotics - A comprehensive guide to embodied AI
 ---
 
-# فزیکل اے آئی اور ہیومنائیڈ روبوٹکس
+# Physical AI & Humanoid Robotics
 
-ذہین ہیومنائیڈ روبوٹس بنانے کی جامع رہنما میں خوش آمدید۔ یہ نصابی کتاب حقیقی کوڈ، حقیقی سمولیشنز، اور حقیقی دنیا کی ایپلیکیشنز کے ساتھ عملی سیکھنے کا موقع فراہم کرتی ہے۔
+Welcome to the comprehensive guide for building intelligent humanoid robots. This textbook provides hands-on learning with real code, real simulations, and real-world applications.
 
-## آپ کیا سیکھیں گے
+## What You'll Learn
 
-یہ کورس فزیکل اے آئی سسٹمز کی ترقی کے لیے مکمل اسٹیک کا احاطہ کرتا ہے:
+This course covers the complete stack for developing Physical AI systems:
 
-### ماڈیول 1: روبوٹک اعصابی نظام (آر او ایس 2)
-جدید روبوٹس کو طاقت دینے والے کمیونیکیشن فریم ورک میں مہارت حاصل کریں۔ نوڈز، ٹاپکس، سروسز، ایکشنز، اور کسٹم پیکیجز بنانا سیکھیں۔
+### Module 1: The Robotic Nervous System (ROS 2)
+Master the communication framework that powers modern robots. Learn nodes, topics, services, actions, and how to build custom packages.
 
-### ماڈیول 2: ڈیجیٹل ٹوئن (گزیبو اور یونٹی)
-حقیقت پسندانہ سمولیٹڈ ماحول میں روبوٹس بنائیں اور ٹیسٹ کریں۔ یو آر ڈی ایف ماڈلز بنائیں، سینسرز کنفیگر کریں، اور ڈیجیٹل ٹوئنز تیار کریں۔
+### Module 2: The Digital Twin (Gazebo & Unity)
+Build and test robots in realistic simulated environments. Create URDF models, configure sensors, and develop digital twins.
 
-### ماڈیول 3: اے آئی روبوٹ دماغ (این ویڈیا آئزک)
-جی پی یو سے تیز کردہ ادراک، نیویگیشن، اور ہیرا پھیری کا فائدہ اٹھائیں۔ جدید روبوٹکس ایپلیکیشنز کے لیے آئزک سم کو آر او ایس 2 کے ساتھ مربوط کریں۔
+### Module 3: The AI-Robot Brain (NVIDIA Isaac)
+Leverage GPU-accelerated perception, navigation, and manipulation. Integrate Isaac Sim with ROS 2 for advanced robotics applications.
 
-### ماڈیول 4: بصارت-زبان-عمل (وی ایل اے)
-ایسے روبوٹس بنائیں جو دیکھتے ہیں، قدرتی زبان سمجھتے ہیں، اور ذہانت سے عمل کرتے ہیں۔ حقیقی دنیا کے کاموں کے لیے جدید ترین وی ایل اے سسٹمز نافذ کریں۔
+### Module 4: Vision-Language-Action (VLA)
+Create robots that see, understand natural language, and act intelligently. Implement cutting-edge VLA systems for real-world tasks.
 
-## شرائط
+## Prerequisites
 
-شروع کرنے سے پہلے، آپ کے پاس ہونا چاہیے:
+Before starting, you should have:
 
-- **پروگرامنگ**: درمیانی سطح کی پائتھون مہارت، بنیادی سی++ واقفیت
-- **لینکس**: کمانڈ لائن اور پیکیج مینجمنٹ میں آسانی
-- **ہارڈویئر** (اختیاری): آئزک سم کے لیے جی پی یو ورک سٹیشن، ایج ڈیپلائمنٹ کے لیے جیٹسن کٹ
+- **Programming**: Intermediate Python skills, basic C++ familiarity
+- **Linux**: Comfortable with command line and package management
+- **Hardware** (optional): GPU workstation for Isaac Sim, Jetson kit for edge deployment
 
-## اس کتاب کا استعمال کیسے کریں
+## How to Use This Book
 
-ہر باب میں شامل ہے:
+Each chapter includes:
 
-1. **سیکھنے کے مقاصد** - آپ کیا حاصل کریں گے
-2. **تصور کا تعارف** - نظریہ اور پس منظر
-3. **کوڈ کی مثالیں** - کام کرنے والے نفاذات
-4. **عملی لیبز** - عملی مشقیں
-5. **علم کی جانچ** - کوئزز اور تشخیصات
-6. **مزید مطالعہ** - اضافی وسائل
+1. **Learning Objectives** - What you'll achieve
+2. **Concept Introduction** - Theory and background
+3. **Code Examples** - Working implementations
+4. **Hands-on Labs** - Practical exercises
+5. **Knowledge Checks** - Quizzes and assessments
+6. **Further Reading** - Additional resources
 
-### انٹرایکٹو خصوصیات
+### Interactive Features
 
-- **ذاتی بنائیں** - اپنے پس منظر کے مطابق مواد کو ڈھالیں
-- **ترجمہ** - انگریزی میں مواد دیکھیں
-- **اے آئی اسسٹنٹ** - کسی بھی موضوع پر سوالات پوچھیں
+- **Personalize** - Adapt content to your background
+- **Translate** - View content in Urdu (اردو)
+- **AI Assistant** - Ask questions about any topic
 
-## شروع کریں
+## Getting Started
 
-شروع کرنے کے لیے تیار ہیں؟ اپنا ڈیولپمنٹ ماحول سیٹ اپ کرنے کے لیے [کوئیک اسٹارٹ گائیڈ](./quickstart) سے شروع کریں، یا براہ راست [ماڈیول 1: آر او ایس 2](./module-1-ros2/chapter-1-intro) پر جائیں۔
+Ready to begin? Start with the [Quickstart Guide](./quickstart) to set up your development environment, or jump directly into [Module 1: ROS 2](./module-1-ros2/chapter-1-intro).
 
-:::tip آپ کا سیکھنے کا راستہ
-آپ کے پس منظر کی بنیاد پر، ہم تجویز کرتے ہیں:
-- **روبوٹکس میں نئے**: ماڈیول 1، باب 1 سے شروع کریں
-- **آر او ایس کا تجربہ**: ماڈیول 2 یا 3 پر جائیں
-- **اے آئی/ایم ایل پس منظر**: ماڈیول 4 سے شروع کریں
+:::tip Your Learning Path
+Based on your background, we recommend:
+- **New to robotics**: Start with Module 1, Chapter 1
+- **ROS experience**: Jump to Module 2 or 3
+- **AI/ML background**: Start with Module 4
 :::
 
-## کمیونٹی
+## Community
 
-سیکھنے والوں کی ہماری کمیونٹی میں شامل ہوں:
+Join our community of learners:
 
-- [گٹ ہب ڈسکشنز](https://github.com/physicalai/textbook/discussions)
-- [ڈسکورڈ سرور](https://discord.gg/ros)
-- [اسٹیک اوور فلو](https://stackoverflow.com/questions/tagged/ros2)
+- [GitHub Discussions](https://github.com/physicalai/textbook/discussions)
+- [Discord Server](https://discord.gg/ros)
+- [Stack Overflow](https://stackoverflow.com/questions/tagged/ros2)
 
 ---
 
-آئیے مل کر روبوٹکس کا مستقبل بنائیں!
+Let's build the future of robotics together!
+

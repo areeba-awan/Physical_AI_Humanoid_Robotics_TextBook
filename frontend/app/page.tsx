@@ -6,6 +6,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Bot, BookOpen, Cpu, Eye, Rocket, Code, Layers, Zap, Github, MessageSquare } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { LanguageToggle } from "@/components/shared/language-toggle";
+import { TranslatedText } from "@/components/shared/translation-provider";
+import { usePreloadHomeTranslations } from "@/hooks/use-preload-home-translations";
+import { useEffect } from "react";
 
 const modules = [
   {
@@ -16,6 +19,9 @@ const modules = [
     icon: Cpu,
     color: "bg-blue-500",
     href: "http://localhost:3001/docs/module-1-ros2/chapter-1-intro",
+    titleKey: "module1-title",
+    subtitleKey: "module1-subtitle",
+    descriptionKey: "module1-description"
   },
   {
     id: 2,
@@ -25,6 +31,9 @@ const modules = [
     icon: Layers,
     color: "bg-green-500",
     href: "http://localhost:3001/docs/module-2-simulation/chapter-1-intro",
+    titleKey: "module2-title",
+    subtitleKey: "module2-subtitle",
+    descriptionKey: "module2-description"
   },
   {
     id: 3,
@@ -34,6 +43,9 @@ const modules = [
     icon: Zap,
     color: "bg-purple-500",
     href: "http://localhost:3001/docs/module-3-isaac/chapter-1-intro",
+    titleKey: "module3-title",
+    subtitleKey: "module3-subtitle",
+    descriptionKey: "module3-description"
   },
   {
     id: 4,
@@ -43,6 +55,9 @@ const modules = [
     icon: Eye,
     color: "bg-orange-500",
     href: "http://localhost:3001/docs/module-4-vla/chapter-1-intro",
+    titleKey: "module4-title",
+    subtitleKey: "module4-subtitle",
+    descriptionKey: "module4-description"
   },
 ];
 
@@ -52,18 +67,24 @@ const quickStartCards = [
     description: "Set up your development environment in minutes",
     icon: Rocket,
     href: "http://localhost:3001/docs/quickstart",
+    titleKey: "quickstart-title",
+    descriptionKey: "quickstart-description"
   },
   {
     title: "Simulation Templates",
     description: "Pre-built environments to jumpstart your projects",
     icon: Code,
     href: "http://localhost:3001/docs/templates",
+    titleKey: "templates-title",
+    descriptionKey: "templates-description"
   },
   {
     title: "Capstone Recipes",
     description: "End-to-end project guides for real applications",
     icon: BookOpen,
     href: "http://localhost:3001/docs/capstone",
+    titleKey: "capstone-title",
+    descriptionKey: "capstone-description"
   },
 ];
 
@@ -72,21 +93,34 @@ const features = [
     title: "Hands-on Labs",
     description: "Real code, real robots, real results",
     icon: Code,
+    titleKey: "feature1-title",
+    descriptionKey: "feature1-description"
   },
   {
     title: "Interactive Visualizations",
     description: "See concepts come to life in 3D",
     icon: Eye,
+    titleKey: "feature2-title",
+    descriptionKey: "feature2-description"
   },
   {
     title: "VLA Integrations",
     description: "Cutting-edge AI for physical systems",
     icon: Bot,
+    titleKey: "feature3-title",
+    descriptionKey: "feature3-description"
   },
 ];
 
 export default function HomePage() {
   const { user, isLoading } = useAuth();
+  const { preloadHomeContent } = usePreloadHomeTranslations();
+
+  useEffect(() => {
+    if (user) {
+      preloadHomeContent();
+    }
+  }, [user, preloadHomeContent]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted">
@@ -96,14 +130,16 @@ export default function HomePage() {
           <div className="flex items-center gap-6">
             <Link href="/" className="flex items-center gap-2">
               <Bot className="h-8 w-8 text-primary" />
-              <span className="font-bold text-xl hidden md:inline">Physical AI</span>
+              <span className="font-bold text-xl hidden md:inline">
+                <TranslatedText id="nav-title">Physical AI</TranslatedText>
+              </span>
             </Link>
             <div className="hidden md:flex items-center gap-4">
               <Link href="http://localhost:3001/" className="text-muted-foreground hover:text-foreground transition-colors">
-                Modules
+                <TranslatedText id="nav-modules">Modules</TranslatedText>
               </Link>
               <Link href="http://localhost:3001/docs/intro" className="text-muted-foreground hover:text-foreground transition-colors">
-                Book Overview
+                <TranslatedText id="nav-book-overview">Book Overview</TranslatedText>
               </Link>
             </div>
           </div>
@@ -123,15 +159,21 @@ export default function HomePage() {
               <div className="w-20 h-9 bg-muted animate-pulse rounded-md" />
             ) : user ? (
               <Link href="/dashboard">
-                <Button>Dashboard</Button>
+                <Button>
+                  <TranslatedText id="dashboard-btn">Dashboard</TranslatedText>
+                </Button>
               </Link>
             ) : (
               <div className="flex items-center gap-2">
                 <Link href="/signin">
-                  <Button variant="ghost">Sign In</Button>
+                  <Button variant="ghost">
+                    <TranslatedText id="sign-in-btn">Sign In</TranslatedText>
+                  </Button>
                 </Link>
                 <Link href="/signup">
-                  <Button>Get Started</Button>
+                  <Button>
+                    <TranslatedText id="get-started-btn">Get Started</TranslatedText>
+                  </Button>
                 </Link>
               </div>
             )}
@@ -142,24 +184,27 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="container py-24 text-center">
         <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
-          Physical AI &{" "}
-          <span className="text-primary">Humanoid Robotics</span>
+          <TranslatedText id="hero-title">Physical AI &</TranslatedText>
+          {" "}
+          <span className="text-primary">
+            <TranslatedText id="hero-subtitle">Humanoid Robotics</TranslatedText>
+          </span>
         </h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-4">
-          A Comprehensive Guide to Embodied AI
+          <TranslatedText id="hero-description">A Comprehensive Guide to Embodied AI</TranslatedText>
         </p>
         <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-8">
-          Hands-on labs and ready-to-run examples for building intelligent robots
+          <TranslatedText id="hero-tagline">Hands-on labs and ready-to-run examples for building intelligent robots</TranslatedText>
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link href="/signup">
             <Button size="lg" className="text-lg px-8">
-              Get Started
+              <TranslatedText id="hero-get-started">Get Started</TranslatedText>
             </Button>
           </Link>
           <Link href="http://localhost:3001/">
             <Button size="lg" variant="outline" className="text-lg px-8">
-              View Book
+              <TranslatedText id="hero-view-book">View Book</TranslatedText>
             </Button>
           </Link>
         </div>
@@ -173,8 +218,12 @@ export default function HomePage() {
               <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer">
                 <CardHeader>
                   <card.icon className="h-10 w-10 text-primary mb-2" />
-                  <CardTitle>{card.title}</CardTitle>
-                  <CardDescription>{card.description}</CardDescription>
+                  <CardTitle>
+                    <TranslatedText id={card.titleKey}>{card.title}</TranslatedText>
+                  </CardTitle>
+                  <CardDescription>
+                    <TranslatedText id={card.descriptionKey}>{card.description}</TranslatedText>
+                  </CardDescription>
                 </CardHeader>
               </Card>
             </Link>
@@ -184,7 +233,9 @@ export default function HomePage() {
 
       {/* Course Modules */}
       <section className="container py-16">
-        <h2 className="text-3xl font-bold text-center mb-12">Course Modules</h2>
+        <h2 className="text-3xl font-bold text-center mb-12">
+          <TranslatedText id="modules-section-title">Course Modules</TranslatedText>
+        </h2>
         <div className="grid md:grid-cols-2 gap-6">
           {modules.map((module) => (
             <Link key={module.id} href={module.href}>
@@ -194,15 +245,23 @@ export default function HomePage() {
                     <div className={`p-3 rounded-lg ${module.color} text-white`}>
                       <module.icon className="h-6 w-6" />
                     </div>
-                    <span className="text-sm text-muted-foreground">Module {module.id}</span>
+                    <span className="text-sm text-muted-foreground">
+                      <TranslatedText id={`module-${module.id}-label`}>Module {module.id}</TranslatedText>
+                    </span>
                   </div>
-                  <CardTitle className="mt-4">{module.title}</CardTitle>
-                  <p className="text-sm font-medium text-primary">{module.subtitle}</p>
-                  <CardDescription className="mt-2">{module.description}</CardDescription>
+                  <CardTitle className="mt-4">
+                    <TranslatedText id={module.titleKey}>{module.title}</TranslatedText>
+                  </CardTitle>
+                  <p className="text-sm font-medium text-primary">
+                    <TranslatedText id={module.subtitleKey}>{module.subtitle}</TranslatedText>
+                  </p>
+                  <CardDescription className="mt-2">
+                    <TranslatedText id={module.descriptionKey}>{module.description}</TranslatedText>
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <Button variant="ghost" className="group">
-                    Start Module
+                    <TranslatedText id={`module-${module.id}-btn`}>Start Module</TranslatedText>
                     <Rocket className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </CardContent>
@@ -214,15 +273,21 @@ export default function HomePage() {
 
       {/* Features */}
       <section className="container py-16">
-        <h2 className="text-3xl font-bold text-center mb-12">Key Features</h2>
+        <h2 className="text-3xl font-bold text-center mb-12">
+          <TranslatedText id="features-section-title">Key Features</TranslatedText>
+        </h2>
         <div className="grid md:grid-cols-3 gap-8">
           {features.map((feature) => (
             <div key={feature.title} className="text-center">
               <div className="mx-auto w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
                 <feature.icon className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-              <p className="text-muted-foreground">{feature.description}</p>
+              <h3 className="text-xl font-semibold mb-2">
+                <TranslatedText id={feature.titleKey}>{feature.title}</TranslatedText>
+              </h3>
+              <p className="text-muted-foreground">
+                <TranslatedText id={feature.descriptionKey}>{feature.description}</TranslatedText>
+              </p>
             </div>
           ))}
         </div>
@@ -231,18 +296,22 @@ export default function HomePage() {
       {/* CTA Section */}
       <section className="container py-20">
         <div className="bg-primary/5 rounded-2xl p-12 text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to build intelligent robots?</h2>
+          <h2 className="text-3xl font-bold mb-4">
+            <TranslatedText id="cta-title">Ready to build intelligent robots?</TranslatedText>
+          </h2>
           <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-            Join thousands of engineers learning Physical AI. Start your journey today.
+            <TranslatedText id="cta-description">Join thousands of engineers learning Physical AI. Start your journey today.</TranslatedText>
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link href="/signup">
-              <Button size="lg">Get Started</Button>
+              <Button size="lg">
+                <TranslatedText id="cta-get-started">Get Started</TranslatedText>
+              </Button>
             </Link>
             <Link href="https://github.com" target="_blank">
               <Button size="lg" variant="outline">
                 <Github className="mr-2 h-5 w-5" />
-                Contribute
+                <TranslatedText id="cta-contribute">Contribute</TranslatedText>
               </Button>
             </Link>
           </div>
@@ -256,39 +325,85 @@ export default function HomePage() {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <Bot className="h-6 w-6 text-primary" />
-                <span className="font-bold">Physical AI</span>
+                <span className="font-bold">
+                  <TranslatedText id="footer-title">Physical AI</TranslatedText>
+                </span>
               </div>
               <p className="text-sm text-muted-foreground">
-                Building the future of robotics education.
+                <TranslatedText id="footer-description">Building the future of robotics education.</TranslatedText>
               </p>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Book</h4>
+              <h4 className="font-semibold mb-4">
+                <TranslatedText id="footer-book-title">Book</TranslatedText>
+              </h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><Link href="http://localhost:3001/" className="hover:text-foreground">Overview</Link></li>
-                <li><Link href="http://localhost:3001/docs/module-1-ros2" className="hover:text-foreground">Modules</Link></li>
-                <li><Link href="http://localhost:3001/docs/quickstart" className="hover:text-foreground">Quickstart</Link></li>
+                <li>
+                  <Link href="http://localhost:3001/" className="hover:text-foreground">
+                    <TranslatedText id="footer-overview">Overview</TranslatedText>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="http://localhost:3001/docs/module-1-ros2" className="hover:text-foreground">
+                    <TranslatedText id="footer-modules">Modules</TranslatedText>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="http://localhost:3001/docs/quickstart" className="hover:text-foreground">
+                    <TranslatedText id="footer-quickstart">Quickstart</TranslatedText>
+                  </Link>
+                </li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Community</h4>
+              <h4 className="font-semibold mb-4">
+                <TranslatedText id="footer-community-title">Community</TranslatedText>
+              </h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><Link href="#" className="hover:text-foreground">Stack Overflow</Link></li>
-                <li><Link href="#" className="hover:text-foreground">Discord</Link></li>
-                <li><Link href="#" className="hover:text-foreground">X (Twitter)</Link></li>
+                <li>
+                  <Link href="#" className="hover:text-foreground">
+                    <TranslatedText id="footer-stackoverflow">Stack Overflow</TranslatedText>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#" className="hover:text-foreground">
+                    <TranslatedText id="footer-discord">Discord</TranslatedText>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#" className="hover:text-foreground">
+                    <TranslatedText id="footer-twitter">X (Twitter)</TranslatedText>
+                  </Link>
+                </li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Social</h4>
+              <h4 className="font-semibold mb-4">
+                <TranslatedText id="footer-social-title">Social</TranslatedText>
+              </h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><Link href="https://github.com" className="hover:text-foreground">GitHub</Link></li>
-                <li><Link href="#" className="hover:text-foreground">YouTube</Link></li>
-                <li><Link href="#" className="hover:text-foreground">LinkedIn</Link></li>
+                <li>
+                  <Link href="https://github.com" className="hover:text-foreground">
+                    <TranslatedText id="footer-github">GitHub</TranslatedText>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#" className="hover:text-foreground">
+                    <TranslatedText id="footer-youtube">YouTube</TranslatedText>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#" className="hover:text-foreground">
+                    <TranslatedText id="footer-linkedin">LinkedIn</TranslatedText>
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>
           <div className="border-t mt-8 pt-8 text-center text-sm text-muted-foreground">
-            <p>&copy; 2025 Physical AI Textbook. All rights reserved.</p>
+            <p>
+              <TranslatedText id="footer-copyright">&copy; 2025 Physical AI Textbook. All rights reserved.</TranslatedText>
+            </p>
           </div>
         </div>
       </footer>

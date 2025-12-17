@@ -1,44 +1,44 @@
 ---
 sidebar_position: 2
-title: "4.2 روبوٹس کے لیے ویژن ٹرانسفارمرز"
-description: ٹرانسفارمرز کے ساتھ بصری ادراک
-keywords: [ViT, ویژن ٹرانسفارمر, ادراک, فیچرز]
+title: "4.2 Vision Transformers for Robots"
+description: Visual perception with transformers
+keywords: [ViT, vision transformer, perception, features]
 ---
 
-# باب 4.2: روبوٹس کے لیے ویژن ٹرانسفارمرز
+# Chapter 4.2: Vision Transformers for Robots
 
-## سیکھنے کے مقاصد
+## Learning Objectives
 
-- ویژن ٹرانسفارمر (ViT) آرکیٹیکچر کو سمجھیں
-- روبوٹکس کے لیے بصری فیچرز نکالیں
-- روبوٹ کاموں کے لیے ویژن ماڈلز فائن ٹیون کریں
-- ملٹی ویو پرسیپشن لاگو کریں
+- Understand Vision Transformer (ViT) architecture
+- Extract visual features for robotics
+- Fine-tune vision models for robot tasks
+- Implement multi-view perception
 
-## ویژن ٹرانسفارمر آرکیٹیکچر
+## Vision Transformer Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                  ویژن ٹرانسفارمر                            │
+│                  VISION TRANSFORMER                          │
 │                                                              │
 │    ┌─────────────────────────────────────────────────────┐  │
-│    │              ان پٹ تصویر (224x224)                   │  │
+│    │              Input Image (224x224)                   │  │
 │    └─────────────────────────────────────────────────────┘  │
 │                          │                                   │
-│                    پیچ ایمبیڈنگ                              │
+│                    Patch Embedding                           │
 │                          │                                   │
 │    ┌─────────────────────────────────────────────────────┐  │
-│    │  [CLS] P1  P2  P3  P4  ...  P196  +  پوزیشن ایمب   │  │
+│    │  [CLS] P1  P2  P3  P4  ...  P196  +  Position Emb  │  │
 │    └─────────────────────────────────────────────────────┘  │
 │                          │                                   │
-│              ٹرانسفارمر انکوڈر (x12)                        │
+│              Transformer Encoder (x12)                       │
 │                          │                                   │
 │    ┌─────────────────────────────────────────────────────┐  │
-│    │              بصری فیچرز (768-dim)                    │  │
+│    │              Visual Features (768-dim)               │  │
 │    └─────────────────────────────────────────────────────┘  │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## ViT کا نفاذ
+## Implementing ViT
 
 ```python
 import torch
@@ -53,18 +53,18 @@ class RobotVisionEncoder:
         inputs = self.processor(images=image, return_tensors="pt")
         outputs = self.model(**inputs)
 
-        # عالمی فیچر (CLS ٹوکن)
+        # Global feature (CLS token)
         global_features = outputs.last_hidden_state[:, 0]
 
-        # مقامی استدلال کے لیے پیچ فیچرز
+        # Patch features for spatial reasoning
         patch_features = outputs.last_hidden_state[:, 1:]
 
         return global_features, patch_features
 ```
 
-## روبوٹکس کے لیے CLIP
+## CLIP for Robotics
 
-CLIP ہم آہنگ ویژن-لینگویج فیچرز فراہم کرتا ہے:
+CLIP provides aligned vision-language features:
 
 ```python
 import clip
@@ -88,7 +88,7 @@ class CLIPEncoder:
         return torch.cosine_similarity(img_feat, txt_feat)
 ```
 
-## ملٹی ویو پرسیپشن
+## Multi-View Perception
 
 ```python
 class MultiViewEncoder:
@@ -96,30 +96,30 @@ class MultiViewEncoder:
         self.encoder = RobotVisionEncoder()
 
     def encode_views(self, images):
-        """متعدد کیمرہ ویوز انکوڈ کریں"""
+        """Encode multiple camera views"""
         features = []
         for img in images:
             feat, _ = self.encoder.encode(img)
             features.append(feat)
 
-        # فیچرز کو یکجا کریں
+        # Aggregate features
         aggregated = torch.stack(features).mean(dim=0)
         return aggregated
 ```
 
-## روبوٹ کاموں کے لیے فائن ٹیوننگ
+## Fine-Tuning for Robot Tasks
 
 ```python
 from torch.utils.data import DataLoader
 from transformers import ViTForImageClassification
 
-# آبجیکٹ کلاسیفیکیشن کے لیے فائن ٹیون کریں
+# Fine-tune for object classification
 model = ViTForImageClassification.from_pretrained(
     'google/vit-base-patch16-224',
-    num_labels=10  # آبجیکٹ کلاسز کی تعداد
+    num_labels=10  # Number of object classes
 )
 
-# تربیتی لوپ
+# Training loop
 optimizer = torch.optim.AdamW(model.parameters(), lr=1e-5)
 
 for epoch in range(10):
@@ -131,19 +131,19 @@ for epoch in range(10):
         optimizer.zero_grad()
 ```
 
-## مقامی استدلال
+## Spatial Reasoning
 
 ```python
 def extract_object_features(image, boxes, encoder):
-    """پتہ لگائے گئے آبجیکٹس کے لیے فیچرز نکالیں"""
+    """Extract features for detected objects"""
     object_features = []
 
     for box in boxes:
-        # آبجیکٹ ریجن کاٹیں
+        # Crop object region
         x1, y1, x2, y2 = box
         crop = image[:, y1:y2, x1:x2]
 
-        # سائز تبدیل کریں اور انکوڈ کریں
+        # Resize and encode
         crop_resized = resize(crop, (224, 224))
         features = encoder.encode(crop_resized)
         object_features.append(features)
@@ -151,20 +151,22 @@ def extract_object_features(image, boxes, encoder):
     return torch.stack(object_features)
 ```
 
-## عملی لیب
+## Hands-on Lab
 
-### لیب 4.2: آبجیکٹ گراؤنڈنگ بنائیں
+### Lab 4.2: Build Object Grounding
 
-ایک سسٹم بنائیں جو:
-1. ViT کے ساتھ سین کی تصویر انکوڈ کرے
-2. CLIP کے ساتھ آبجیکٹ کی تفصیلات انکوڈ کرے
-3. تفصیلات سے ملتے آبجیکٹس تلاش کرے
+Create a system that:
+1. Encodes scene image with ViT
+2. Encodes object descriptions with CLIP
+3. Locates objects matching descriptions
 
-## خلاصہ
+## Summary
 
-- ViT بھرپور بصری فیچرز نکالتا ہے
-- CLIP ویژن-لینگویج ہم آہنگی کو ممکن بناتا ہے
-- ملٹی ویو 3D سمجھ بوجھ بہتر بناتا ہے
-- فائن ٹیوننگ ماڈلز کو روبوٹ کاموں کے مطابق ڈھالتی ہے
+- ViT extracts rich visual features
+- CLIP enables vision-language alignment
+- Multi-view improves 3D understanding
+- Fine-tuning adapts models to robot tasks
 
-[باب 4.3 پر جائیں →](/docs/module-4-vla/chapter-3-language)
+[Continue to Chapter 4.3 →](/docs/module-4-vla/chapter-3-language)
+
+

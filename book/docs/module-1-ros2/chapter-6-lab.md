@@ -1,51 +1,51 @@
 ---
 sidebar_position: 6
-title: "1.6 لیب: آر او ایس 2 روبوٹ بنانا"
-description: تمام آر او ایس 2 تصورات کو یکجا کرنے والی مکمل عملی لیب
+title: "1.6 Lab: Building a ROS 2 Robot"
+description: Complete hands-on lab bringing together all ROS 2 concepts
 keywords: [ROS 2, lab, hands-on, project]
 ---
 
-# باب 1.6: لیب - آر او ایس 2 روبوٹ سسٹم بنانا
+# Chapter 1.6: Lab - Building a ROS 2 Robot System
 
-## لیب کا جائزہ
+## Lab Overview
 
-اس جامع لیب میں، آپ ماڈیول 1 میں سیکھی گئی ہر چیز کا استعمال کرتے ہوئے ایک مکمل روبوٹ سسٹم بنائیں گے:
+In this comprehensive lab, you'll build a complete robot system using everything learned in Module 1:
 
-- سینسرز، کنٹرول، اور مانیٹرنگ کے لیے نوڈز
-- مسلسل ڈیٹا سٹریمنگ کے لیے ٹاپکس
-- کنفیگریشن کے لیے سروسز
-- نیویگیشن کاموں کے لیے ایکشنز
-- رن ٹائم کنفیگریشن کے لیے پیرامیٹرز
-- آرکیسٹریشن کے لیے لانچ فائلز
+- Nodes for sensors, control, and monitoring
+- Topics for continuous data streaming
+- Services for configuration
+- Actions for navigation tasks
+- Parameters for runtime configuration
+- Launch files for orchestration
 
-## پروجیکٹ: خودکار گشت روبوٹ
+## Project: Autonomous Patrol Robot
 
-### سسٹم آرکیٹیکچر
+### System Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    گشت روبوٹ سسٹم                           │
+│                    Patrol Robot System                       │
 │                                                              │
 │  ┌──────────────┐    /scan     ┌──────────────────────┐    │
-│  │ لیڈار نوڈ    │─────────────>│                      │    │
-│  └──────────────┘              │   نیویگیشن نوڈ       │    │
+│  │ Lidar Node   │─────────────>│                      │    │
+│  └──────────────┘              │   Navigation Node    │    │
 │                                │                      │    │
-│  ┌──────────────┐   /odom      │  - راستے کی منصوبہ بندی│    │
-│  │ اوڈومیٹری نوڈ│─────────────>│  - رکاوٹ سے بچاؤ     │    │
-│  └──────────────┘              │  - گول ہینڈلنگ       │    │
+│  ┌──────────────┐   /odom      │  - Path planning     │    │
+│  │ Odometry Node│─────────────>│  - Obstacle avoid    │    │
+│  └──────────────┘              │  - Goal handling     │    │
 │                                └───────────┬──────────┘    │
 │                                            │               │
 │                                    /cmd_vel│               │
 │                                            ▼               │
 │  ┌──────────────┐  /patrol     ┌──────────────────────┐   │
-│  │ گشت          │<─────────────│   موٹر کنٹرولر      │   │
-│  │ کوآرڈینیٹر   │   (ایکشن)    │                      │   │
+│  │ Patrol       │<─────────────│   Motor Controller   │   │
+│  │ Coordinator  │   (action)   │                      │   │
 │  └──────────────┘              └──────────────────────┘   │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## مرحلہ 1: پیکیج بنائیں
+## Step 1: Create the Package
 
 ```bash
 cd ~/ros2_ws/src
@@ -53,7 +53,7 @@ ros2 pkg create patrol_robot --build-type ament_python \
   --dependencies rclpy std_msgs geometry_msgs sensor_msgs nav_msgs
 ```
 
-## مرحلہ 2: سینسر نوڈ نافذ کریں
+## Step 2: Implement Sensor Node
 
 ```python
 # patrol_robot/lidar_node.py
@@ -67,7 +67,7 @@ class LidarNode(Node):
         super().__init__('lidar_node')
         self.publisher = self.create_publisher(LaserScan, 'scan', 10)
         self.timer = self.create_timer(0.1, self.publish_scan)
-        self.get_logger().info('لیڈار نوڈ شروع ہو گیا')
+        self.get_logger().info('Lidar node started')
 
     def publish_scan(self):
         msg = LaserScan()
@@ -88,7 +88,7 @@ def main():
     rclpy.shutdown()
 ```
 
-## مرحلہ 3: نیویگیشن ایکشن نافذ کریں
+## Step 3: Implement Navigation Action
 
 ```python
 # patrol_robot/navigation_server.py
@@ -109,9 +109,9 @@ class NavigationServer(Node):
         )
 
     async def execute_callback(self, goal_handle):
-        self.get_logger().info('گول کی طرف نیویگیٹ کر رہا ہے...')
+        self.get_logger().info('Navigating to goal...')
 
-        # فیڈبیک کے ساتھ نیویگیشن کی سمولیشن
+        # Simulate navigation with feedback
         for i in range(10):
             feedback = NavigateToPose.Feedback()
             feedback.distance_remaining = float(10 - i)
@@ -123,7 +123,7 @@ class NavigationServer(Node):
         return result
 ```
 
-## مرحلہ 4: لانچ فائل بنائیں
+## Step 4: Create Launch File
 
 ```python
 # launch/patrol.launch.py
@@ -146,7 +146,7 @@ def generate_launch_description():
     ])
 ```
 
-## مرحلہ 5: بلڈ اور چلائیں
+## Step 5: Build and Run
 
 ```bash
 cd ~/ros2_ws
@@ -155,27 +155,29 @@ source install/setup.bash
 ros2 launch patrol_robot patrol.launch.py
 ```
 
-## تصدیق
+## Verification
 
 ```bash
-# چیک کریں کہ نوڈز چل رہے ہیں
+# Check nodes are running
 ros2 node list
 
-# سکین ٹاپک مانیٹر کریں
+# Monitor scan topic
 ros2 topic echo /scan
 
-# نیویگیشن گول بھیجیں
+# Send navigation goal
 ros2 action send_goal /navigate_to_pose nav2_msgs/action/NavigateToPose "{}"
 ```
 
-## چیلنجز
+## Challenges
 
-1. **بیٹری مانیٹرنگ شامل کریں** - ایک نوڈ بنائیں جو بیٹری کی سطح پبلش کرے
-2. **گشت وے پوائنٹس نافذ کریں** - گشت پوائنٹس سٹور کریں اور ان میں چکر لگائیں
-3. **ایمرجنسی اسٹاپ شامل کریں** - روبوٹ کو فوری طور پر روکنے کی سروس
+1. **Add battery monitoring** - Create a node that publishes battery level
+2. **Implement patrol waypoints** - Store and cycle through patrol points
+3. **Add emergency stop** - Service to immediately halt the robot
 
-## لیب مکمل!
+## Lab Complete!
 
-مبارک ہو! آپ نے ایک مکمل آر او ایس 2 روبوٹ سسٹم بنا لیا ہے۔ اب آپ **ماڈیول 2: سمولیشن** پر جانے کے لیے تیار ہیں جہاں آپ اپنے روبوٹ کو گزیبو اور یونٹی میں زندہ کریں گے۔
+Congratulations! You've built a complete ROS 2 robot system. You're now ready to move on to **Module 2: Simulation** where you'll bring your robot to life in Gazebo and Unity.
 
-[ماڈیول 2 پر جائیں →](/docs/module-2-simulation/chapter-1-intro)
+[Continue to Module 2 →](/docs/module-2-simulation/chapter-1-intro)
+
+

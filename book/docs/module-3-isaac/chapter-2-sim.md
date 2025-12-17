@@ -1,28 +1,28 @@
 ---
 sidebar_position: 2
-title: "3.2 Isaac Sim کے بنیادی اصول"
-description: Isaac Sim کی صلاحیتوں میں گہرائی سے مطالعہ
-keywords: [Isaac Sim, Omniverse, سمولیشن, USD]
+title: "3.2 Isaac Sim Fundamentals"
+description: Deep dive into Isaac Sim capabilities
+keywords: [Isaac Sim, Omniverse, simulation, USD]
 ---
 
-# باب 3.2: Isaac Sim کے بنیادی اصول
+# Chapter 3.2: Isaac Sim Fundamentals
 
-## سیکھنے کے مقاصد
+## Learning Objectives
 
-- Isaac Sim انٹرفیس میں نیویگیٹ کریں
-- سینز بنائیں اور تبدیل کریں
-- USD اثاثوں کے ساتھ کام کریں
-- فزکس سیٹنگز کنفیگر کریں
+- Navigate the Isaac Sim interface
+- Create and manipulate scenes
+- Work with USD assets
+- Configure physics settings
 
-## سین کی تخلیق
+## Scene Creation
 
-### آبجیکٹس شامل کرنا
+### Adding Objects
 
 ```python
 from omni.isaac.core.utils.prims import create_prim
 from pxr import UsdGeom, Gf
 
-# ایک کیوب بنائیں
+# Create a cube
 cube_prim = create_prim(
     prim_path="/World/Cube",
     prim_type="Cube",
@@ -31,21 +31,21 @@ cube_prim = create_prim(
 )
 ```
 
-### USD اثاثے لوڈ کرنا
+### Loading USD Assets
 
 ```python
 from omni.isaac.core.utils.stage import add_reference_to_stage
 
-# USD سے روبوٹ لوڈ کریں
+# Load robot from USD
 add_reference_to_stage(
     usd_path="/path/to/robot.usd",
     prim_path="/World/Robot"
 )
 ```
 
-## فزکس کنفیگریشن
+## Physics Configuration
 
-### PhysX سیٹنگز
+### PhysX Settings
 
 ```python
 from omni.physx import get_physx_scene_query_interface
@@ -54,7 +54,7 @@ physx_scene = get_physx_scene_query_interface()
 physx_scene.set_gravity(Gf.Vec3f(0, 0, -9.81))
 ```
 
-### رجڈ باڈی سیٹ اپ
+### Rigid Body Setup
 
 ```python
 from pxr import UsdPhysics
@@ -64,31 +64,31 @@ mass_api = UsdPhysics.MassAPI.Apply(prim)
 mass_api.CreateMassAttr(10.0)
 ```
 
-## ڈومین رینڈمائزیشن
+## Domain Randomization
 
 ```python
 from omni.isaac.core.utils.random import random_position
 
 for i in range(100):
-    # آبجیکٹ پوزیشنز کو رینڈمائز کریں
+    # Randomize object positions
     pos = random_position((-5, -5, 0), (5, 5, 2))
 
-    # روشنی کو رینڈمائز کریں
+    # Randomize lighting
     light.GetIntensityAttr().Set(random.uniform(500, 2000))
 
-    # ٹیکسچرز کو رینڈمائز کریں
+    # Randomize textures
     material.GetDiffuseColorAttr().Set(random_color())
 ```
 
-## ROS 2 برج
+## ROS 2 Bridge
 
-### ROS 2 برج فعال کریں
+### Enable ROS 2 Bridge
 
 ```python
 import omni.graph.core as og
 from omni.isaac.ros2_bridge import ROSBridge
 
-# ROS 2 برج بنائیں
+# Create ROS 2 bridge
 og.Controller.edit(
     {"graph_path": "/ROS2Bridge"},
     {og.Controller.Keys.CREATE_NODES: [
@@ -98,19 +98,21 @@ og.Controller.edit(
 )
 ```
 
-## عملی لیب
+## Hands-on Lab
 
-### لیب 3.2: ٹریننگ ماحول بنائیں
+### Lab 3.2: Build a Training Environment
 
-مندرجہ ذیل کے ساتھ ایک سین بنائیں:
-- رینڈم آبجیکٹ پلیسمنٹ
-- متغیر روشنی
-- متعدد کیمرہ ویوز
+Create a scene with:
+- Random object placement
+- Variable lighting
+- Multiple camera views
 
-## خلاصہ
+## Summary
 
-- Isaac Sim سین کمپوزیشن کے لیے USD استعمال کرتا ہے
-- PhysX درست فزکس سمولیشن فراہم کرتا ہے
-- ڈومین رینڈمائزیشن AI ٹریننگ کو بہتر بناتی ہے
+- Isaac Sim uses USD for scene composition
+- PhysX provides accurate physics simulation
+- Domain randomization improves AI training
 
-[باب 3.3 پر جائیں ←](/docs/module-3-isaac/chapter-3-perception)
+[Continue to Chapter 3.3 →](/docs/module-3-isaac/chapter-3-perception)
+
+

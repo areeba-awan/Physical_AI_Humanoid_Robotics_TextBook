@@ -1,25 +1,25 @@
 ---
 sidebar_position: 3
-title: "2.3 URDF اور روبوٹ ماڈلز"
-description: URDF کے ساتھ روبوٹ ڈسکرپشنز بنانا
-keywords: [URDF, روبوٹ ماڈل, لنکس, جوائنٹس, xacro]
+title: "2.3 URDF and Robot Models"
+description: Creating robot descriptions with URDF
+keywords: [URDF, robot model, links, joints, xacro]
 ---
 
-# باب 2.3: URDF اور روبوٹ ماڈلز
+# Chapter 2.3: URDF and Robot Models
 
-## سیکھنے کے مقاصد
+## Learning Objectives
 
-- URDF کی ساخت کو سمجھیں
-- لنکس اور جوائنٹس بنائیں
-- بصری اور ٹکراؤ کی جیومیٹریز شامل کریں
-- ماڈیولر روبوٹ ڈسکرپشنز کے لیے xacro استعمال کریں
+- Understand URDF structure
+- Create links and joints
+- Add visual and collision geometries
+- Use xacro for modular robot descriptions
 
-## URDF کی ساخت
+## URDF Structure
 
 ```xml
 <?xml version="1.0"?>
 <robot name="my_robot">
-  <!-- بیس لنک -->
+  <!-- Base Link -->
   <link name="base_link">
     <visual>
       <geometry>
@@ -40,7 +40,7 @@ keywords: [URDF, روبوٹ ماڈل, لنکس, جوائنٹس, xacro]
     </inertial>
   </link>
 
-  <!-- پہیے کا جوائنٹ -->
+  <!-- Wheel Joint -->
   <joint name="wheel_joint" type="continuous">
     <parent link="base_link"/>
     <child link="wheel"/>
@@ -48,7 +48,7 @@ keywords: [URDF, روبوٹ ماڈل, لنکس, جوائنٹس, xacro]
     <axis xyz="0 0 1"/>
   </joint>
 
-  <!-- پہیے کا لنک -->
+  <!-- Wheel Link -->
   <link name="wheel">
     <visual>
       <geometry>
@@ -59,25 +59,23 @@ keywords: [URDF, روبوٹ ماڈل, لنکس, جوائنٹس, xacro]
 </robot>
 ```
 
-## جوائنٹ کی اقسام
+## Joint Types
 
-| قسم | DOF | تفصیل |
+| Type | DOF | Description |
 |------|-----|-------------|
-| `fixed` | 0 | کوئی حرکت نہیں |
-| `revolute` | 1 | حدود کے ساتھ گردش |
-| `continuous` | 1 | لامحدود گردش |
-| `prismatic` | 1 | خطی حرکت |
-| `floating` | 6 | آزاد حرکت |
+| `fixed` | 0 | No movement |
+| `revolute` | 1 | Rotation with limits |
+| `continuous` | 1 | Unlimited rotation |
+| `prismatic` | 1 | Linear motion |
+| `floating` | 6 | Free movement |
 
-## Xacro کا استعمال
+## Using Xacro
 
 ```xml
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro" name="my_robot">
-  <!-- پہیے کا ریڈیئس متغیر -->
   <xacro:property name="wheel_radius" value="0.1"/>
 
-  <!-- پہیے کا میکرو -->
   <xacro:macro name="wheel" params="prefix side">
     <link name="${prefix}_${side}_wheel">
       <visual>
@@ -88,31 +86,32 @@ keywords: [URDF, روبوٹ ماڈل, لنکس, جوائنٹس, xacro]
     </link>
   </xacro:macro>
 
-  <!-- میکرو کا استعمال -->
   <xacro:wheel prefix="front" side="left"/>
   <xacro:wheel prefix="front" side="right"/>
 </robot>
 ```
 
-## RViz میں ویژولائزیشن
+## Visualizing in RViz
 
 ```bash
 ros2 launch urdf_tutorial display.launch.py model:=my_robot.urdf
 ```
 
-## عملی لیب
+## Hands-on Lab
 
-### لیب 2.3: موبائل روبوٹ بنائیں
+### Lab 2.3: Build a Mobile Robot
 
-4 پہیوں والا روبوٹ بنائیں جس میں:
-- ڈفرینشل ڈرائیو بیس
-- لائیڈار سینسر ماؤنٹ
-- کیمرہ ماؤنٹ
+Create a 4-wheeled robot with:
+- Differential drive base
+- Lidar sensor mount
+- Camera mount
 
-## خلاصہ
+## Summary
 
-- URDF لنکس اور جوائنٹس کے ساتھ روبوٹ کی ساخت کی تعریف کرتا ہے
-- Xacro ماڈیولر، دوبارہ قابل استعمال ڈسکرپشنز کو ممکن بناتا ہے
-- فزکس کے لیے مناسب اینرشیلز بہت اہم ہیں
+- URDF defines robot structure with links and joints
+- Xacro enables modular, reusable descriptions
+- Proper inertials are critical for physics
 
-[باب 2.4 جاری رکھیں ←](/docs/module-2-simulation/chapter-4-unity)
+[Continue to Chapter 2.4 →](/docs/module-2-simulation/chapter-4-unity)
+
+

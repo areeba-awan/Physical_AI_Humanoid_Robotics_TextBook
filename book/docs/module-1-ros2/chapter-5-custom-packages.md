@@ -1,27 +1,27 @@
 ---
 sidebar_position: 5
-title: "1.5 کسٹم پیکیجز بنانا"
-description: دوبارہ قابل استعمال آر او ایس 2 پیکیجز بنانا
+title: "1.5 Building Custom Packages"
+description: Creating reusable ROS 2 packages
 keywords: [ROS 2, packages, colcon, ament]
 ---
 
-# باب 1.5: کسٹم پیکیجز بنانا
+# Chapter 1.5: Building Custom Packages
 
-## سیکھنے کے مقاصد
+## Learning Objectives
 
-- پائتھون اور سی++ آر او ایس 2 پیکیجز بنائیں
-- کسٹم پیغامات اور سروسز کی تعریف کریں
-- پیکیج انحصارات کنفیگر کریں
-- کولکون کے ساتھ پیکیجز بلڈ اور انسٹال کریں
+- Create Python and C++ ROS 2 packages
+- Define custom messages and services
+- Configure package dependencies
+- Build and install packages with colcon
 
-## پائتھون پیکیج بنانا
+## Creating a Python Package
 
 ```bash
 cd ~/ros2_ws/src
 ros2 pkg create my_robot_pkg --build-type ament_python --dependencies rclpy std_msgs
 ```
 
-### پیکیج کا ڈھانچہ
+### Package Structure
 
 ```
 my_robot_pkg/
@@ -56,9 +56,9 @@ setup(
 )
 ```
 
-## کسٹم پیغامات
+## Custom Messages
 
-### پیغام کی تعریف
+### Define Message
 
 ```
 # msg/RobotState.msg
@@ -70,7 +70,7 @@ float64 battery_level
 bool is_moving
 ```
 
-### CMakeLists.txt کو اپ ڈیٹ کریں
+### Update CMakeLists.txt
 
 ```cmake
 find_package(rosidl_default_generators REQUIRED)
@@ -81,7 +81,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
 )
 ```
 
-### کسٹم پیغام استعمال کریں
+### Use Custom Message
 
 ```python
 from my_robot_pkg.msg import RobotState
@@ -92,7 +92,7 @@ msg.x = 1.0
 msg.y = 2.0
 ```
 
-## پیکیجز بلڈ کرنا
+## Building Packages
 
 ```bash
 cd ~/ros2_ws
@@ -100,20 +100,22 @@ colcon build --packages-select my_robot_pkg
 source install/setup.bash
 ```
 
-## عملی لیب
+## Hands-on Lab
 
-### لیب 1.5: روبوٹ کنٹرولر پیکیج
+### Lab 1.5: Robot Controller Package
 
-ایک مکمل پیکیج بنائیں جس میں:
-- روبوٹ کی حیثیت کے لیے کسٹم پیغام
-- حیثیت کے لیے پبلشر نوڈ
-- ویژولائزیشن کے لیے سبسکرائبر نوڈ
-- سسٹم شروع کرنے کے لیے لانچ فائل
+Create a complete package with:
+- Custom message for robot status
+- Publisher node for status
+- Subscriber node for visualization
+- Launch file to start the system
 
-## خلاصہ
+## Summary
 
-- فوری پیکیج سکیفولڈنگ کے لیے `ros2 pkg create` استعمال کریں
-- کسٹم پیغامات آر او ایس 2 کمیونیکیشن کو بڑھاتے ہیں
-- کولکون پیکیجز کو مؤثر طریقے سے بلڈ اور انسٹال کرتا ہے
+- Use `ros2 pkg create` for quick package scaffolding
+- Custom messages extend ROS 2 communication
+- colcon builds and installs packages efficiently
 
-[باب 1.6: لیب پر جائیں →](/docs/module-1-ros2/chapter-6-lab)
+[Continue to Chapter 1.6: Lab →](/docs/module-1-ros2/chapter-6-lab)
+
+

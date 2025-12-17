@@ -1,22 +1,22 @@
 ---
 sidebar_position: 5
-title: "2.5 Sensor Simulation"
-description: Simulating cameras, LiDAR, and other sensors
-keywords: [sensors, LiDAR, camera, IMU, simulation]
+title: "2.5 Sensor سیمیولیشن"
+description: "Simulating cameras, LiDAR, and other sensors"
+keywords: ["sensors", "LiDAR", "camera", "IMU", "simulation"]
 ---
 
-# Chapter 2.5: Sensor Simulation
+# باب 2.5: Sensor سیمیولیشن
 
-## Learning Objectives
+## سیکھنے کے مقاصد
 
 - Simulate camera sensors with realistic noise
 - Configure LiDAR sensors
-- Add IMU and other proprioceptive sensors
-- Apply sensor noise models
+- شامل کریں IMU and other proprioceptive sensors
+- اپلائی کریں sensor noise models
 
-## Camera Simulation
+## Camera سیمیولیشن
 
-### RGB Camera in Gazebo
+### RGB Camera in گیزیبو
 
 ```xml
 <sensor name="camera" type="camera">
@@ -60,7 +60,7 @@ keywords: [sensors, LiDAR, camera, IMU, simulation]
 </sensor>
 ```
 
-## LiDAR Simulation
+## LiDAR سیمیولیشن
 
 ### 2D LiDAR
 
@@ -121,7 +121,7 @@ keywords: [sensors, LiDAR, camera, IMU, simulation]
 </sensor>
 ```
 
-## IMU Simulation
+## IMU سیمیولیشن
 
 ```xml
 <sensor name="imu" type="imu">
@@ -152,11 +152,11 @@ keywords: [sensors, LiDAR, camera, IMU, simulation]
 | IMU Gyro | Gaussian + Bias | σ = 0.001 rad/s |
 | IMU Accel | Gaussian + Bias | σ = 0.01 m/s² |
 
-## Hands-on Lab
+## ہاتھ سے کام کرنے والی لیب
 
 ### Lab 2.5: Multi-Sensor Robot
 
-Add to your robot:
+شامل کریں to your robot:
 - Front RGB camera
 - Depth camera
 - 2D LiDAR
@@ -164,10 +164,12 @@ Add to your robot:
 
 Verify data in RViz.
 
-## Summary
+## خلاصہ
 
-- Sensors bridge simulation and perception algorithms
+- سینسرز bridge simulation and perception algorithms
 - Noise models ensure realistic sensor behavior
 - Multiple sensors provide redundancy and coverage
 
-[Continue to Chapter 2.6: Lab →](/ur/docs/module-2-simulation/chapter-6-lab)
+[Continue to باب 2.6: Lab →](/ur/docs/module-2-simulation/chapter-6-lab)
+
+

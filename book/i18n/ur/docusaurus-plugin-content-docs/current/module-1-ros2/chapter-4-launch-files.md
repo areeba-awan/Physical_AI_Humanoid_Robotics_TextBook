@@ -1,30 +1,30 @@
 ---
 sidebar_position: 4
-title: "1.4 Launch Files and Configuration"
-description: Orchestrating complex robot systems with launch files
-keywords: [ROS 2, launch, configuration, orchestration]
+title: "1.4 لانچ کریں Files and Configuration"
+description: "Orchestrating complex robot systems with launch files"
+keywords: ["ROS 2", "launch", "configuration", "orchestration"]
 ---
 
-# Chapter 1.4: Launch Files and Configuration
+# باب 1.4: لانچ کریں Files and Configuration
 
-## Learning Objectives
+## سیکھنے کے مقاصد
 
-- Create Python launch files for ROS 2
+- تخلیق کریں Python launch files for ROS 2
 - Configure multiple nodes with arguments
-- Use conditional logic in launch files
+- استعمال کریں conditional logic in launch files
 - Organize launch files for complex systems
 
-## Introduction to Launch Files
+## تعارف کا تعارف Files
 
-Launch files allow you to:
+لانچ کریں files allow you to:
 - Start multiple nodes with one command
 - Set parameters and remappings
 - Include other launch files
-- Use conditional logic
+- استعمال کریں conditional logic
 
-## Python Launch Files
+## Python لانچ کریں Files
 
-### Basic Launch File
+### Basic  لانچ فائل
 
 ```python
 # launch/robot.launch.py
@@ -48,7 +48,7 @@ def generate_launch_description():
     ])
 ```
 
-### With Parameters
+### With  پیرامیٹر
 
 ```python
 from launch import LaunchDescription
@@ -96,7 +96,7 @@ def generate_launch_description():
     ])
 ```
 
-### Running Launch Files
+### Running لانچ کریں Files
 
 ```bash
 # Basic launch
@@ -108,7 +108,7 @@ ros2 launch my_package robot.launch.py robot_name:=atlas
 
 ## Advanced Features
 
-### Including Other Launch Files
+### Including Other لانچ کریں Files
 
 ```python
 from launch.actions import IncludeLaunchDescription
@@ -144,16 +144,18 @@ def generate_launch_description():
     return LaunchDescription([use_rviz, rviz_node])
 ```
 
-## Hands-on Lab
+## ہاتھ سے کام کرنے والی لیب
 
-### Lab 1.4: Multi-Robot Launch
+### Lab 1.4: Multi-Robot لانچ کریں
 
-Create a launch file that spawns 3 robots with unique namespaces.
+تخلیق کریں a launch file that spawns 3 robots with unique namespaces.
 
-## Summary
+## خلاصہ
 
-- Launch files orchestrate complex multi-node systems
-- Use arguments for flexible configuration
+- لانچ کریں files orchestrate complex multi-node systems
+- استعمال کریں arguments for flexible configuration
 - Conditional logic enables reusable launch files
 
-[Continue to Chapter 1.5 →](/ur/docs/module-1-ros2/chapter-5-custom-packages)
+[Continue to باب 1.5 →](/ur/docs/module-1-ros2/chapter-5-custom-packages)
+
+

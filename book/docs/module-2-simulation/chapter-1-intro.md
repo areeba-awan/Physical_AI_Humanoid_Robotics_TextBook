@@ -1,81 +1,81 @@
 ---
 sidebar_position: 1
-title: "2.1 سمولیشن کا تعارف"
-description: روبوٹکس ڈویلپمنٹ کے لیے سمولیشن کیوں ضروری ہے
-keywords: [سمولیشن, ڈیجیٹل ٹوئن, گیزیبو, یونٹی, روبوٹکس]
+title: "2.1 Introduction to Simulation"
+description: Why simulation is essential for robotics development
+keywords: [simulation, digital twin, Gazebo, Unity, robotics]
 ---
 
-# باب 2.1: سمولیشن کا تعارف
+# Chapter 2.1: Introduction to Simulation
 
-## سیکھنے کے مقاصد
+## Learning Objectives
 
-- روبوٹکس ڈویلپمنٹ میں سمولیشن کے کردار کو سمجھیں
-- مختلف سمولیشن پلیٹ فارمز کا موازنہ کریں
-- ڈیجیٹل ٹوئن کا تصور سیکھیں
-- اپنا سمولیشن ماحول ترتیب دیں
+- Understand the role of simulation in robotics development
+- Compare different simulation platforms
+- Learn the digital twin concept
+- Set up your simulation environment
 
-## سمولیشن کیوں؟
+## Why Simulate?
 
-سمولیشن جدید روبوٹکس کے لیے ضروری ہے کیونکہ:
+Simulation is essential for modern robotics because:
 
-1. **حفاظت** - خطرناک منظرناموں کو بغیر خطرے کے جانچیں
-2. **رفتار** - حقیقی وقت سے تیز تجربات چلائیں
-3. **لاگت** - ہارڈویئر کی کوئی خرابی یا نقصان نہیں
-4. **پیمانہ** - ہزاروں منظرناموں کی جانچ کریں
-5. **دہرانے کی صلاحیت** - ہر بار بالکل وہی حالات
+1. **Safety** - Test dangerous scenarios without risk
+2. **Speed** - Run experiments faster than real-time
+3. **Cost** - No hardware wear or damage
+4. **Scale** - Test thousands of scenarios
+5. **Reproducibility** - Exact same conditions every time
 
-### ڈیجیٹل ٹوئن کا تصور
+### The Digital Twin Concept
 
 ```
 ┌──────────────────────┐         ┌──────────────────────┐
-│     حقیقی دنیا       │         │    ڈیجیٹل ٹوئن      │
+│     REAL WORLD       │         │    DIGITAL TWIN      │
 │                      │         │                      │
-│  ┌──────────────┐   │  ہم آہنگی │   ┌──────────────┐   │
-│  │ جسمانی       │◄──┼─────────┼──►│ سمولیٹڈ       │   │
-│  │ روبوٹ        │   │         │   │ روبوٹ         │   │
+│  ┌──────────────┐   │  Sync   │   ┌──────────────┐   │
+│  │ Physical     │◄──┼─────────┼──►│ Simulated    │   │
+│  │ Robot        │   │         │   │ Robot        │   │
 │  └──────────────┘   │         │   └──────────────┘   │
 │                      │         │                      │
 │  ┌──────────────┐   │         │   ┌──────────────┐   │
-│  │ ماحول        │◄──┼─────────┼──►│ ورچوئل       │   │
-│  │              │   │         │   │ ماحول         │   │
+│  │ Environment  │◄──┼─────────┼──►│ Virtual      │   │
+│  │              │   │         │   │ Environment  │   │
 │  └──────────────┘   │         │   └──────────────┘   │
 └──────────────────────┘         └──────────────────────┘
 ```
 
-## سمولیشن پلیٹ فارمز
+## Simulation Platforms
 
-| پلیٹ فارم | خوبیاں | استعمال کے مقامات |
+| Platform | Strengths | Use Cases |
 |----------|-----------|-----------|
-| **گیزیبو** | ROS انٹیگریشن، فزکس | عام روبوٹکس |
-| **یونٹی** | گرافکس، ML-Agents | ویژن، پرسیپشن |
-| **Isaac Sim** | GPU فزکس، مصنوعی ڈیٹا | AI ٹریننگ |
-| **Webots** | استعمال میں آسان، ٹیوٹوریلز | تعلیم |
+| **Gazebo** | ROS integration, physics | General robotics |
+| **Unity** | Graphics, ML-Agents | Vision, perception |
+| **Isaac Sim** | GPU physics, synthetic data | AI training |
+| **Webots** | Easy to use, tutorials | Education |
 
-### گیزیبو (اوپن سورس)
+### Gazebo (Open Source)
 
 ```bash
-# ROS 2 کے ساتھ گیزیبو انسٹال کریں
+# Install Gazebo with ROS 2
 sudo apt install ros-humble-gazebo-ros-pkgs
 
-# خالی دنیا شروع کریں
+# Launch empty world
 gazebo
 ```
 
-### یونٹی روبوٹکس ہب
+### Unity Robotics Hub
 
-- فوٹو ریئلسٹک رینڈرنگ
-- ML-Agents انٹیگریشن
-- کراس پلیٹ فارم ایکسپورٹ
+- Photorealistic rendering
+- ML-Agents integration
+- Cross-platform export
 
 ### NVIDIA Isaac Sim
 
-- RTX رے ٹریسنگ
-- ڈومین رینڈمائزیشن
-- مصنوعی ڈیٹا جنریشن
+- RTX ray tracing
+- Domain randomization
+- Synthetic data generation
 
-## گیزیبو کی ترتیب
+## Setting Up Gazebo
 
-### بنیادی ورلڈ فائل
+### Basic World File
 
 ```xml
 <?xml version="1.0"?>
@@ -91,7 +91,7 @@ gazebo
 </sdf>
 ```
 
-### ROS 2 کے ساتھ گیزیبو شروع کریں
+### Launch Gazebo with ROS 2
 
 ```python
 # launch/gazebo.launch.py
@@ -106,35 +106,36 @@ def generate_launch_description():
             get_package_share_directory('gazebo_ros'),
             '/launch/gazebo.launch.py'
         ]),
-        # دنیا کی فائل کا راستہ
         launch_arguments={'world': 'my_world.sdf'}.items()
     )
     return LaunchDescription([gazebo])
 ```
 
-## سمولیشن کی درستگی
+## Simulation Fidelity
 
-### فزکس کی درستگی
+### Physics Accuracy
 
-| سطح | رفتار | درستگی | استعمال |
+| Level | Speed | Accuracy | Use Case |
 |-------|-------|----------|----------|
-| کم | 100x RT | ~50% | فوری ٹیسٹ |
-| درمیانی | 10x RT | ~80% | ڈویلپمنٹ |
-| اعلیٰ | 1x RT | ~95% | توثیق |
+| Low | 100x RT | ~50% | Quick tests |
+| Medium | 10x RT | ~80% | Development |
+| High | 1x RT | ~95% | Validation |
 
-## عملی لیب
+## Hands-on Lab
 
-### لیب 2.1: اپنی پہلی سمولیشن شروع کریں
+### Lab 2.1: Launch Your First Simulation
 
-1. گیزیبو انسٹال کریں
-2. خالی دنیا شروع کریں
-3. ایک سادہ شکل شامل کریں (باکس، کرہ)
-4. قوتیں لگائیں اور فزکس مشاہدہ کریں
+1. Install Gazebo
+2. Launch the empty world
+3. Add a simple shape (box, sphere)
+4. Apply forces and observe physics
 
-## خلاصہ
+## Summary
 
-- سمولیشن محفوظ، تیز، اور سستی روبوٹ ڈویلپمنٹ کو ممکن بناتی ہے
-- ڈیجیٹل ٹوئنز ورچوئل ماحول میں جسمانی روبوٹس کی عکاسی کرتے ہیں
-- اپنی ضروریات کے مطابق پلیٹ فارم منتخب کریں
+- Simulation enables safe, fast, and cheap robot development
+- Digital twins mirror physical robots in virtual environments
+- Choose your platform based on your needs
 
-[باب 2.2: گیزیبو کی بنیادیں جاری رکھیں ←](/docs/module-2-simulation/chapter-2-gazebo)
+[Continue to Chapter 2.2: Gazebo Basics →](/docs/module-2-simulation/chapter-2-gazebo)
+
+

@@ -1,15 +1,15 @@
 ---
 sidebar_position: 2
 title: "4.2 Vision Transformers for Robots"
-description: Visual perception with transformers
-keywords: [ViT, vision transformer, perception, features]
+description: "Visual perception with transformers"
+keywords: ["ViT", "vision transformer", "perception", "features"]
 ---
 
-# Chapter 4.2: Vision Transformers for Robots
+# باب 4.2: Vision Transformers for Robots
 
-## Learning Objectives
+## سیکھنے کے مقاصد
 
-- Understand Vision Transformer (ViT) architecture
+- سمجھیں Vision Transformer (ViT) architecture
 - Extract visual features for robotics
 - Fine-tune vision models for robot tasks
 - Implement multi-view perception
@@ -88,7 +88,7 @@ class CLIPEncoder:
         return torch.cosine_similarity(img_feat, txt_feat)
 ```
 
-## Multi-View Perception
+## Multi-View ادراک
 
 ```python
 class MultiViewEncoder:
@@ -119,7 +119,7 @@ model = ViTForImageClassification.from_pretrained(
     num_labels=10  # Number of object classes
 )
 
-# Training loop
+#  تربیت loop
 optimizer = torch.optim.AdamW(model.parameters(), lr=1e-5)
 
 for epoch in range(10):
@@ -151,20 +151,22 @@ def extract_object_features(image, boxes, encoder):
     return torch.stack(object_features)
 ```
 
-## Hands-on Lab
+## ہاتھ سے کام کرنے والی لیب
 
-### Lab 4.2: Build Object Grounding
+### Lab 4.2: تعمیر کریں Object Grounding
 
-Create a system that:
+تخلیق کریں a system that:
 1. Encodes scene image with ViT
 2. Encodes object descriptions with CLIP
 3. Locates objects matching descriptions
 
-## Summary
+## خلاصہ
 
 - ViT extracts rich visual features
 - CLIP enables vision-language alignment
 - Multi-view improves 3D understanding
 - Fine-tuning adapts models to robot tasks
 
-[Continue to Chapter 4.3 →](/ur/docs/module-4-vla/chapter-3-language)
+[Continue to باب 4.3 →](/ur/docs/module-4-vla/chapter-3-language)
+
+

@@ -1,18 +1,18 @@
 ---
 sidebar_position: 5
-title: "1.5 Building Custom Packages"
-description: Creating reusable ROS 2 packages
-keywords: [ROS 2, packages, colcon, ament]
+title: "1.5 Building اپنی مرضی کے پیکجز"
+description: "Creating reusable ROS 2 packages"
+keywords: ["ROS 2", "packages", "colcon", "ament"]
 ---
 
-# Chapter 1.5: Building Custom Packages
+# باب 1.5: Building اپنی مرضی کے پیکجز
 
-## Learning Objectives
+## سیکھنے کے مقاصد
 
-- Create Python and C++ ROS 2 packages
+- تخلیق کریں Python and C++ ROS 2 packages
 - Define custom messages and services
 - Configure package dependencies
-- Build and install packages with colcon
+- تعمیر کریں and install packages with colcon
 
 ## Creating a Python Package
 
@@ -56,7 +56,7 @@ setup(
 )
 ```
 
-## Custom Messages
+## Custom پیغامات
 
 ### Define Message
 
@@ -81,7 +81,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
 )
 ```
 
-### Use Custom Message
+### استعمال کریں Custom Message
 
 ```python
 from my_robot_pkg.msg import RobotState
@@ -92,7 +92,7 @@ msg.x = 1.0
 msg.y = 2.0
 ```
 
-## Building Packages
+## Building پیکجز
 
 ```bash
 cd ~/ros2_ws
@@ -100,20 +100,22 @@ colcon build --packages-select my_robot_pkg
 source install/setup.bash
 ```
 
-## Hands-on Lab
+## ہاتھ سے کام کرنے والی لیب
 
 ### Lab 1.5: Robot Controller Package
 
-Create a complete package with:
+تخلیق کریں a complete package with:
 - Custom message for robot status
-- Publisher node for status
-- Subscriber node for visualization
-- Launch file to start the system
+- شائع کنندہ node for status
+-  مسیحین node for visualization
+- لانچ کریں file to start the system
 
-## Summary
+## خلاصہ
 
-- Use `ros2 pkg create` for quick package scaffolding
+- استعمال کریں `ros2 pkg create` for quick package scaffolding
 - Custom messages extend ROS 2 communication
 - colcon builds and installs packages efficiently
 
-[Continue to Chapter 1.6: Lab →](/ur/docs/module-1-ros2/chapter-6-lab)
+[Continue to باب 1.6: Lab →](/ur/docs/module-1-ros2/chapter-6-lab)
+
+

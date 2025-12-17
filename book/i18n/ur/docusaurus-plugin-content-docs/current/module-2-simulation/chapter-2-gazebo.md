@@ -1,31 +1,31 @@
 ---
 sidebar_position: 2
-title: "2.2 Gazebo Basics"
-description: Getting started with Gazebo simulation
-keywords: [Gazebo, simulation, physics, ROS 2]
+title: "2.2 گیزیبو Basics"
+description: "Getting started with گیزیبو simulation"
+keywords: ["گیزیبو", "simulation", "physics", "ROS 2"]
 ---
 
-# Chapter 2.2: Gazebo Basics
+# باب 2.2: گیزیبو Basics
 
-## Learning Objectives
+## سیکھنے کے مقاصد
 
-- Navigate the Gazebo interface
-- Create and manipulate world files
-- Add models and interact with physics
-- Connect Gazebo to ROS 2
+- Navigate the گیزیبو interface
+- تخلیق کریں and manipulate world files
+- شامل کریں models and interact with physics
+- Connect گیزیبو کا تعارف
 
-## Gazebo Interface
+## گیزیبو Interface
 
 ### Main Components
 
 - **Scene** - 3D visualization of the world
-- **Panel** - World tree, properties, layers
-- **Toolbar** - Navigation, insertion, manipulation tools
-- **Timeline** - Simulation time control
+- **Panel** - دنیا tree, properties, layers
+- **Toolbar** - نیویگیشن, insertion, manipulation tools
+- **Timeline** - سیمیولیشن time control
 
 ## Creating Worlds
 
-### World File Structure
+### دنیا فائل Structure
 
 ```xml
 <?xml version="1.0"?>
@@ -53,9 +53,9 @@ keywords: [Gazebo, simulation, physics, ROS 2]
 </sdf>
 ```
 
-## ROS 2 Integration
+## ROS 2  انضمام
 
-### Gazebo Plugins
+### گیزیبو Plugins
 
 ```xml
 <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
@@ -69,7 +69,7 @@ keywords: [Gazebo, simulation, physics, ROS 2]
 ros2 run gazebo_ros spawn_entity.py -entity my_robot -file robot.urdf
 ```
 
-## Physics Configuration
+## طبیعات Configuration
 
 ```xml
 <physics type="ode">
@@ -79,19 +79,21 @@ ros2 run gazebo_ros spawn_entity.py -entity my_robot -file robot.urdf
 </physics>
 ```
 
-## Hands-on Lab
+## ہاتھ سے کام کرنے والی لیب
 
-### Lab 2.2: Create a Custom World
+### Lab 2.2: تخلیق کریں a Custom دنیا
 
-Build a warehouse environment with:
+تعمیر کریں a warehouse environment with:
 - Shelving units
 - Floor markings
 - Proper lighting
 
-## Summary
+## خلاصہ
 
-- Gazebo provides realistic physics simulation
-- World files define environments in SDF format
+- گیزیبو provides realistic physics simulation
+- دنیا files define environments in SDF format
 - ROS 2 plugins enable seamless integration
 
-[Continue to Chapter 2.3 →](/ur/docs/module-2-simulation/chapter-3-urdf)
+[Continue to باب 2.3 →](/ur/docs/module-2-simulation/chapter-3-urdf)
+
+

@@ -1,30 +1,30 @@
 ---
 sidebar_position: 6
-title: "2.6 Lab: Digital Twin Pipeline"
-description: Building a complete digital twin system
-keywords: [digital twin, simulation, Gazebo, Unity, pipeline]
+title: "2.6 Lab: ڈیجیٹل ٹوئن Pipeline"
+description: "Building a complete digital twin system"
+keywords: ["digital twin", "simulation", "گیزیبو", "یونٹی", "pipeline"]
 ---
 
-# Chapter 2.6: Lab - Digital Twin Pipeline
+# باب 2.6: Lab - ڈیجیٹل ٹوئن Pipeline
 
-## Lab Overview
+## Lab جائزہ
 
-Build a complete digital twin that synchronizes between simulation and visualization, enabling testing of robot behaviors in a realistic virtual environment.
+تعمیر کریں a complete digital twin that synchronizes between simulation and visualization, enabling testing of robot behaviors in a realistic virtual environment.
 
-## Project: Warehouse Robot Digital Twin
+## Project: Warehouse Robot ڈیجیٹل ٹوئن
 
-### System Architecture
+### سسٹم Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                    DIGITAL TWIN PIPELINE                     │
 │                                                              │
 │  ┌──────────────┐              ┌──────────────────────┐    │
-│  │   Gazebo     │    /tf      │      RViz2           │    │
-│  │  Simulation  │────────────>│   Visualization      │    │
+│  │   گیزیبو     │    /tf      │      RViz2           │    │
+│  │  سیمیولیشن  │────────────>│    وژولائزیشن      │    │
 │  │              │   /scan     │                      │    │
-│  │  - Physics   │────────────>│   - Robot model      │    │
-│  │  - Sensors   │  /camera    │   - Sensor data      │    │
+│  │  - طبیعات   │────────────>│   - Robot model      │    │
+│  │  - سینسرز   │  /camera    │   - Sensor data      │    │
 │  │              │────────────>│   - Path planning    │    │
 │  └──────────────┘              └──────────────────────┘    │
 │         │                               ▲                   │
@@ -32,7 +32,7 @@ Build a complete digital twin that synchronizes between simulation and visualiza
 │         ▼                               │                   │
 │  ┌──────────────┐              ┌────────┴─────────────┐    │
 │  │   Nav2       │    /cmd_vel │     Operator         │    │
-│  │  Navigation  │<────────────│     Interface        │    │
+│  │  نیویگیشن  │<────────────│     Interface        │    │
 │  │              │             │                      │    │
 │  │  - SLAM      │             │   - Goal setting     │    │
 │  │  - Planner   │             │   - Monitoring       │    │
@@ -41,7 +41,7 @@ Build a complete digital twin that synchronizes between simulation and visualiza
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## Step 1: Create Warehouse World
+## Step 1: تخلیق کریں Warehouse دنیا
 
 ```xml
 <!-- worlds/warehouse.sdf -->
@@ -101,7 +101,7 @@ Build a complete digital twin that synchronizes between simulation and visualiza
 </robot>
 ```
 
-## Step 3: Launch File
+## Step 3:  لانچ فائل
 
 ```python
 # launch/digital_twin.launch.py
@@ -144,10 +144,10 @@ def generate_launch_description():
     ])
 ```
 
-## Step 4: Run the Digital Twin
+## Step 4: چلائیں the ڈیجیٹل ٹوئن
 
 ```bash
-# Launch the complete system
+# لانچ کریں the complete system
 ros2 launch warehouse_robot digital_twin.launch.py
 
 # Send navigation goal
@@ -158,19 +158,21 @@ ros2 action send_goal /navigate_to_pose nav2_msgs/action/NavigateToPose \
 ## Verification Checklist
 
 - [ ] Robot spawns in warehouse
-- [ ] Sensors publish data
+- [ ] سینسرز publish data
 - [ ] RViz displays robot and sensor data
-- [ ] Navigation goals work
+- [ ] نیویگیشن goals work
 - [ ] Obstacle avoidance functions
 
 ## Challenge Extensions
 
-1. **Add dynamic obstacles** - Moving people or forklifts
-2. **Implement pick-and-place** - Use MoveIt for manipulation
-3. **Multi-robot coordination** - Fleet management
+1. **شامل کریں dynamic obstacles** - Moving people or forklifts
+2. **Implement pick-and-place** - استعمال کریں MoveIt for manipulation
+3. **متعدد روبوٹ coordination** - Fleet management
 
 ## Lab Complete!
 
-You've built a complete digital twin pipeline. Next, we'll add AI capabilities with NVIDIA Isaac.
+You've built a complete digital twin pipeline. Next, we'll add AI capabilities with این ویڈیا ایزیک.
 
-[Continue to Module 3: NVIDIA Isaac →](/ur/docs/module-3-isaac/chapter-1-intro)
+[Continue to مودیول 3: این ویڈیا ایزیک →](/ur/docs/module-3-isaac/chapter-1-intro)
+
+

@@ -1,49 +1,49 @@
 ---
 sidebar_position: 4
-title: "3.4 مینیپولیشن پلاننگ"
-description: Isaac کے ساتھ روبوٹ آرم موشن پلاننگ
-keywords: [مینیپولیشن, موشن پلاننگ, cuMotion, MoveIt]
+title: "3.4 Manipulation Planning"
+description: Robot arm motion planning with Isaac
+keywords: [manipulation, motion planning, cuMotion, MoveIt]
 ---
 
-# باب 3.4: مینیپولیشن پلاننگ
+# Chapter 3.4: Manipulation Planning
 
-## سیکھنے کے مقاصد
+## Learning Objectives
 
-- موشن پلاننگ کے تصورات سمجھیں
-- GPU سے تیز پلاننگ کے لیے cuMotion استعمال کریں
-- MoveIt 2 کے ساتھ انٹیگریٹ کریں
-- پک اینڈ پلیس آپریشنز نافذ کریں
+- Understand motion planning concepts
+- Use cuMotion for GPU-accelerated planning
+- Integrate with MoveIt 2
+- Implement pick-and-place operations
 
-## cuMotion: GPU موشن پلاننگ
+## cuMotion: GPU Motion Planning
 
-### آرکیٹیکچر
+### Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                      cuMotion پائپ لائن                      │
+│                      cuMotion Pipeline                       │
 │                                                              │
 │  ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌────────┐│
-│  │  ہدف     │───>│  گراف   │───>│ ٹکراؤ    │───>│ ہموار  ││
-│  │  پوز    │    │  سرچ    │    │  چیک     │    │ ٹریج   ││
+│  │  Goal    │───>│  Graph   │───>│ Collision │───>│ Smooth ││
+│  │  Pose    │    │  Search  │    │   Check   │    │ Traj   ││
 │  └──────────┘    └──────────┘    └──────────┘    └────────┘│
 │                       │               │                      │
 │                       └───────────────┘                      │
-│                        GPU متوازی                           │
+│                        GPU Parallel                          │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### cuMotion کا استعمال
+### Using cuMotion
 
 ```python
 from isaac_ros_cumotion import cuMotionMoveGroup
 
-# موشن پلانر بنائیں
+# Create motion planner
 planner = cuMotionMoveGroup(
     robot_description="/robot_description",
     planning_group="manipulator"
 )
 
-# ہدف پوز کی طرف منصوبہ بنائیں
+# Plan to target pose
 success, trajectory = planner.plan_to_pose(
     target_pose=Pose(
         position=Point(0.5, 0.0, 0.3),
@@ -51,35 +51,35 @@ success, trajectory = planner.plan_to_pose(
     )
 )
 
-# ٹریجیکٹری عمل میں لائیں
+# Execute trajectory
 if success:
     planner.execute(trajectory)
 ```
 
-## MoveIt 2 انٹیگریشن
+## MoveIt 2 Integration
 
-### MoveIt لانچ کریں
+### Launch MoveIt
 
 ```bash
 ros2 launch moveit_config move_group.launch.py
 ```
 
-### پلاننگ سین
+### Planning Scene
 
 ```python
 from moveit_msgs.msg import PlanningScene, CollisionObject
 
-# ٹکراؤ آبجیکٹ شامل کریں
+# Add collision object
 collision_object = CollisionObject()
 collision_object.id = "table"
 collision_object.header.frame_id = "world"
 collision_object.operation = CollisionObject.ADD
 
-# پلاننگ سین میں پبلش کریں
+# Publish to planning scene
 planning_scene_publisher.publish(scene)
 ```
 
-## پک اینڈ پلیس
+## Pick and Place
 
 ```python
 class PickAndPlace:
@@ -88,45 +88,47 @@ class PickAndPlace:
         self.gripper = GripperInterface()
 
     def pick(self, object_pose):
-        # گرفت سے پہلے اپروچ
+        # Pre-grasp approach
         approach_pose = self.compute_approach(object_pose)
         self.move_group.set_pose_target(approach_pose)
         self.move_group.go()
 
-        # گرفت کی طرف جائیں
+        # Move to grasp
         self.move_group.set_pose_target(object_pose)
         self.move_group.go()
 
-        # گرپر بند کریں
+        # Close gripper
         self.gripper.close()
 
     def place(self, place_pose):
-        # رکھنے کی جگہ پر جائیں
+        # Move to place location
         self.move_group.set_pose_target(place_pose)
         self.move_group.go()
 
-        # گرپر کھولیں
+        # Open gripper
         self.gripper.open()
 
-        # واپس ہٹیں
+        # Retreat
         retreat_pose = self.compute_retreat(place_pose)
         self.move_group.set_pose_target(retreat_pose)
         self.move_group.go()
 ```
 
-## عملی لیب
+## Hands-on Lab
 
-### لیب 3.4: چھانٹنے کا کام
+### Lab 3.4: Sorting Task
 
-ایک روبوٹ نافذ کریں جو:
-1. میز پر آبجیکٹس کا پتہ لگائے
-2. ٹکراؤ سے پاک راستے بنائے
-3. رنگ کے لحاظ سے آبجیکٹس چھانٹے
+Implement a robot that:
+1. Detects objects on a table
+2. Plans collision-free paths
+3. Sorts objects by color
 
-## خلاصہ
+## Summary
 
-- cuMotion GPU سے تیز موشن پلاننگ فراہم کرتا ہے
-- MoveIt 2 جامع مینیپولیشن ٹولز پیش کرتا ہے
-- پک اینڈ پلیس ایک بنیادی مینیپولیشن کام ہے
+- cuMotion provides GPU-accelerated motion planning
+- MoveIt 2 offers comprehensive manipulation tools
+- Pick-and-place is a fundamental manipulation task
 
-[باب 3.5 پر جائیں ←](/docs/module-3-isaac/chapter-5-ros-integration)
+[Continue to Chapter 3.5 →](/docs/module-3-isaac/chapter-5-ros-integration)
+
+

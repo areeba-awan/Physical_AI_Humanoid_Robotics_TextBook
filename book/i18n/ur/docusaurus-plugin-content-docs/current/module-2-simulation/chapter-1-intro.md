@@ -1,30 +1,30 @@
 ---
 sidebar_position: 1
-title: "2.1 Introduction to Simulation"
-description: Why simulation is essential for robotics development
-keywords: [simulation, digital twin, Gazebo, Unity, robotics]
+title: "2.1 سیمیولیشن کا تعارف"
+description: "روبوٹکس کی ترقی کے لیے سیمیولیشن کیوں ضروری ہے"
+keywords: ["simulation", "digital twin", "گیزیبو", "یونٹی", "robotics"]
 ---
 
-# Chapter 2.1: Introduction to Simulation
+# باب 2.1: سیمیولیشن کا تعارف
 
-## Learning Objectives
+## سیکھنے کے مقاصد
 
-- Understand the role of simulation in robotics development
-- Compare different simulation platforms
-- Learn the digital twin concept
-- Set up your simulation environment
+- سمجھیں the role of simulation in robotics development
+-  موازنہ کریں different simulation platforms
+- سیکھیں the digital twin concept
+-  تیار کریں your simulation environment
 
 ## Why Simulate?
 
-Simulation is essential for modern robotics because:
+سیمیولیشن is essential for modern robotics because:
 
-1. **Safety** - Test dangerous scenarios without risk
-2. **Speed** - Run experiments faster than real-time
+1. **Safety** - جانچ dangerous scenarios without risk
+2. **Speed** - چلائیں experiments faster than real-time
 3. **Cost** - No hardware wear or damage
-4. **Scale** - Test thousands of scenarios
+4. **Scale** - جانچ thousands of scenarios
 5. **Reproducibility** - Exact same conditions every time
 
-### The Digital Twin Concept
+### ڈیجیٹل ٹوئن  تصور
 
 ```
 ┌──────────────────────┐         ┌──────────────────────┐
@@ -36,46 +36,46 @@ Simulation is essential for modern robotics because:
 │  └──────────────┘   │         │   └──────────────┘   │
 │                      │         │                      │
 │  ┌──────────────┐   │         │   ┌──────────────┐   │
-│  │ Environment  │◄──┼─────────┼──►│ Virtual      │   │
-│  │              │   │         │   │ Environment  │   │
+│  │ ماحول  │◄──┼─────────┼──►│ Virtual      │   │
+│  │              │   │         │   │ ماحول  │   │
 │  └──────────────┘   │         │   └──────────────┘   │
 └──────────────────────┘         └──────────────────────┘
 ```
 
-## Simulation Platforms
+## سیمیولیشن پلیٹ فارم
 
-| Platform | Strengths | Use Cases |
+|  پلیٹ فارم | Strengths | استعمال کریں Cases |
 |----------|-----------|-----------|
-| **Gazebo** | ROS integration, physics | General robotics |
-| **Unity** | Graphics, ML-Agents | Vision, perception |
-| **Isaac Sim** | GPU physics, synthetic data | AI training |
+| **گیزیبو** | ROS integration, physics | General robotics |
+| **یونٹی** | Graphics, ML-Agents | Vision, perception |
+| **ایزیک سیم** | GPU physics, synthetic data | AI training |
 | **Webots** | Easy to use, tutorials | Education |
 
-### Gazebo (Open Source)
+### گیزیبو (Open ماخذ)
 
 ```bash
-# Install Gazebo with ROS 2
+# انسٹال کریں گیزیبو with ROS 2
 sudo apt install ros-humble-gazebo-ros-pkgs
 
-# Launch empty world
+# لانچ کریں empty world
 gazebo
 ```
 
-### Unity Robotics Hub
+### یونٹی روبوٹکس ہب
 
-- Photorealistic rendering
+- فوٹو ریئلیسٹک rendering
 - ML-Agents integration
 - Cross-platform export
 
-### NVIDIA Isaac Sim
+### این ویڈیا ایزیک Sim
 
 - RTX ray tracing
 - Domain randomization
 - Synthetic data generation
 
-## Setting Up Gazebo
+## گیزیبو تیار کرنا
 
-### Basic World File
+### Basic دنیا فائل
 
 ```xml
 <?xml version="1.0"?>
@@ -91,7 +91,7 @@ gazebo
 </sdf>
 ```
 
-### Launch Gazebo with ROS 2
+### لانچ کریں گیزیبو with ROS 2
 
 ```python
 # launch/gazebo.launch.py
@@ -111,29 +111,31 @@ def generate_launch_description():
     return LaunchDescription([gazebo])
 ```
 
-## Simulation Fidelity
+## سیمیولیشن وفاداری
 
-### Physics Accuracy
+### طبیعات کی درستی
 
-| Level | Speed | Accuracy | Use Case |
+| Level | Speed | Accuracy | استعمال کریں Case |
 |-------|-------|----------|----------|
 | Low | 100x RT | ~50% | Quick tests |
-| Medium | 10x RT | ~80% | Development |
-| High | 1x RT | ~95% | Validation |
+| Medium | 10x RT | ~80% |  ترقی |
+| High | 1x RT | ~95% |  توثیق |
 
-## Hands-on Lab
+## ہاتھ سے کام کرنے والی لیب
 
-### Lab 2.1: Launch Your First Simulation
+### Lab 2.1: لانچ کریں آپ کا پہلا سیمیولیشن
 
-1. Install Gazebo
-2. Launch the empty world
-3. Add a simple shape (box, sphere)
-4. Apply forces and observe physics
+1. انسٹال کریں گیزیبو
+2. لانچ کریں the empty world
+3. شامل کریں a simple shape (box, sphere)
+4. اپلائی کریں forces and observe physics
 
-## Summary
+## خلاصہ
 
-- Simulation enables safe, fast, and cheap robot development
+- سیمیولیشن enables safe, fast, and cheap robot development
 - Digital twins mirror physical robots in virtual environments
-- Choose your platform based on your needs
+- منتخب کریں your platform based on your needs
 
-[Continue to Chapter 2.2: Gazebo Basics →](/ur/docs/module-2-simulation/chapter-2-gazebo)
+[Continue to باب 2.2: گیزیبو Basics →](/ur/docs/module-2-simulation/chapter-2-gazebo)
+
+

@@ -1,35 +1,35 @@
 ---
 sidebar_position: 3
-title: "3.3 Isaac کے ساتھ پرسیپشن"
-description: GPU سے تیز پرسیپشن پائپ لائنز
-keywords: [پرسیپشن, DNN, آبجیکٹ ڈیٹیکشن, سیگمنٹیشن]
+title: "3.3 Perception with Isaac"
+description: GPU-accelerated perception pipelines
+keywords: [perception, DNN, object detection, segmentation]
 ---
 
-# باب 3.3: Isaac کے ساتھ پرسیپشن
+# Chapter 3.3: Perception with Isaac
 
-## سیکھنے کے مقاصد
+## Learning Objectives
 
-- آبجیکٹ ڈیٹیکشن کے لیے DNN ماڈلز ڈیپلائے کریں
-- Isaac ROS پرسیپشن پیکجز استعمال کریں
-- ویژول SLAM نافذ کریں
-- پرسیپشن پائپ لائنز بنائیں
+- Deploy DNN models for object detection
+- Use Isaac ROS perception packages
+- Implement visual SLAM
+- Create perception pipelines
 
-## Isaac ROS DNN انفرنس
+## Isaac ROS DNN Inference
 
-### آبجیکٹ ڈیٹیکشن پائپ لائن
+### Object Detection Pipeline
 
 ```python
-# آبجیکٹ ڈیٹیکشن لانچ کریں
+# Launch object detection
 ros2 launch isaac_ros_yolov8 isaac_ros_yolov8.launch.py \
     model_file_path:=/models/yolov8n.onnx \
     input_image_width:=640 \
     input_image_height:=480
 ```
 
-### ڈیٹیکشن کے نتائج
+### Detection Results
 
 ```python
-# ڈیٹیکشنز کی سبسکرائب کریں
+# Subscribe to detections
 from vision_msgs.msg import Detection2DArray
 
 def detection_callback(msg):
@@ -37,37 +37,37 @@ def detection_callback(msg):
         bbox = detection.bbox
         class_id = detection.results[0].hypothesis.class_id
         score = detection.results[0].hypothesis.score
-        print(f"پتہ لگایا {class_id}: {score:.2f}")
+        print(f"Detected {class_id}: {score:.2f}")
 ```
 
-## ویژول SLAM
+## Visual SLAM
 
-### Isaac ROS ویژول SLAM
+### Isaac ROS Visual SLAM
 
 ```bash
 ros2 launch isaac_ros_visual_slam isaac_ros_visual_slam.launch.py
 ```
 
-### آؤٹ پٹس
+### Outputs
 
-- `/visual_slam/tracking/odometry` - پوز کا اندازہ
-- `/visual_slam/vis/slam_odometry` - ویژولائزیشن
-- `/visual_slam/status` - ٹریکنگ کی حیثیت
+- `/visual_slam/tracking/odometry` - Pose estimate
+- `/visual_slam/vis/slam_odometry` - Visualization
+- `/visual_slam/status` - Tracking status
 
-## سیمنٹک سیگمنٹیشن
+## Semantic Segmentation
 
 ```python
-# سیگمنٹیشن لانچ کریں
+# Launch segmentation
 ros2 launch isaac_ros_unet isaac_ros_unet.launch.py \
     model_file_path:=/models/unet.onnx
 ```
 
-## AprilTag ڈیٹیکشن
+## AprilTag Detection
 
 ```python
 ros2 launch isaac_ros_apriltag isaac_ros_apriltag.launch.py
 
-# ٹیگ پوزز کی سبسکرائب کریں
+# Subscribe to tag poses
 from isaac_ros_apriltag_interfaces.msg import AprilTagDetectionArray
 
 def apriltag_callback(msg):
@@ -76,33 +76,35 @@ def apriltag_callback(msg):
         pose = detection.pose
 ```
 
-## پرسیپشن پائپ لائن
+## Perception Pipeline
 
 ```
 ┌─────────┐    ┌──────────────┐    ┌────────────┐
-│ کیمرہ   │───>│ DNN انفرنس   │───>│ ڈیٹیکشن    │
-│         │    │  (TensorRT)  │    │  کے نتائج  │
+│ Camera  │───>│ DNN Inference │───>│ Detection │
+│         │    │   (TensorRT)  │    │  Results   │
 └─────────┘    └──────────────┘    └────────────┘
      │
      │         ┌──────────────┐    ┌────────────┐
-     └────────>│ ویژول SLAM  │───>│   پوز      │
-               │  (cuVSLAM)   │    │  کا اندازہ │
+     └────────>│ Visual SLAM  │───>│   Pose     │
+               │   (cuVSLAM)  │    │  Estimate  │
                └──────────────┘    └────────────┘
 ```
 
-## عملی لیب
+## Hands-on Lab
 
-### لیب 3.3: آبجیکٹ ڈیٹیکشن سسٹم
+### Lab 3.3: Object Detection System
 
-ایک پرسیپشن سسٹم بنائیں جو:
-1. YOLOv8 استعمال کرتے ہوئے آبجیکٹس کا پتہ لگائے
-2. ویژول SLAM کے ساتھ کیمرہ پوز ٹریک کرے
-3. 3D آبجیکٹ پوزیشنز پبلش کرے
+Create a perception system that:
+1. Detects objects using YOLOv8
+2. Tracks camera pose with Visual SLAM
+3. Publishes 3D object positions
 
-## خلاصہ
+## Summary
 
-- Isaac ROS GPU سے تیز پرسیپشن فراہم کرتا ہے
-- TensorRT DNN انفرنس کو بہتر بناتا ہے
-- ویژول SLAM لوکلائزیشن فعال کرتا ہے
+- Isaac ROS provides GPU-accelerated perception
+- TensorRT optimizes DNN inference
+- Visual SLAM enables localization
 
-[باب 3.4 پر جائیں ←](/docs/module-3-isaac/chapter-4-manipulation)
+[Continue to Chapter 3.4 →](/docs/module-3-isaac/chapter-4-manipulation)
+
+

@@ -1,58 +1,58 @@
 ---
 sidebar_position: 3
-title: "1.3 ایکشنز اور پیرامیٹرز"
-description: آر او ایس 2 میں طویل المدت کام اور رن ٹائم کنفیگریشن
+title: "1.3 Actions and Parameters"
+description: Long-running tasks and runtime configuration in ROS 2
 keywords: [ROS 2, actions, parameters, goal, feedback]
 ---
 
-# باب 1.3: ایکشنز اور پیرامیٹرز
+# Chapter 1.3: Actions and Parameters
 
-## سیکھنے کے مقاصد
+## Learning Objectives
 
-- طویل المدت کاموں کے لیے آر او ایس 2 ایکشنز نافذ کریں
-- رن ٹائم کنفیگریشن کے لیے پیرامیٹرز استعمال کریں
-- ایکشن گولز، فیڈبیک، اور نتائج سنبھالیں
+- Implement ROS 2 actions for long-running tasks
+- Use parameters for runtime configuration
+- Handle action goals, feedback, and results
 
-## ایکشنز: طویل المدت کام
+## Actions: Long-Running Tasks
 
-ایکشنز ایسے کاموں کے لیے مثالی ہیں جو:
-- مکمل ہونے میں زیادہ وقت لیتے ہیں
-- پیشرفت فیڈبیک فراہم کرنے کی ضرورت ہے
-- عمل کے دوران منسوخ ہو سکتے ہیں
+Actions are ideal for tasks that:
+- Take a long time to complete
+- Need to provide progress feedback
+- Can be canceled mid-execution
 
-### ایکشن کا ڈھانچہ
+### Action Structure
 
 ```
-┌─────────────┐     گول       ┌─────────────┐
-│   کلائنٹ    │──────────────>│   سرور     │
+┌─────────────┐     Goal      ┌─────────────┐
+│   Client    │──────────────>│   Server    │
 │             │               │             │
 │             │<──────────────│             │
-│             │    نتیجہ      │             │
+│             │    Result     │             │
 │             │               │             │
 │             │<──────────────│             │
-│             │   فیڈبیک     │             │
-└─────────────┘    (سٹریم)    └─────────────┘
+│             │   Feedback    │             │
+└─────────────┘    (stream)   └─────────────┘
 ```
 
-### ایکشن کی تعریف
+### Defining an Action
 
 ```
 # action/Navigate.action
-# گول
+# Goal
 float64 target_x
 float64 target_y
 ---
-# نتیجہ
+# Result
 bool success
 float64 time_elapsed
 ---
-# فیڈبیک
+# Feedback
 float64 distance_remaining
 float64 current_x
 float64 current_y
 ```
 
-### ایکشن سرور
+### Action Server
 
 ```python
 from rclpy.action import ActionServer
@@ -69,11 +69,11 @@ class NavigationServer(Node):
         )
 
     async def execute_callback(self, goal_handle):
-        self.get_logger().info('نیویگیشن کا عمل جاری...')
+        self.get_logger().info('Executing navigation...')
 
         feedback_msg = Navigate.Feedback()
 
-        # نیویگیشن کی سمولیشن
+        # Simulate navigation
         for i in range(10):
             feedback_msg.distance_remaining = 10.0 - i
             goal_handle.publish_feedback(feedback_msg)
@@ -87,7 +87,7 @@ class NavigationServer(Node):
         return result
 ```
 
-### ایکشن کلائنٹ
+### Action Client
 
 ```python
 from rclpy.action import ActionClient
@@ -110,21 +110,21 @@ class NavigationClient(Node):
 
     def feedback_callback(self, feedback_msg):
         feedback = feedback_msg.feedback
-        self.get_logger().info(f'باقی فاصلہ: {feedback.distance_remaining}')
+        self.get_logger().info(f'Distance remaining: {feedback.distance_remaining}')
 ```
 
-## پیرامیٹرز: رن ٹائم کنفیگریشن
+## Parameters: Runtime Configuration
 
-پیرامیٹرز آپ کو دوبارہ کمپائل کیے بغیر نوڈز کنفیگر کرنے دیتے ہیں۔
+Parameters allow you to configure nodes without recompiling.
 
-### پیرامیٹرز کا اعلان
+### Declaring Parameters
 
 ```python
 class ParameterizedNode(Node):
     def __init__(self):
         super().__init__('parameterized_node')
 
-        # ڈیفالٹ ویلیوز کے ساتھ اعلان کریں
+        # Declare with default values
         self.declare_parameter('robot_name', 'default_robot')
         self.declare_parameter('max_speed', 1.0)
         self.declare_parameter('sensors', ['lidar', 'camera'])
@@ -135,23 +135,23 @@ class ParameterizedNode(Node):
         return name, speed
 ```
 
-### سی ایل آئی سے پیرامیٹرز سیٹ کرنا
+### Setting Parameters from CLI
 
 ```bash
-# لانچ پر سیٹ کریں
+# Set at launch
 ros2 run my_package my_node --ros-args -p robot_name:=my_robot -p max_speed:=2.0
 
-# رن ٹائم پر سیٹ کریں
+# Set at runtime
 ros2 param set /my_node robot_name "new_robot"
 
-# پیرامیٹر حاصل کریں
+# Get parameter
 ros2 param get /my_node robot_name
 
-# تمام پیرامیٹرز کی فہرست
+# List all parameters
 ros2 param list /my_node
 ```
 
-### پیرامیٹر فائلز (یامل)
+### Parameter Files (YAML)
 
 ```yaml
 # config/params.yaml
@@ -169,28 +169,30 @@ my_node:
 ros2 run my_package my_node --ros-args --params-file config/params.yaml
 ```
 
-## عملی لیب
+## Hands-on Lab
 
-### لیب 1.3: گرپر ایکشن سرور
+### Lab 1.3: Gripper Action Server
 
-ایک ایکشن سرور نافذ کریں جو:
-1. گرپ فورس گول قبول کرے
-2. گرپر بند ہونے کے دوران فیڈبیک بھیجے
-3. کامیابی/ناکامی کا نتیجہ واپس کرے
+Implement an action server that:
+1. Accepts a grip force goal
+2. Sends feedback as gripper closes
+3. Returns success/failure result
 
-## علم کی جانچ
+## Knowledge Check
 
-1. سروسز کی بجائے ایکشنز کب استعمال کرنی چاہیئیں؟
-   - [x] فیڈبیک کے ساتھ طویل المدت کاموں کے لیے
-   - [ ] فوری ایک بار کی درخواستوں کے لیے
-   - [ ] سٹریمنگ سینسر ڈیٹا کے لیے
+1. When should you use actions instead of services?
+   - [x] For long-running tasks with feedback
+   - [ ] For instant one-time requests
+   - [ ] For streaming sensor data
 
-## خلاصہ
+## Summary
 
-- **ایکشنز** گول، فیڈبیک، اور نتیجے کے ساتھ طویل المدت کام سنبھالتے ہیں
-- **پیرامیٹرز** دوبارہ کمپائل کیے بغیر رن ٹائم کنفیگریشن فراہم کرتے ہیں
-- متعدد پیرامیٹرز کے انتظام کے لیے یامل فائلز استعمال کریں
+- **Actions** handle long-running tasks with goal, feedback, and result
+- **Parameters** provide runtime configuration without recompilation
+- Use YAML files for managing multiple parameters
 
-## اگلے اقدامات
+## Next Steps
 
-[باب 1.4: لانچ فائلز پر جائیں →](/docs/module-1-ros2/chapter-4-launch-files)
+[Continue to Chapter 1.4: Launch Files →](/docs/module-1-ros2/chapter-4-launch-files)
+
+

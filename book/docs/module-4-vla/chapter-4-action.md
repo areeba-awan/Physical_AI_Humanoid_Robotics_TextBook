@@ -1,50 +1,50 @@
 ---
 sidebar_position: 4
-title: "4.4 ایکشن جنریشن"
-description: ملٹی موڈل ان پٹس سے روبوٹ ایکشنز بنانا
-keywords: [ایکشن, جنریشن, پالیسی, روبوٹ کنٹرول]
+title: "4.4 Action Generation"
+description: Generating robot actions from multimodal inputs
+keywords: [action, generation, policy, robot control]
 ---
 
-# باب 4.4: ایکشن جنریشن
+# Chapter 4.4: Action Generation
 
-## سیکھنے کے مقاصد
+## Learning Objectives
 
-- ایکشن ریپریزنٹیشن سکیمز کو سمجھیں
-- ایکشن ڈیکوڈرز لاگو کریں
-- ڈسکریٹ ٹوکنز کو مسلسل کنٹرول سے جوڑیں
-- ایکشن اسپیس کی تبدیلیوں کو سنبھالیں
+- Understand action representation schemes
+- Implement action decoders
+- Bridge discrete tokens to continuous control
+- Handle action space variations
 
-## ایکشن ریپریزنٹیشنز
+## Action Representations
 
-### ڈسکریٹ ایکشن ٹوکنز
+### Discrete Action Tokens
 
 ```python
-# ایکشن لغت
+# Action vocabulary
 ACTION_TOKENS = {
-    # حرکت
+    # Movement
     0: {'type': 'move', 'dx': -0.01, 'dy': 0, 'dz': 0},
     1: {'type': 'move', 'dx': 0.01, 'dy': 0, 'dz': 0},
     2: {'type': 'move', 'dx': 0, 'dy': -0.01, 'dz': 0},
-    # ... 256 ٹوکنز پوزیشن، روٹیشن، گرپر کے لیے
+    # ... 256 total tokens covering position, rotation, gripper
 
-    # گرپر
-    254: {'type': 'gripper', 'state': 'open'},     # کھولیں
-    255: {'type': 'gripper', 'state': 'close'},    # بند کریں
+    # Gripper
+    254: {'type': 'gripper', 'state': 'open'},
+    255: {'type': 'gripper', 'state': 'close'},
 }
 ```
 
-### مسلسل ایکشنز
+### Continuous Actions
 
 ```python
-# 7-DOF ایکشن اسپیس
+# 7-DOF action space
 class ContinuousAction:
     def __init__(self):
         self.delta_position = np.zeros(3)  # dx, dy, dz
-        self.delta_rotation = np.zeros(3)  # رول، پچ، یا
-        self.gripper = 0.0  # 0=کھلا، 1=بند
+        self.delta_rotation = np.zeros(3)  # roll, pitch, yaw
+        self.gripper = 0.0  # 0=open, 1=closed
 ```
 
-## ایکشن ڈیکوڈر
+## Action Decoder
 
 ```python
 import torch
@@ -60,7 +60,7 @@ class ActionDecoder(nn.Module):
             nn.Linear(256, 128),
             nn.ReLU(),
             nn.Linear(128, action_dim),
-            nn.Tanh()  # ایکشنز کو [-1, 1] میں محدود کریں
+            nn.Tanh()  # Bound actions to [-1, 1]
         )
 
         self.action_scale = nn.Parameter(torch.ones(action_dim))
@@ -71,41 +71,41 @@ class ActionDecoder(nn.Module):
         return scaled_actions
 ```
 
-## ٹوکن سے ایکشن میں تبدیلی
+## Token to Action Conversion
 
 ```python
 def tokens_to_continuous(tokens, tokenizer):
-    """ڈسکریٹ ٹوکنز کو مسلسل ایکشنز میں تبدیل کریں"""
+    """Convert discrete tokens to continuous actions"""
     actions = []
 
     for token in tokens:
-        if token < 128:  # پوزیشن ٹوکنز
-            # پوزیشن ڈیلٹا ڈیکوڈ کریں
+        if token < 128:  # Position tokens
+            # Decode position delta
             position = tokenizer.decode_position(token)
             actions.append({'position': position})
 
-        elif token < 192:  # روٹیشن ٹوکنز
+        elif token < 192:  # Rotation tokens
             rotation = tokenizer.decode_rotation(token - 128)
             actions.append({'rotation': rotation})
 
-        else:  # گرپر ٹوکنز
+        else:  # Gripper tokens
             gripper = tokenizer.decode_gripper(token - 192)
             actions.append({'gripper': gripper})
 
     return merge_actions(actions)
 ```
 
-## ایکشن چنکنگ
+## Action Chunking
 
 ```python
 class ActionChunker:
-    """ایک ساتھ متعدد مستقبل کے ایکشنز بنائیں"""
+    """Generate multiple future actions at once"""
 
     def __init__(self, chunk_size=10):
         self.chunk_size = chunk_size
 
     def predict_chunk(self, model, observation):
-        """مستقبل کے ایکشنز کی ترتیب پیش گوئی کریں"""
+        """Predict a sequence of future actions"""
         actions = []
 
         features = model.encode(observation)
@@ -114,17 +114,17 @@ class ActionChunker:
             action = model.decode_action(features)
             actions.append(action)
 
-            # پیش گوئی شدہ ایکشن کے ساتھ فیچرز اپڈیٹ کریں
+            # Update features with predicted action
             features = model.update_features(features, action)
 
         return actions
 ```
 
-## ڈفیوژن پالیسی
+## Diffusion Policy
 
 ```python
 class DiffusionPolicy:
-    """ڈی نوائزنگ ڈفیوژن کے ذریعے ایکشنز بنائیں"""
+    """Generate actions via denoising diffusion"""
 
     def __init__(self, action_dim=7, num_steps=100):
         self.action_dim = action_dim
@@ -132,34 +132,36 @@ class DiffusionPolicy:
         self.denoiser = Denoiser(action_dim)
 
     def sample(self, condition):
-        """ریورس ڈفیوژن کے ذریعے ایکشن حاصل کریں"""
-        # شور سے شروع کریں
+        """Sample action via reverse diffusion"""
+        # Start with noise
         x = torch.randn(self.action_dim)
 
         for t in reversed(range(self.num_steps)):
-            # شور کی پیش گوئی کریں
+            # Predict noise
             noise_pred = self.denoiser(x, t, condition)
 
-            # شور ہٹائیں
+            # Denoise
             x = self.denoise_step(x, noise_pred, t)
 
         return x
 ```
 
-## عملی لیب
+## Hands-on Lab
 
-### لیب 4.4: ایکشن ڈیکوڈر لاگو کریں
+### Lab 4.4: Implement Action Decoder
 
-ایک ایکشن ڈیکوڈر بنائیں جو:
-1. ویژن-لینگویج فیچرز لے
-2. 7-DOF روبوٹ ایکشنز آؤٹ پٹ کرے
-3. ہموار موشن کے لیے ایکشن چنکنگ سنبھالے
+Build an action decoder that:
+1. Takes vision-language features
+2. Outputs 7-DOF robot actions
+3. Handles action chunking for smoother motion
 
-## خلاصہ
+## Summary
 
-- ایکشنز ڈسکریٹ ٹوکنز یا مسلسل ویلیوز ہو سکتے ہیں
-- ڈیکوڈرز ملٹی موڈل فیچرز کو روبوٹ کمانڈز میں میپ کرتے ہیں
-- ایکشن چنکنگ مستقبل کی ایکشن سیکوینسز پیش گوئی کرتی ہے
-- ڈفیوژن پالیسیز متنوع ایکشن جنریشن ممکن بناتی ہیں
+- Actions can be discrete tokens or continuous values
+- Decoders map multimodal features to robot commands
+- Action chunking predicts future action sequences
+- Diffusion policies enable diverse action generation
 
-[باب 4.5 پر جائیں →](/docs/module-4-vla/chapter-5-systems)
+[Continue to Chapter 4.5 →](/docs/module-4-vla/chapter-5-systems)
+
+

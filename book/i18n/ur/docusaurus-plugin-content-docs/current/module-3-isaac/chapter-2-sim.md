@@ -1,16 +1,16 @@
 ---
 sidebar_position: 2
-title: "3.2 Isaac Sim Fundamentals"
-description: Deep dive into Isaac Sim capabilities
-keywords: [Isaac Sim, Omniverse, simulation, USD]
+title: "3.2 ایزیک سیم Fundamentals"
+description: "Deep dive into ایزیک سیم capabilities"
+keywords: ["ایزیک سیم", "اومنی ورس", "simulation", "USD"]
 ---
 
-# Chapter 3.2: Isaac Sim Fundamentals
+# باب 3.2: ایزیک سیم Fundamentals
 
-## Learning Objectives
+## سیکھنے کے مقاصد
 
-- Navigate the Isaac Sim interface
-- Create and manipulate scenes
+- Navigate the ایزیک سیم interface
+- تخلیق کریں and manipulate scenes
 - Work with USD assets
 - Configure physics settings
 
@@ -22,7 +22,7 @@ keywords: [Isaac Sim, Omniverse, simulation, USD]
 from omni.isaac.core.utils.prims import create_prim
 from pxr import UsdGeom, Gf
 
-# Create a cube
+# تخلیق کریں a cube
 cube_prim = create_prim(
     prim_path="/World/Cube",
     prim_type="Cube",
@@ -43,7 +43,7 @@ add_reference_to_stage(
 )
 ```
 
-## Physics Configuration
+## طبیعات Configuration
 
 ### PhysX Settings
 
@@ -59,12 +59,12 @@ physx_scene.set_gravity(Gf.Vec3f(0, 0, -9.81))
 ```python
 from pxr import UsdPhysics
 
-rigid_body_api = UsdPhysics.RigidBodyAPI.Apply(prim)
-mass_api = UsdPhysics.MassAPI.Apply(prim)
+rigid_body_api = UsdPhysics.RigidBodyAPI.اپلائی کریں(prim)
+mass_api = UsdPhysics.MassAPI.اپلائی کریں(prim)
 mass_api.CreateMassAttr(10.0)
 ```
 
-## Domain Randomization
+##  ڈومین رینڈمائزیشن
 
 ```python
 from omni.isaac.core.utils.random import random_position
@@ -82,13 +82,13 @@ for i in range(100):
 
 ## ROS 2 Bridge
 
-### Enable ROS 2 Bridge
+### فعال کریں ROS 2 Bridge
 
 ```python
 import omni.graph.core as og
 from omni.isaac.ros2_bridge import ROSBridge
 
-# Create ROS 2 bridge
+# تخلیق کریں ROS 2 bridge
 og.Controller.edit(
     {"graph_path": "/ROS2Bridge"},
     {og.Controller.Keys.CREATE_NODES: [
@@ -98,19 +98,21 @@ og.Controller.edit(
 )
 ```
 
-## Hands-on Lab
+## ہاتھ سے کام کرنے والی لیب
 
-### Lab 3.2: Build a Training Environment
+### Lab 3.2: تعمیر کریں a  تربیت ماحول
 
-Create a scene with:
+تخلیق کریں a scene with:
 - Random object placement
 - Variable lighting
 - Multiple camera views
 
-## Summary
+## خلاصہ
 
-- Isaac Sim uses USD for scene composition
+- ایزیک سیم uses USD for scene composition
 - PhysX provides accurate physics simulation
 - Domain randomization improves AI training
 
-[Continue to Chapter 3.3 →](/ur/docs/module-3-isaac/chapter-3-perception)
+[Continue to باب 3.3 →](/ur/docs/module-3-isaac/chapter-3-perception)
+
+

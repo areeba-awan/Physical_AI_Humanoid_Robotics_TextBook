@@ -1,25 +1,25 @@
 ---
 sidebar_position: 3
-title: "3.3 Perception with Isaac"
-description: GPU-accelerated perception pipelines
-keywords: [perception, DNN, object detection, segmentation]
+title: "3.3 ادراک with Isaac"
+description: "GPU-accelerated perception pipelines"
+keywords: ["perception", "DNN", "object detection", "segmentation"]
 ---
 
-# Chapter 3.3: Perception with Isaac
+# باب 3.3: ادراک with Isaac
 
-## Learning Objectives
+## سیکھنے کے مقاصد
 
 - Deploy DNN models for object detection
-- Use Isaac ROS perception packages
+- استعمال کریں Isaac ROS perception packages
 - Implement visual SLAM
-- Create perception pipelines
+- تخلیق کریں perception pipelines
 
 ## Isaac ROS DNN Inference
 
 ### Object Detection Pipeline
 
 ```python
-# Launch object detection
+# لانچ کریں object detection
 ros2 launch isaac_ros_yolov8 isaac_ros_yolov8.launch.py \
     model_file_path:=/models/yolov8n.onnx \
     input_image_width:=640 \
@@ -51,13 +51,13 @@ ros2 launch isaac_ros_visual_slam isaac_ros_visual_slam.launch.py
 ### Outputs
 
 - `/visual_slam/tracking/odometry` - Pose estimate
-- `/visual_slam/vis/slam_odometry` - Visualization
+- `/visual_slam/vis/slam_odometry` -  وژولائزیشن
 - `/visual_slam/status` - Tracking status
 
 ## Semantic Segmentation
 
 ```python
-# Launch segmentation
+# لانچ کریں segmentation
 ros2 launch isaac_ros_unet isaac_ros_unet.launch.py \
     model_file_path:=/models/unet.onnx
 ```
@@ -76,7 +76,7 @@ def apriltag_callback(msg):
         pose = detection.pose
 ```
 
-## Perception Pipeline
+## ادراک Pipeline
 
 ```
 ┌─────────┐    ┌──────────────┐    ┌────────────┐
@@ -90,19 +90,21 @@ def apriltag_callback(msg):
                └──────────────┘    └────────────┘
 ```
 
-## Hands-on Lab
+## ہاتھ سے کام کرنے والی لیب
 
-### Lab 3.3: Object Detection System
+### Lab 3.3: Object Detection سسٹم
 
-Create a perception system that:
+تخلیق کریں a perception system that:
 1. Detects objects using YOLOv8
 2. Tracks camera pose with Visual SLAM
 3. Publishes 3D object positions
 
-## Summary
+## خلاصہ
 
 - Isaac ROS provides GPU-accelerated perception
 - TensorRT optimizes DNN inference
 - Visual SLAM enables localization
 
-[Continue to Chapter 3.4 →](/ur/docs/module-3-isaac/chapter-4-manipulation)
+[Continue to باب 3.4 →](/ur/docs/module-3-isaac/chapter-4-manipulation)
+
+

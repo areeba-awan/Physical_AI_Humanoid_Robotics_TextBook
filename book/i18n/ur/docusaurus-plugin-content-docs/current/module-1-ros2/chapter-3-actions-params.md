@@ -1,21 +1,21 @@
 ---
 sidebar_position: 3
-title: "1.3 Actions and Parameters"
-description: Long-running tasks and runtime configuration in ROS 2
-keywords: [ROS 2, actions, parameters, goal, feedback]
+title: "1.3 ایکشنز اور پیرامیٹر"
+description: "Long-running tasks and runtime configuration in ROS 2"
+keywords: ["ROS 2", "actions", "parameters", "goal", "feedback"]
 ---
 
-# Chapter 1.3: Actions and Parameters
+# باب 1.3: ایکشنز اور پیرامیٹر
 
-## Learning Objectives
+## سیکھنے کے مقاصد
 
 - Implement ROS 2 actions for long-running tasks
-- Use parameters for runtime configuration
+- استعمال کریں parameters for runtime configuration
 - Handle action goals, feedback, and results
 
-## Actions: Long-Running Tasks
+## ایکشنز: Long-Running Tasks
 
-Actions are ideal for tasks that:
+ایکشنز are ideal for tasks that:
 - Take a long time to complete
 - Need to provide progress feedback
 - Can be canceled mid-execution
@@ -113,11 +113,11 @@ class NavigationClient(Node):
         self.get_logger().info(f'Distance remaining: {feedback.distance_remaining}')
 ```
 
-## Parameters: Runtime Configuration
+##  پیرامیٹر: Runtime Configuration
 
-Parameters allow you to configure nodes without recompiling.
+ پیرامیٹر allow you to configure nodes without recompiling.
 
-### Declaring Parameters
+### Declaring  پیرامیٹر
 
 ```python
 class ParameterizedNode(Node):
@@ -135,7 +135,7 @@ class ParameterizedNode(Node):
         return name, speed
 ```
 
-### Setting Parameters from CLI
+### Setting  پیرامیٹر from CLI
 
 ```bash
 # Set at launch
@@ -169,7 +169,7 @@ my_node:
 ros2 run my_package my_node --ros-args --params-file config/params.yaml
 ```
 
-## Hands-on Lab
+## ہاتھ سے کام کرنے والی لیب
 
 ### Lab 1.3: Gripper Action Server
 
@@ -178,19 +178,21 @@ Implement an action server that:
 2. Sends feedback as gripper closes
 3. Returns success/failure result
 
-## Knowledge Check
+## نالej چیک
 
 1. When should you use actions instead of services?
    - [x] For long-running tasks with feedback
    - [ ] For instant one-time requests
    - [ ] For streaming sensor data
 
-## Summary
+## خلاصہ
 
-- **Actions** handle long-running tasks with goal, feedback, and result
-- **Parameters** provide runtime configuration without recompilation
-- Use YAML files for managing multiple parameters
+- **ایکشنز** handle long-running tasks with goal, feedback, and result
+- ** پیرامیٹر** provide runtime configuration without recompilation
+- استعمال کریں YAML files for managing multiple parameters
 
-## Next Steps
+## اگلے اقدامات
 
-[Continue to Chapter 1.4: Launch Files →](/ur/docs/module-1-ros2/chapter-4-launch-files)
+[Continue to باب 1.4: لانچ کریں Files →](/ur/docs/module-1-ros2/chapter-4-launch-files)
+
+
