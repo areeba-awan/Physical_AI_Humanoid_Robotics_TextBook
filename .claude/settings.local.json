@@ -25,7 +25,8 @@
       "Bash(cmd.exe /c \"FOR /F \"\"tokens=5\"\" %P IN (''netstat -ano ^| findstr :3000 ^| findstr LISTENING'') DO taskkill /F /PID %P\")",
       "Bash(cmd.exe /c \"taskkill /F /PID 11308 & taskkill /F /PID 15224 & taskkill /F /PID 9168 & taskkill /F /PID 14804 & taskkill /F /PID 11440\")",
       "Bash(cmd.exe /c \"taskkill /F /PID 7080\")",
-      "Bash(npm run clear:*)"
+      "Bash(npm run clear:*)",
+      "Bash(find:*)"
     ]
   }
 }
